@@ -13,12 +13,12 @@ function single_iteration_ttc(menge::crowd, geometrie::geometry, temp_velocities
     end
 end
 
-function simulate_model_ttc(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::Float64, dt_save::Float64, dt::Float64,
-        r::Float64)
+function simulate_model_ttc(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::Float64,
+     dt_save::Float64, dt::Float64, r::Float64)
 
     i, j = 0, 1
 
-    gespeicherte_schritte = Int(round((t_max-t_relax)/dt_save))
+    gespeicherte_schritte = Int(round((t_max-t_relax)/dt_save))-1
     N = length(menge.agent)
 
     positions = Array{NTuple{2, Float64}, 2}(undef, gespeicherte_schritte, N)
@@ -49,7 +49,7 @@ function simulate_model_ttc(menge::crowd, geometrie::geometry, t_relax::Float64,
 end
 
 
-function single_iteration_ttc(menge::crowd, geometrie::geometry, temp_velocities::Array{Float64,1},
+function single_iteration_ttc(menge::crowd, geometrie::geometry,temp_velocities::Array{Float64,1},
         temp_headings::Array{NTuple{2, Float64},1}, dt::Float64, r::Float64, system_size::NTuple{2, Float64})
 
     calculate_neighboring_agents(menge, system_size, r)
@@ -69,7 +69,7 @@ function simulate_model_ttc(menge::crowd, geometrie::geometry, t_relax::Float64,
 
     i, j = 0, 1
 
-    gespeicherte_schritte = Int(round((t_max-t_relax)/dt_save))
+    gespeicherte_schritte = Int(round((t_max-t_relax)/dt_save))-1
     N = length(menge.agent)
 
     positions = Array{NTuple{2, Float64}, 2}(undef, gespeicherte_schritte, N)

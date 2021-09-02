@@ -52,6 +52,20 @@ function d(a::element, b::agent, system_size::NTuple{2, Float64})
     return sqrt(dx^2 + dy^2)
 end
 
+function d(a::NTuple{2, Float64}, b::NTuple{2, Float64}, system_size::NTuple{2, Float64})
+    dx = abs(a[1]-b[1])
+    dy = abs(a[2]-b[2])
+
+    if dx > system_size[1]/2
+        dx = system_size[1] - dx
+    end
+    if dy > system_size[2]/2
+        dy = system_size[2] - dy
+    end
+
+    return sqrt(dx^2 + dy^2)
+end
+
 
 #common_size i.e. l_i/2 + l_j/2
 l(u::agent, v::agent) = u.parameters.l/2 + v.parameters.l/2
@@ -60,6 +74,7 @@ l(u::agent, v::element) = u.parameters.l/2 + v.l/2
 
 #betrag
 Base.abs(a::NTuple{2, Float64}) = sqrt(a[1]^2+a[2]^2)
+
 function Base.abs(a::Vector{Float64})
 
     betrag = 0

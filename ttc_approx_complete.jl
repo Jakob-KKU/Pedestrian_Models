@@ -20,7 +20,7 @@ function simulate_model_ttc_approx(menge::crowd, geometrie::geometry, t_relax::F
     N = length(menge.agent)
 
     #for saving positions and headings
-    gespeicherte_schritte = Int(round((t_max-t_relax)/dt_save))
+    gespeicherte_schritte = Int(round((t_max-t_relax)/dt_save))-1
     positions = Array{NTuple{2, Float64}, 2}(undef, gespeicherte_schritte, N)
     headings = Array{NTuple{2, Float64}, 2}(undef, gespeicherte_schritte, N)
 
