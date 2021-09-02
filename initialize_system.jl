@@ -44,6 +44,25 @@ function overlap(current_agent::Int, menge::crowd, geometrie::geometry)
     false
 end
 
+function overlap(current_agent::Int, menge::crowd, geometrie::geometry, system_size)
+
+    for i in 1:current_agent-1
+
+        if d(menge.agent[current_agent], menge.agent[i], system_size) < l(menge.agent[current_agent], menge.agent[i])
+            return true
+        end
+    end
+
+    for x in geometrie.element
+
+        if d(menge.agent[current_agent], x, system_size) < l(menge.agent[current_agent], x)
+            return true
+        end
+    end
+
+    false
+end
+
 #Ordne den Agenten zufällige Positionen zu
 function initialize_random_positions(x::NTuple{2, Float64}, y::NTuple{2, Float64}, menge::crowd)
 
@@ -110,14 +129,14 @@ function random_heading()
 end
 
 
-function Two_Approaching_Crowds(menge::crowd, breite_crowds, N1::Int, system_size)
+function Two_Approaching_Crowds(menge::crowd, geometrie::geometry, breite_crowds, N1::Int, system_size)
 
     for i in 1:N1
 
-        menge.agent[i].position = (rand()*breite_crowds , rand()*y_max)
+        menge.agent[i].pos = (rand()*breite_crowds , rand()*system_size[2])
 
-        while ueberlapp(i, menge) == 1
-            menge.agent[i].position = (rand()*breite_crowds , rand()*y_max)
+        while overlap(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos = (rand()*breite_crowds , rand()*system_size[2])
         end
 
         menge.agent[i].desired_heading, menge.agent[i].heading = (1, 0), (1, 0)
@@ -126,37 +145,10 @@ function Two_Approaching_Crowds(menge::crowd, breite_crowds, N1::Int, system_siz
 
     for i in N1+1:length(menge.agent)
 
-        menge.agent[i].position = (x_max - rand()*(breite_crowds) ,rand()*y_max)
+        menge.agent[i].pos = (system_size[1] - rand()*(breite_crowds) ,rand()*system_size[2])
 
-        while ueberlapp(i, menge) == 1
-            menge.agent[i].position = (x_max - rand()*breite_crowds,rand()*y_max)
-        end
-
-        menge.agent[i].desired_heading, menge.agent[i].heading = (-1, 0), (-1, 0)
-
-    end
-end
-
-function Two_Approaching_Crowds(menge::crowd, breite_crowds, N1::Int, system_size)
-
-    for i in 1:N1
-
-        menge.agent[i].position = (rand()*breite_crowds , rand()*y_max)
-
-        while ueberlapp(i, menge) == 1
-            menge.agent[i].position = (rand()*breite_crowds , rand()*y_max)
-        end
-
-        menge.agent[i].desired_heading, menge.agent[i].heading = (1, 0), (1, 0)
-
-    end
-
-    for i in N1+1:length(menge.agent)
-
-        menge.agent[i].position = (x_max - rand()*(breite_crowds) ,rand()*y_max)
-
-        while ueberlapp(i, menge) == 1
-            menge.agent[i].position = (x_max - rand()*breite_crowds,rand()*y_max)
+        while overlap(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos = (system_size[1] - rand()*breite_crowds,rand()*system_size[2])
         end
 
         menge.agent[i].desired_heading, menge.agent[i].heading = (-1, 0), (-1, 0)
