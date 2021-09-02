@@ -108,4 +108,59 @@ function random_heading()
     help_var = -1 + 2*rand()
     (help_var, sqrt(1 - help_var^2)*rand([-1, +1]))
 end
+
+
+function Two_Approaching_Crowds(menge::crowd, breite_crowds, N1::Int, system_size)
+
+    for i in 1:N1
+
+        menge.agent[i].position = (rand()*breite_crowds , rand()*y_max)
+
+        while ueberlapp(i, menge) == 1
+            menge.agent[i].position = (rand()*breite_crowds , rand()*y_max)
+        end
+
+        menge.agent[i].desired_heading, menge.agent[i].heading = (1, 0), (1, 0)
+
+    end
+
+    for i in N1+1:length(menge.agent)
+
+        menge.agent[i].position = (x_max - rand()*(breite_crowds) ,rand()*y_max)
+
+        while ueberlapp(i, menge) == 1
+            menge.agent[i].position = (x_max - rand()*breite_crowds,rand()*y_max)
+        end
+
+        menge.agent[i].desired_heading, menge.agent[i].heading = (-1, 0), (-1, 0)
+
+    end
+end
+
+function Two_Approaching_Crowds(menge::crowd, breite_crowds, N1::Int, system_size)
+
+    for i in 1:N1
+
+        menge.agent[i].position = (rand()*breite_crowds , rand()*y_max)
+
+        while ueberlapp(i, menge) == 1
+            menge.agent[i].position = (rand()*breite_crowds , rand()*y_max)
+        end
+
+        menge.agent[i].desired_heading, menge.agent[i].heading = (1, 0), (1, 0)
+
+    end
+
+    for i in N1+1:length(menge.agent)
+
+        menge.agent[i].position = (x_max - rand()*(breite_crowds) ,rand()*y_max)
+
+        while ueberlapp(i, menge) == 1
+            menge.agent[i].position = (x_max - rand()*breite_crowds,rand()*y_max)
+        end
+
+        menge.agent[i].desired_heading, menge.agent[i].heading = (-1, 0), (-1, 0)
+
+    end
+end
 ;
