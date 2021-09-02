@@ -131,28 +131,32 @@ end
 
 function Two_Approaching_Crowds(menge::crowd, geometrie::geometry, breite_crowds, N1::Int, system_size)
 
-    for i in 1:N1
+    if ρ_global(N1, (breite_crowds, system_size[2])) > 7.5
+        println("The density is too high!")
+    elseif ρ_global(length(menge.agent) - N1, (breite_crowds, system_size[2])) > 7.5
+        println("The density is too high!")
+    else
 
-        menge.agent[i].pos = (rand()*breite_crowds , rand()*system_size[2])
 
-        while overlap(i, menge, geometrie, system_size) == true
+        for i in 1:N1
             menge.agent[i].pos = (rand()*breite_crowds , rand()*system_size[2])
+
+            while overlap(i, menge, geometrie, system_size) == true
+                menge.agent[i].pos = (rand()*breite_crowds , rand()*system_size[2])
+            end
+
+            menge.agent[i].desired_heading, menge.agent[i].heading = (1, 0), (1, 0)
         end
 
-        menge.agent[i].desired_heading, menge.agent[i].heading = (1, 0), (1, 0)
+        for i in N1+1:length(menge.agent)
+            menge.agent[i].pos = (system_size[1] - rand()*(breite_crowds) ,rand()*system_size[2])
 
-    end
+            while overlap(i, menge, geometrie, system_size) == true
+                menge.agent[i].pos = (system_size[1] - rand()*breite_crowds,rand()*system_size[2])
+            end
 
-    for i in N1+1:length(menge.agent)
-
-        menge.agent[i].pos = (system_size[1] - rand()*(breite_crowds) ,rand()*system_size[2])
-
-        while overlap(i, menge, geometrie, system_size) == true
-            menge.agent[i].pos = (system_size[1] - rand()*breite_crowds,rand()*system_size[2])
+            menge.agent[i].desired_heading, menge.agent[i].heading = (-1, 0), (-1, 0)
         end
-
-        menge.agent[i].desired_heading, menge.agent[i].heading = (-1, 0), (-1, 0)
-
     end
 end
 ;

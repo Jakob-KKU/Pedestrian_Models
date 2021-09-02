@@ -7,3 +7,4 @@ N_(geometrie::geometry) = length(geometrie.element)
 
 ρ_global(menge::crowd, system_size::NTuple{2, Float64}, geometrie::geometry) = N_(menge)/(system_size[1]*system_size[2] - N_(geometrie)*A_mean(geometrie))
 ρ_global(menge::crowd, system_size::NTuple{2, Float64}) = N_(menge)/(system_size[1]*system_size[2])
+ρ_global(N, system_size::NTuple{2, Float64}) = N/(system_size[1]*system_size[2])
