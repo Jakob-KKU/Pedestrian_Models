@@ -14,8 +14,17 @@ include("./distance_based_model_velocity.jl")
 include("./distance_based_model_complete.jl")
 
 include("./ttc.jl")
+
 include("./ttc_based_model_velocity.jl")
 include("./ttc_based_model_complete.jl")
+
+include("./ttc_approx_schemes.jl")
+include("./ttc_approx_complete.jl")
+include("./ttc_approx_velocity_model.jl")
+
+
+
+
 
 function start_simulation(menge, geometrie, sim_p, velocity_model, boundaries, system_size=(0,0))
 

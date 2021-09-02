@@ -91,10 +91,13 @@ e_(b::element, a::agent) = (b.pos.-a.pos)./d(a, b)
 
 e_v(b::agent, a::agent) = normalize(b.vel.*b.heading .- a.vel.*a.heading)
 e_v(b::agent, a::agent, v_b::Float64) = normalize(v_b.*b.heading .- a.vel.*a.heading)
+e_v(b::agent, a::agent, v_b::Float64, v_a::Float64) = normalize(v_b.*b.heading .- v_a.*a.heading)
 
 v(a::agent) = a.vel.*a.heading
+v(a::agent, v_a) = v_a.*a.heading
 Δv(a::agent, b::agent) = v(a) .- v(b)
 Δv(a::agent, b::agent, v_a::Float64) = a.heading.*v_a .- v(b)
+Δv(a::agent, b::agent, v_a::Float64, v_b) = a.heading.*v_a .- b.heading.*v_b
 
 
 

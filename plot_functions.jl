@@ -69,4 +69,12 @@ function plot_agents(positions, size, color)
     GR.polymarker(positions, 0 .*positions)
 
 end
+
+function boundaries_rectangle_positions(system_size)
+
+    x = vcat(zeros(length(LinRange(0:0.1:system_size[2]))), LinRange(0:0.1:system_size[1]), fill(system_size[1], length(LinRange(0:0.1:system_size[2]))), LinRange(0:0.1:system_size[1]))
+    y = vcat(LinRange(0:0.1:system_size[2]) , fill(system_size[2], length(LinRange(0:0.1:system_size[1]))), LinRange(0:0.1:system_size[2]), zeros(length(LinRange(0:0.1:system_size[1]))))
+
+    return x, y
+end
 ;
