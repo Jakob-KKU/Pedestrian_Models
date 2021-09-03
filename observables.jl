@@ -27,3 +27,25 @@ function v(positions::Matrix{Tuple{Float64, Float64}}, dt, system_size)
 
     velocities
 end
+
+function st_dev(matrix)
+
+    varianz, mean = 0, mean(matrix)
+
+    for x in matrix
+        varianz = varianz + (mean-x)^2
+    end
+
+    return sqrt(varianz)/length(matrix)^2
+end
+
+function st_dev(matrix, mean)
+
+    varianz = 0
+
+    for x in matrix
+        varianz = varianz + (mean-x)^2
+    end
+
+    return sqrt(varianz)/length(matrix)^2
+end
