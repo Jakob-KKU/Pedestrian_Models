@@ -41,9 +41,13 @@ function minimal_v_ttc(a::agent, menge::crowd, system_size::NTuple{2, Float64}, 
 
     for x in 2:a.neighbors_agents[1]+1
 
-        #v_b_approx = v_approx(a, menge.agent[a.neighbors_agents[x]], menge, approx_scheme)
         #v_b_approx = v_approx_ρ_global(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
-        v_b_approx = v_approx_α(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
+        #v_b_approx = v_approx_voronoi(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
+
+        #v_b_approx = v_approx_α(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
+        #v_b_approx = v_approx_α_voronoi(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
+        v_b_approx = v_approx_α_ρ(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
+
         v = min(v, ov_ttc(a, menge.agent[a.neighbors_agents[x]], v_b_approx, system_size))
 
     end

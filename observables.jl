@@ -9,6 +9,8 @@ N_(geometrie::geometry) = length(geometrie.element)
 ρ_global(menge::crowd, system_size::NTuple{2, Float64}) = N_(menge)/(system_size[1]*system_size[2])
 ρ_global(N, system_size::NTuple{2, Float64}) = N/(system_size[1]*system_size[2])
 
+ρ_max(system_size, menge) = 0.74/L_mean(menge)^2
+
 v(x_t1::NTuple{2, Float64}, x_t2::NTuple{2, Float64}, dt) = abs(x_t1 .- x_t2)/dt
 v(x_t1::NTuple{2, Float64}, x_t2::NTuple{2, Float64}, dt, system_size) = d(x_t1, x_t2, system_size)/dt
 
@@ -43,7 +45,7 @@ function st_dev(matrix, mean)
 
     varianz = 0
 
-    
+
 
     for x in matrix
         varianz = varianz + (mean-x)^2

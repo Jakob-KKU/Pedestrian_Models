@@ -3,6 +3,7 @@ function single_iteration_ttc(menge::crowd, geometrie::geometry, temp_velocities
 
     calculate_neighboring_agents(menge, r)
     calculate_neighboring_geometry(menge, geometrie, r)
+    Update_Voronoi_Dens!(menge, system_size)
 
     temp_headings = calculate_headings_distance(menge, geometrie, temp_headings)
     temp_velocities = calculate_velocities_ttc(menge, geometrie, temp_velocities)
