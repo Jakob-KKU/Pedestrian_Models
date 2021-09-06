@@ -43,6 +43,8 @@ function st_dev(matrix, mean)
 
     varianz = 0
 
+    
+
     for x in matrix
         varianz = varianz + (mean-x)^2
     end
