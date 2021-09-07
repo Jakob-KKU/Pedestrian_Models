@@ -1,12 +1,3 @@
-mutable struct parameters
-
-    v_max::Float64
-    T::Float64
-    l::Float64
-    interaction_length::Float64
-    interaction_strength::Float64
-
-end
 
 mutable struct agent
 
@@ -17,7 +8,13 @@ mutable struct agent
     neighbors_agents::Vector{Int}
     neighbors_geometry::Vector{Int}
     voronoi_dens::Float64
-    parameters::parameters
+
+    v_max::Float64
+    T::Float64
+    l::Float64
+    interaction_length::Float64
+    interaction_strength::Float64
+
 
 end
 
@@ -37,7 +34,7 @@ end
 
 function create_crowd(N::Int, geometrie::geometry)
     crowd([agent((0.0, 0.0), (0.0, 0.0), 0.0, (0.0, 0.0), fill(0, N+1),
-     fill(0, length(geometrie.element)+1), 0.0, parameters(0.0, 0.0, 0.0, 0.0, 0.0)) for i in 1:N])
+     fill(0, length(geometrie.element)+1), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) for i in 1:N])
 end
 
 function set_parameters(p::Vector)

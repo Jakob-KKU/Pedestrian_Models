@@ -61,12 +61,12 @@ function calculate_single_heading_distance(a::agent, menge::crowd, geometrie::ge
 end
 
 
-direction_distance(a::agent, b::agent) = a.parameters.interaction_strength*exp((l(a, b)-d(a, b))/a.parameters.interaction_length)
-direction_distance(a::agent, b::element) = a.parameters.interaction_strength*exp((l(a, b)-d(a, b))/a.parameters.interaction_length)
+direction_distance(a::agent, b::agent) = a.interaction_strength*exp((l(a, b)-d(a, b))/a.interaction_length)
+direction_distance(a::agent, b::element) = a.interaction_strength*exp((l(a, b)-d(a, b))/a.interaction_length)
 
-direction_distance(a::agent, b::agent, system_size::NTuple{2, Float64}) = a.parameters.interaction_strength*
-exp((l(a, b)-d(a, b, system_size))/a.parameters.interaction_length)
+direction_distance(a::agent, b::agent, system_size::NTuple{2, Float64}) = a.interaction_strength*
+exp((l(a, b)-d(a, b, system_size))/a.interaction_length)
 
-direction_distance(a::agent, b::element, system_size::NTuple{2, Float64}) = a.parameters.interaction_strength*
-exp((l(a, b)-d(a, b, system_size))/a.parameters.interaction_length)
+direction_distance(a::agent, b::element, system_size::NTuple{2, Float64}) = a.interaction_strength*
+exp((l(a, b)-d(a, b, system_size))/a.interaction_length)
 ;

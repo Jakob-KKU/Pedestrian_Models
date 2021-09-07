@@ -14,6 +14,6 @@ v_approx_α_ρ(a::agent, b::agent, menge::crowd, system_size) = (1-ρ_global(men
 
 v_approx_voronoi(a::agent, b::agent, menge::crowd, system_size) = ov(b, 1/sqrt(b.voronoi_dens))
 
-v_approx_α_voronoi(a::agent, b::agent, menge::crowd, system_size) = (1-b.voronoi_dens*(pi*b.parameters.l^2/4))*b.vel
+v_approx_α_voronoi(a::agent, b::agent, menge::crowd, system_size) = (1-b.voronoi_dens*(pi*b.l^2/4))*b.vel
 
 v_approx_Δx(a::agent, b::agent, menge::crowd, geometrie::geometry, system_size) = ov(b, minimum_distance_in_front(b, menge, geometrie, system_size))

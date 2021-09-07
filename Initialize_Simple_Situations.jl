@@ -24,11 +24,7 @@ function Init_Overtaking!(menge::crowd, d, x_min, y_min, ϵ, v1, v2)
     menge.agent[1].heading = (1, 0)
     menge.agent[2].heading = (1, 0)
 
-    menge.agent[1].parameters.v_max = v1
-    menge.agent[2].parameters.v_max = v2
+    menge.agent[1].v_max = v1
+    menge.agent[2].v_max = v2
 
 end
-
-
-
-    

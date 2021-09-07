@@ -1,10 +1,10 @@
 #Initialize the Parameters TimeGap, Size, Maximal Velocity
 function initialize_homogeneous_parameters(p::Vector, menge::crowd)
 
-    agent_parameters = parameters(p[1], p[2], p[3], p[4], p[5])
-
     for x in menge.agent
-        x.parameters = agent_parameters
+
+        x.v_max, x.T, x.l, x.interaction_length, x.interaction_strength =
+         p[1], p[2], p[3], p[4], p[5]
     end
 
 end

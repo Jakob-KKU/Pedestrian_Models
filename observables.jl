@@ -1,4 +1,4 @@
-L_mean(menge::crowd) = sum([x.parameters.l for x in menge.agent])/N_(menge)
+L_mean(menge::crowd) = sum([x.l for x in menge.agent])/N_(menge)
 L_mean(geometrie::geometry) = sum([x.l for x in geometrie.element])/N_(geometrie)
 A_mean(menge::crowd) = L_mean(menge)^2*pi/4
 A_mean(geometrie::geometry) = L_mean(geometrie)^2*pi/4

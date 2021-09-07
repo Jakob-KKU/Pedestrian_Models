@@ -68,9 +68,9 @@ end
 
 
 #common_size i.e. l_i/2 + l_j/2
-l(u::agent, v::agent) = u.parameters.l/2 + v.parameters.l/2
-l(u::element, v::agent) = u.l/2 + v.parameters.l/2
-l(u::agent, v::element) = u.parameters.l/2 + v.l/2
+l(u::agent, v::agent) = u.l/2 + v.l/2
+l(u::element, v::agent) = u.l/2 + v.l/2
+l(u::agent, v::element) = u.l/2 + v.l/2
 
 #betrag
 Base.abs(a::NTuple{2, Float64}) = sqrt(a[1]^2+a[2]^2)

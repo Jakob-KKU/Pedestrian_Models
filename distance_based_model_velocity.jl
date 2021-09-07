@@ -16,7 +16,7 @@ function calculate_velocities_distance(menge::crowd, geometrie::geometry, temp_v
     temp_velocities
 end
 
-ov(a::agent, dist::Float64) = min(a.parameters.v_max, max((dist-a.parameters.l)/a.parameters.T, 0.0))
-ov(a::agent, dist::Int64) = min(a.parameters.v_max, max((dist-a.parameters.l)/a.parameters.T, 0.0))
-ov(a::agent, b::agent) = min(a.parameters.v_max, max((d(a, b)-a.parameters.l)/a.parameters.T, 0.0))
+ov(a::agent, dist::Float64) = min(a.v_max, max((dist-a.l)/a.T, 0.0))
+ov(a::agent, dist::Int64) = min(a.v_max, max((dist-a.l)/a.T, 0.0))
+ov(a::agent, b::agent) = min(a.v_max, max((d(a, b)-a.l)/a.T, 0.0))
 ;
