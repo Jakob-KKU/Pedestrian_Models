@@ -1,12 +1,11 @@
 function iteration_ttc_approx(menge::crowd, geometrie::geometry, temp_velocities::Array{Float64,1},
-        temp_headings::Array{NTuple{2, Float64},1}, dt::Float64, r::Float64, system_size::NTuple{2, Float64},
-        approx_scheme)
+        temp_headings::Array{NTuple{2, Float64},1}, dt::Float64, r::Float64, system_size::NTuple{2, Float64})
 
     calculate_neighboring_agents(menge,system_size, r)
     calculate_neighboring_geometry(menge, geometrie, system_size, r)
 
     temp_headings = calculate_headings_distance(menge, geometrie, temp_headings, system_size)
-    temp_velocities = calc_v_ttc_approx(menge, geometrie, temp_velocities, system_size, approx_scheme)
+    temp_velocities = calc_v_ttc_approx(menge, geometrie, temp_velocities, system_size)
 
     for (i, x) in enumerate(menge.agent)
         x.heading, x.vel = temp_headings[i], temp_velocities[i]
@@ -15,7 +14,7 @@ function iteration_ttc_approx(menge::crowd, geometrie::geometry, temp_velocities
 end
 
 function simulate_model_ttc_approx(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::Float64, dt_save::Float64, dt::Float64,
-        r::Float64, system_size::NTuple{2, Float64}, approx_scheme)
+        r::Float64, system_size::NTuple{2, Float64})
 
     N = length(menge.agent)
 
@@ -33,7 +32,7 @@ function simulate_model_ttc_approx(menge::crowd, geometrie::geometry, t_relax::F
     while dt * i < t_max
 
         iteration_ttc_approx(menge, geometrie, temp_velocities, temp_headings, dt,
-            r, system_size, approx_scheme)
+            r, system_size)
 
         if dt*i>t_relax && mod(i, Int(round(dt_save/dt))) == 0
 

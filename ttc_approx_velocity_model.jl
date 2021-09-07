@@ -1,9 +1,9 @@
 function calc_v_ttc_approx(menge::crowd, geometrie::geometry, temp_velocities,
-        system_size::NTuple{2, Float64}, approx_scheme)
+        system_size::NTuple{2, Float64})
 
     for (i,x) in enumerate(menge.agent)
 
-         temp_velocities[i] = calc_single_v_ttc_approx(x, menge, geometrie, system_size, approx_scheme)
+         temp_velocities[i] = calc_single_v_ttc_approx(x, menge, geometrie, system_size)
 
     end
 
@@ -13,7 +13,7 @@ end
 
 
 function calc_single_v_ttc_approx(a::agent, menge::crowd, geometrie::geometry,
-        system_size::NTuple{2, Float64}, approx_scheme)
+        system_size::NTuple{2, Float64})
 
     if a.neighbors_agents[1] == 0 && a.neighbors_geometry[1] == 0
 
@@ -25,17 +25,18 @@ function calc_single_v_ttc_approx(a::agent, menge::crowd, geometrie::geometry,
 
     elseif a.neighbors_geometry[1] == 0
 
-        minimal_v_ttc(a, menge, system_size, approx_scheme)
+        minimal_v_ttc(a, menge, system_size, geometrie)
 
     else
 
-        min(minimal_v_ttc(a, menge, system_size, approx_scheme),
+        min(minimal_v_ttc(a, menge, system_size, geometrie),
          ov(a, minimum_distance_in_front(a, geometrie, system_size)))
 
     end
 end
 
-function minimal_v_ttc(a::agent, menge::crowd, system_size::NTuple{2, Float64}, approx_scheme)
+function minimal_v_ttc(a::agent, menge::crowd, system_size::NTuple{2, Float64},
+     geometrie::geometry)
 
     v = 999.9
 
@@ -44,9 +45,11 @@ function minimal_v_ttc(a::agent, menge::crowd, system_size::NTuple{2, Float64}, 
         #v_b_approx = v_approx_ρ_global(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
         #v_b_approx = v_approx_voronoi(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
 
-        #v_b_approx = v_approx_α(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
+        v_b_approx = v_approx_α(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
         #v_b_approx = v_approx_α_voronoi(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
-        v_b_approx = v_approx_α_ρ(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
+        #v_b_approx = v_approx_α_ρ(a, menge.agent[a.neighbors_agents[x]], menge, system_size)
+
+        #v_b_approx = v_approx_Δx(a, menge.agent[a.neighbors_agents[x]], menge, geometrie, system_size)
 
         v = min(v, ov_ttc(a, menge.agent[a.neighbors_agents[x]], v_b_approx, system_size))
 

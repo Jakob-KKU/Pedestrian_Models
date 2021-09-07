@@ -1,4 +1,4 @@
-struct parameters
+mutable struct parameters
 
     v_max::Float64
     T::Float64
