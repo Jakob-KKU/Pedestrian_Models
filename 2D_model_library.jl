@@ -24,6 +24,10 @@ include("./ttc_approx_schemes.jl")
 include("./ttc_approx_complete.jl")
 include("./ttc_approx_velocity_model.jl")
 
+include("./pure_ttc_model.jl")
+include("./pure_ttc_model_complete.jl")
+
+
 
 
 

@@ -2,6 +2,8 @@
 ⋅(u::NTuple{2, Float64}, v::NTuple{2, Float64}) = u[1]*v[1]+u[2]*v[2]
 ⋅(u::Vector{Float64}, v::Vector{Float64}) = u[1]*v[1]+u[2]*v[2]
 ⋅(u::agent, v::agent) = u.heading[1]*v.heading[1]+u.heading[2]*v.heading[2]
+⋅(A::Matrix, x::NTuple{2, Float64}) = (x[1]*A[1, 1]+x[2]*A[1, 2], x[1]*A[2, 1]+x[2]*A[2, 2])
+
 
 #abstand
 d(u::agent, v::agent) =  sqrt((u.pos[1]-v.pos[1])^2+(u.pos[2]-v.pos[2])^2)
@@ -107,13 +109,19 @@ e_(b::element, a::agent) = (b.pos.-a.pos)./d(a, b)
 e_v(b::agent, a::agent) = normalize(b.vel.*b.heading .- a.vel.*a.heading)
 e_v(b::agent, a::agent, v_b::Float64) = normalize(v_b.*b.heading .- a.vel.*a.heading)
 e_v(b::agent, a::agent, v_b::Float64, v_a::Float64) = normalize(v_b.*b.heading .- v_a.*a.heading)
+e_v(b::agent, a::agent, b_heading::NTuple{2, Float64}) = normalize(b.vel.*b_heading .- a.vel.*a.heading)
+
 
 v(a::agent) = a.vel.*a.heading
 v(a::agent, v_a) = v_a.*a.heading
+v(a::agent, a_heading::NTuple{2, Float64}) = a.vel.*a_heading
+
 Δv(a::agent, b::agent) = v(a) .- v(b)
 Δv(a::agent, b::agent, v_a::Float64) = a.heading.*v_a .- v(b)
 Δv(a::agent, b::agent, v_a::Float64, v_b) = a.heading.*v_a .- b.heading.*v_b
+Δv(a::agent, b::agent, a_heading::NTuple{2, Float64}) = v(a, a_heading) .- v(b)
 
+R(ϕ) = [cos(ϕ) -sin(ϕ); sin(ϕ) cos(ϕ)] #2d Rotationsmatrix
 
 
 
