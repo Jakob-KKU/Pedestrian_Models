@@ -27,6 +27,10 @@ include("./ttc_approx_velocity_model.jl")
 include("./pure_ttc_model.jl")
 include("./pure_ttc_model_complete.jl")
 
+include("./pure_ttc_model_approx.jl")
+include("./pure_ttc_model_approx_complete.jl")
+
+
 
 
 

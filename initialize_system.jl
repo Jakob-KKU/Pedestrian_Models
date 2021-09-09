@@ -159,4 +159,12 @@ function Two_Approaching_Crowds(menge::crowd, geometrie::geometry, breite_crowds
         end
     end
 end
+
+
+function Init_Hom_Vels!(menge::crowd, vel::Float64)
+
+    for x in menge.agent
+        x.vel = vel
+    end
+end
 ;

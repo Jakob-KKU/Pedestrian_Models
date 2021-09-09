@@ -110,6 +110,7 @@ e_v(b::agent, a::agent) = normalize(b.vel.*b.heading .- a.vel.*a.heading)
 e_v(b::agent, a::agent, v_b::Float64) = normalize(v_b.*b.heading .- a.vel.*a.heading)
 e_v(b::agent, a::agent, v_b::Float64, v_a::Float64) = normalize(v_b.*b.heading .- v_a.*a.heading)
 e_v(b::agent, a::agent, b_heading::NTuple{2, Float64}) = normalize(b.vel.*b_heading .- a.vel.*a.heading)
+e_v(b::agent, a::agent, b_heading::NTuple{2, Float64}, v_a::Float64) = normalize(b.vel.*b_heading .- v_a.*a.heading)
 
 
 v(a::agent) = a.vel.*a.heading
@@ -120,6 +121,8 @@ v(a::agent, a_heading::NTuple{2, Float64}) = a.vel.*a_heading
 Δv(a::agent, b::agent, v_a::Float64) = a.heading.*v_a .- v(b)
 Δv(a::agent, b::agent, v_a::Float64, v_b) = a.heading.*v_a .- b.heading.*v_b
 Δv(a::agent, b::agent, a_heading::NTuple{2, Float64}) = v(a, a_heading) .- v(b)
+Δv(a::agent, b::agent, a_heading::NTuple{2, Float64}, v_b::Float64) = v(a, a_heading) .- v(b, v_b)
+
 
 R(ϕ) = [cos(ϕ) -sin(ϕ); sin(ϕ) cos(ϕ)] #2d Rotationsmatrix
 

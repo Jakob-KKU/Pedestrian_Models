@@ -29,25 +29,41 @@ function Heading_From_TTC(a::agent, b::agent, system_size::NTuple{2, Float64})
     if abs(Δϕ_m) > Δϕ_p
         a_heading_p,Δϕ_p
     else
-        #println("neg_sol_chosen")
         a_heading_m,Δϕ_m
     end
 end
 
 function Heading_From_TTC(a::agent, b::element, system_size::NTuple{2, Float64})
 
-    a_heading = a.desired_heading
-    Δϕ = 0.0
+    a_heading_p = a.desired_heading
+    Δϕ_p = 0.0
 
-    while ttc(a, b, a_heading, system_size) < a.T
+    while ttc(a, b, a_heading_p, system_size) < a.T
 
-        a_heading = normalize(R(0.1)⋅a_heading)
-        Δϕ += 0.1
+        a_heading_p = normalize(R(0.1)a_heading_p)
+        Δϕ_p += 0.1
     end
 
-    a_heading,Δϕ
+    a_heading_m = a.desired_heading
+    Δϕ_m = 0.0
 
+    while ttc(a, b, a_heading_m, system_size) < a.T
+
+        a_heading_m = R(-0.1)⋅a_heading_m
+        Δϕ_m -= 0.1
+
+        if Δϕ_m <= -pi
+            break
+        end
+    end
+
+    if abs(Δϕ_m) > Δϕ_p
+        a_heading_p,Δϕ_p
+    else
+        a_heading_m,Δϕ_m
+    end
 end
+
 
 function Min_TTC_Agents(a::agent, menge::crowd, system_size::NTuple{2, Float64})
 
@@ -108,21 +124,20 @@ end
 function Calc_V_and_Heading(a, menge, geometrie, system_size)
 
     a_heading, Δϕ = Calc_Heading_TTC(a, menge, geometrie, system_size)
-
     a_vel = calculate_single_velocity_ttc(a, menge, geometrie, system_size)
     Δv = a.v_max - a_vel
     #println("Δϕ = ", Δϕ, " and Δv = ", Δv)
 
     if abs(Δϕ) == 0 && Δv == 0
         a.v_max, a.desired_heading
-    elseif abs(Δϕ) < Δv
-        a.vel, a_heading
-    else
+    elseif 0*abs(Δϕ) > Δv
         a_vel, a.heading
+    else
+        a.vel, a_heading
     end
 end
 
-function Calc_Vs_and_Headings(menge::crowd, geometrie::geometry, temp_velocities, temp_headings,
+function Calc_Vs_and_Headings!(menge::crowd, geometrie::geometry, temp_velocities, temp_headings,
         system_size::NTuple{2, Float64})
 
     for (i,x) in enumerate(menge.agent)
@@ -131,6 +146,6 @@ function Calc_Vs_and_Headings(menge::crowd, geometrie::geometry, temp_velocities
 
     end
 
-    return temp_velocities, temp_headings
+    temp_velocities, temp_headings
 
 end
