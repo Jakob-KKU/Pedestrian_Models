@@ -35,6 +35,15 @@ function plot_boundaries(x, y, size, color)
 
 end
 
+function plot_goal(goal)
+
+    GR.setmarkertype(GR.MARKERTYPE_SOLID_DIAMOND)
+    GR.setmarkersize(2)
+    GR.setmarkercolorind(30)
+    GR.polymarker([goal[1]], [goal[2]])
+
+end
+
 
 
 function plot_agents(positions, headings, size, color, size_2, color_2, abstand)

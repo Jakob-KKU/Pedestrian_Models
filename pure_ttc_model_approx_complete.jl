@@ -3,8 +3,9 @@ function Iterate_Pure_TTC_Approx!(menge::crowd, geometrie::geometry, temp_veloci
 
     Update_Neighborhood!(menge, geometrie, system_size, r)
 
-    temp_velocities, temp_headings = Calc_Vs_and_Headings_TTC_Approx(menge, geometrie, temp_velocities, temp_headings,
-        system_size)
+    Update_Desired_Headings!(menge)
+
+    Calc_Vs_and_Headings_TTC_Approx(menge, geometrie, temp_velocities, temp_headings, system_size)
 
     Update_Pos_and_Heading!(menge, temp_headings, temp_velocities, dt, system_size)
 

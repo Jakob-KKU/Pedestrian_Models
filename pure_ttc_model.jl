@@ -40,7 +40,7 @@ function Heading_From_TTC(a::agent, b::element, system_size::NTuple{2, Float64})
 
     while ttc(a, b, a_heading_p, system_size) < a.T
 
-        a_heading_p = normalize(R(0.1)a_heading_p)
+        a_heading_p = R(0.1)⋅a_heading_p
         Δϕ_p += 0.1
     end
 
@@ -90,7 +90,7 @@ function Min_TTC_Geometry(a::agent, geometrie::geometry, system_size::NTuple{2, 
 
     for i in 2:a.neighbors_geometry[1]+1
 
-        ttc_help = ttc(a, geometry.element[a.neighbors_geometry[i]], system_size)
+        ttc_help = ttc(a, geometrie.element[a.neighbors_geometry[i]], system_size)
 
         if ttc_help < ttc_min
             ttc_min = min(ttc_help, ttc_min)
@@ -130,7 +130,7 @@ function Calc_V_and_Heading(a, menge, geometrie, system_size)
 
     if abs(Δϕ) == 0 && Δv == 0
         a.v_max, a.desired_heading
-    elseif 0*abs(Δϕ) > Δv
+    elseif abs(Δϕ) > 5*Δv
         a_vel, a.heading
     else
         a.vel, a_heading

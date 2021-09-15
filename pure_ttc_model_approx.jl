@@ -98,11 +98,7 @@ function Calc_Vs_and_Headings_TTC_Approx(menge::crowd, geometrie::geometry, temp
         system_size::NTuple{2, Float64})
 
     for (i,x) in enumerate(menge.agent)
-
-         temp_velocities[i], temp_headings[i]  = Calc_V_and_Heading_TTC_Approx(x, menge, geometrie, system_size)
-
+         temp_velocities[i], temp_headings[i]  = Calc_V_and_Heading_TTC_Approx(x, menge,
+          geometrie, system_size)
     end
-
-    return temp_velocities, temp_headings
-
 end

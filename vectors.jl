@@ -9,6 +9,7 @@
 d(u::agent, v::agent) =  sqrt((u.pos[1]-v.pos[1])^2+(u.pos[2]-v.pos[2])^2)
 d(u::element, v::agent) =  sqrt((u.pos[1]-v.pos[1])^2+(u.pos[2]-v.pos[2])^2)
 d(u::agent, v::element) =  sqrt((u.pos[1]-v.pos[1])^2+(u.pos[2]-v.pos[2])^2)
+d(u::agent, v::NTuple{2, Float64}) =  sqrt((u.pos[1]-v[1])^2+(u.pos[2]-v[2])^2)
 d(u::NTuple{2, Float64}, v::NTuple{2, Float64}) =  sqrt((u[1]-v[1])^2+(u[2]-v[2])^2)
 d(u::Vector{Float64}, v::Vector{Float64}) =  sqrt((u[1]-v[1])^2+(u[2]-v[2])^2)
 
@@ -105,6 +106,8 @@ e_(b::NTuple{2, Float64}, a::NTuple{2, Float64}) = (b.-a)./d(a, b)
 e_(b::Vector{Float64}, a::Vector{Float64}) = (b.-a)./d(a, b)
 e_(b::agent, a::element) = (b.pos.-a.pos)./d(a, b)
 e_(b::element, a::agent) = (b.pos.-a.pos)./d(a, b)
+e_(b::agent, a::NTuple{2, Float64}) = (b.pos.-a)./d(b, a)
+
 
 e_v(b::agent, a::agent) = normalize(b.vel.*b.heading .- a.vel.*a.heading)
 e_v(b::agent, a::agent, v_b::Float64) = normalize(v_b.*b.heading .- a.vel.*a.heading)

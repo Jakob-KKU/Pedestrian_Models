@@ -3,6 +3,8 @@ function single_iteration_ttc(menge::crowd, geometrie::geometry, temp_velocities
 
     calculate_neighboring_agents(menge, r)
     calculate_neighboring_geometry(menge, geometrie, r)
+
+    Update_Desired_Headings!(menge)
     Update_Voronoi_Dens!(menge, system_size)
 
     temp_headings = calculate_headings_distance(menge, geometrie, temp_headings)
@@ -53,16 +55,14 @@ end
 function single_iteration_ttc(menge::crowd, geometrie::geometry,temp_velocities::Array{Float64,1},
         temp_headings::Array{NTuple{2, Float64},1}, dt::Float64, r::Float64, system_size::NTuple{2, Float64})
 
-    calculate_neighboring_agents(menge, system_size, r)
-    calculate_neighboring_geometry(menge, geometrie,system_size, r)
+    Update_Neighborhood!(menge, geometrie, system_size, r)
+    Update_Desired_Headings!(menge)
 
     temp_headings = calculate_headings_distance(menge, geometrie, temp_headings, system_size)
     temp_velocities = calculate_velocities_ttc(menge, geometrie, temp_velocities, system_size)
 
-    for (i, x) in enumerate(menge.agent)
-        x.heading, x.vel = temp_headings[i], temp_velocities[i]
-        x.pos = mod.(x.pos .+ dt .* x.heading .* x.vel, system_size)
-    end
+    Update_Pos_and_Heading!(menge, temp_headings, temp_velocities, dt, system_size)
+
 end
 
 function simulate_model_ttc(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::Float64, dt_save::Float64, dt::Float64,

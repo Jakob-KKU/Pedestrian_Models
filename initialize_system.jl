@@ -9,6 +9,13 @@ function initialize_homogeneous_parameters(p::Vector, menge::crowd)
 
 end
 
+function Init_hom_Goal!(menge, goal)
+
+    for x in menge.agent
+        x.goal = goal
+    end
+end
+
 
 
 #initialize positions
