@@ -130,6 +130,17 @@ function Update_Pos_and_Heading!(menge::crowd, temp_headings::Array{NTuple{2, Fl
      end
 end
 
+function Update_Pos_and_Heading!(menge::crowd, temp_headings::Array{NTuple{2, Float64},1},
+     dt::Float64, system_size::NTuple{2, Float64})
+
+     for (i, x) in enumerate(menge.agent)
+         x.heading = temp_headings[i]
+         x.pos = mod.(x.pos .+ dt .* x.heading .* x.v_max, system_size)
+     end
+end
+
+
+
 function Update_Desired_Headings!(menge::crowd)
 
     for x in menge.agent

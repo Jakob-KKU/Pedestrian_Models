@@ -104,13 +104,18 @@ end
 function Calc_Heading_TTC(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
     i_geo, ttc_geo = Min_TTC_Geometry(a, geometrie, system_size)
-    i_ag, ttc_ag = Min_TTC_Agents(a, menge, system_size)
-    #println("ttc_geo = ", ttc_geo, " and ttc_ag = ", ttc_ag)
-    if ttc_geo > a.T && ttc_ag > a.T
 
-        a.desired_heading, 0.0
+    i_ag, ttc_ag = Min_TTC_Agents(a, menge, system_size)
+
+
+    if i_geo == 0
+    #### actually not sure if this is right!
+        println("Problem here! What to do if no minimal TTC?")
+        a.heading, 0.0
 
     elseif ttc_ag > a.T || ttc_geo < ttc_ag
+
+    #if ttc_ag > a.T || ttc_geo < ttc_ag
 
         Heading_From_TTC(a, geometrie.element[i_geo], system_size)
 
@@ -130,7 +135,7 @@ function Calc_V_and_Heading(a, menge, geometrie, system_size)
 
     if abs(Δϕ) == 0 && Δv == 0
         a.v_max, a.desired_heading
-    elseif abs(Δϕ) > 5*Δv
+    elseif 0*abs(Δϕ) > Δv
         a_vel, a.heading
     else
         a.vel, a_heading

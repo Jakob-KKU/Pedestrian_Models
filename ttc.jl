@@ -157,4 +157,43 @@ function ttc(a::agent, b::element, v_a::Float64, system_size::NTuple{2, Float64}
         return (-cos_α*d(a,b,system_size) - sqrt(A))/v_a
     end
 end
+
+#calculates the minimal TTC
+function Min_TTC(a::agent, a_heading::NTuple{2, Float64}, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+
+    ttc_geo = Min_TTC_Geometry(a, a_heading, geometrie, system_size)
+    ttc_agents = Min_TTC_Agents(a, a_heading, menge, system_size)
+
+    min(ttc_geo, ttc_agents)
+
+end
+
+function Min_TTC_Agents(a::agent, a_heading::NTuple{2, Float64}, menge::crowd, system_size::NTuple{2, Float64})
+
+    ttc_min = 999.0
+
+    for i in 2:a.neighbors_agents[1]+1
+
+        ttc_help = ttc(a, menge.agent[a.neighbors_agents[i]], a_heading, system_size)
+
+        ttc_min = min(ttc_help, ttc_min)
+    end
+
+    ttc_min
+end
+
+function Min_TTC_Geometry(a::agent, a_heading::NTuple{2, Float64}, geometrie::geometry, system_size::NTuple{2, Float64})
+
+    ttc_min = 999.0
+
+    for i in 2:a.neighbors_geometry[1]+1
+
+        ttc_help = ttc(a, geometrie.element[a.neighbors_geometry[i]], a_heading, system_size)
+
+        ttc_min = min(ttc_help, ttc_min)
+    end
+    ttc_min
+end
+
+
 ;

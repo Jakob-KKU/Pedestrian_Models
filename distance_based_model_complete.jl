@@ -3,7 +3,7 @@ function single_iteration(menge::crowd, geometrie::geometry, temp_velocities::Ar
 
     Update_Neighborhood!(menge, geometrie, r)
 
-    Update_Desired_Headings!(menge)
+    #Update_Desired_Headings!(menge)
 
     temp_headings = calculate_headings_distance(menge, geometrie, temp_headings)
     temp_velocities = calculate_velocities_distance(menge, geometrie, temp_velocities)
@@ -55,13 +55,13 @@ function single_iteration(menge::crowd, geometrie::geometry, temp_velocities::Ar
         temp_headings::Array{NTuple{2, Float64},1}, dt::Float64, r::Float64, system_size::NTuple{2, Float64})
 
     Update_Neighborhood!(menge, geometrie, system_size, r)
-    Update_Desired_Headings!(menge)
+    #Update_Desired_Headings!(menge)
 
     temp_headings = calculate_headings_distance(menge, geometrie, temp_headings, system_size)
     temp_velocities = calculate_velocities_distance(menge, geometrie, temp_velocities, system_size)
 
     Update_Pos_and_Heading!(menge, temp_headings, temp_velocities, dt, system_size)
-    
+
 end
 
 function simulate_model_distance(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::Float64, dt_save::Float64, dt::Float64,

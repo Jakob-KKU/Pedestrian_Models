@@ -7,6 +7,8 @@ include("./initialize_geometry.jl")
 include("./Initialize_Simple_Situations.jl")
 include("./mengen.jl")
 include("./plot_functions.jl")
+include("./voronoi.jl")
+
 
 include("./observables.jl")
 
@@ -29,6 +31,9 @@ include("./pure_ttc_model_complete.jl")
 
 include("./pure_ttc_model_approx.jl")
 include("./pure_ttc_model_approx_complete.jl")
+
+include("./ttc_direction_model.jl")
+include("./ttc_direction_model_complete.jl")
 
 
 
