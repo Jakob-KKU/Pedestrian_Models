@@ -2,6 +2,8 @@ include("./struct.jl")
 include("./vectors.jl")
 include("./initialize_system.jl")
 include("./neighbors.jl")
+include("./update_functions.jl")
+
 include("./initialize_geometry.jl")
 
 include("./Initialize_Simple_Situations.jl")
@@ -35,6 +37,7 @@ include("./pure_ttc_model_approx_complete.jl")
 include("./ttc_direction_model.jl")
 include("./ttc_direction_model_complete.jl")
 
+include("./ttc_direction_step_model.jl")
 
 
 

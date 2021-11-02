@@ -53,3 +53,60 @@ function st_dev(matrix, mean)
 
     return sqrt(varianz)/length(matrix)^2
 end
+
+function calc_ttc_timeseries(positions, headings, geometrie, dt, system_size)
+
+    velocities = v(positions, sim_p[3], system_size)
+    ttcs = zeros(size(positions)[1]-1, size(positions)[2])
+
+    #for each agent
+    for i in 1:size(positions)[2]
+
+        #for each time-step
+        for j in 1:size(positions)[1]-1
+
+            ttcs[j, i] = min_ttc(i, j, positions, headings, velocities, geometrie, system_size)
+        end
+    end
+
+    ttcs
+
+end
+
+
+function min_ttc(i, j, positions, headings, velocities, geometrie, system_size)
+
+     ttc_i_min = 999.9
+
+    for k in 1:size(positions)[2]
+
+        if k != i
+
+            for l in 1:size(positions)[1]-1
+
+                ttc_i_min = min(ttc_i_min, ttc(positions[j, i], headings[j, i].*velocities[j, i],
+                        positions[l, k], headings[l, k].*velocities[l, k], system_size))
+
+            end
+
+        end
+
+    end
+
+    ttc_i_min
+end
+
+
+
+function ttc(a_pos::NTuple{2, Float64}, a_vel::NTuple{2, Float64}, b_pos::NTuple{2, Float64}, b_vel::NTuple{2, Float64},
+    system_size::NTuple{2, Float64})
+
+    cos_α = e_(a_pos,b_pos,system_size)⋅e_v(a_vel, b_vel)
+    A = ((cos_α)^2-1)*d(a_pos,b_pos,system_size)^2+0.3^2
+
+    if A < 0 || -(cos_α)*d(a_pos,b_pos,system_size)-sqrt(A) < 0
+       999
+    else
+        (-(cos_α)*d(a_pos,b_pos,system_size)-sqrt(A))/abs(Δv(a_vel,b_vel))
+    end
+end
