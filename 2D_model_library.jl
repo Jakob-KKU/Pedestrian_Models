@@ -1,67 +1,31 @@
-include("./struct.jl")
+#general functions
 include("./vectors.jl")
+include("./ttc.jl")
+include("./mengen.jl")
+include("./voronoi.jl")
+
+#initialization functions
+include("./struct.jl")
 include("./initialize_system.jl")
+include("./initialize_geometry.jl")
+include("./Initialize_Simple_Situations.jl")
+
+#general modeling functions
 include("./neighbors.jl")
 include("./update_functions.jl")
 
-include("./initialize_geometry.jl")
-
-include("./Initialize_Simple_Situations.jl")
-include("./mengen.jl")
-include("./plot_functions.jl")
-include("./voronoi.jl")
-
-
+#plotting and analyzing
 include("./observables.jl")
+include("./plot_functions.jl")
 
-include("./distance_based_model_base_functions.jl")
-include("./distance_based_model_direction.jl")
-include("./distance_based_model_velocity.jl")
+#different models
 include("./distance_based_model_complete.jl")
-
-include("./ttc.jl")
-
-include("./ttc_based_model_velocity.jl")
 include("./ttc_based_model_complete.jl")
-
-include("./ttc_approx_schemes.jl")
 include("./ttc_approx_complete.jl")
-include("./ttc_approx_velocity_model.jl")
-
-include("./pure_ttc_model.jl")
 include("./pure_ttc_model_complete.jl")
-
-include("./pure_ttc_model_approx.jl")
 include("./pure_ttc_model_approx_complete.jl")
-
-include("./ttc_direction_model.jl")
 include("./ttc_direction_model_complete.jl")
-
 include("./ttc_direction_step_model.jl")
-
-include("./ttc_step_model.jl")
 include("./ttc_step_model_complete.jl")
 
-
-
-
-
-function start_simulation(menge, geometrie, sim_p, velocity_model, boundaries, system_size=(0,0))
-
-    model = string("simulate_model_" ,velocity_model)
-    u = getfield(Main, Symbol(model))
-
-    if boundaries == "periodic"
-
-        if system_size == (0,0)
-            println("For periodic boundaries a system size is needed.")
-            return false, false
-        else
-            u(menge, geometrie, sim_p[1],sim_p[2],sim_p[3],sim_p[4],sim_p[5], system_size)
-        end
-
-    else
-        u(menge, geometrie, sim_p[1],sim_p[2],sim_p[3],sim_p[4],sim_p[5])
-    end
-end
 ;

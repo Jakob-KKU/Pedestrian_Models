@@ -1,3 +1,5 @@
+include("./ttc_step_model.jl")
+
 function Calc_Headings_Vels_step!(menge::crowd, geometrie::geometry, temp_headings, temp_velocities, t, t_step,
         system_size::NTuple{2, Float64})
 

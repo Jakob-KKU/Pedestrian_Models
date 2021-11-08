@@ -1,3 +1,5 @@
+include("./pure_ttc_model_approx.jl")
+
 function Heading_From_TTC_Approx(a::agent, b::agent, v_b_approx::Float64, system_size::NTuple{2, Float64})
 
     a_heading_p = a.desired_heading

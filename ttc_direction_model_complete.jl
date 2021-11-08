@@ -1,3 +1,5 @@
+include("./ttc_direction_model.jl")
+
 function Iterate_TTC_direction!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple{2, Float64},1},
      dt::Float64, r::Float64, system_size::NTuple{2, Float64})
 

@@ -1,3 +1,7 @@
+include("./distance_based_model_base_functions.jl")
+include("./distance_based_model_direction.jl")
+include("./distance_based_model_velocity.jl")
+
 function single_iteration(menge::crowd, geometrie::geometry, temp_velocities::Array{Float64,1},
         temp_headings::Array{NTuple{2, Float64},1}, dt::Float64, r::Float64)
 

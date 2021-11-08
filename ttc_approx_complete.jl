@@ -1,3 +1,6 @@
+include("./ttc_approx_velocity_model.jl")
+include("./ttc_approx_schemes.jl")
+
 function iteration_ttc_approx(menge::crowd, geometrie::geometry, temp_velocities::Array{Float64,1},
         temp_headings::Array{NTuple{2, Float64},1}, dt::Float64, r::Float64, system_size::NTuple{2, Float64})
 
