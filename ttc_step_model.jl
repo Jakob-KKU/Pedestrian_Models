@@ -1,4 +1,6 @@
 Score(a::agent, a_vel, a_ϕ) = (a.v_max .* a.desired_heading) ⋅ v(a_vel, a_ϕ)
+Score(ϕ, v, v_max) = v*v_max*cos(ϕ)
+
 Vel(ϕ, x, v_max) = x/(v_max*cos(ϕ))
 
 
@@ -35,9 +37,9 @@ end
 
 
 #follow lines with the same score, not used yet
-function Find_ϕ_and_v_to(x)
+function Find_ϕ_and_v_to(x, v_max)
 
-    dϕ = 0.025
+    dϕ = 0.01
 
     v_values = []
     ϕ_values = []
@@ -71,4 +73,21 @@ function Find_ϕ_and_v_to(x)
 
     v_values, ϕ_values
 
+end
+
+function score_maxtrix(ϕs, vs, v_max)
+
+    xs = fill(0.0, length(vs), length(ϕs))
+
+    for i in 1:length(ϕs)
+
+        for j in 1:length(vs)
+
+            xs[j, i] = Score(ϕs[i], vs[j], v_max)
+
+        end
+
+    end
+
+    xs
 end

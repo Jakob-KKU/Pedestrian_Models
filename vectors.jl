@@ -123,6 +123,8 @@ v(a::agent, v_a) = v_a.*a.heading
 v(a::agent, a_heading::NTuple{2, Float64}) = a.vel.*a_heading
 v(vel::Float64, ϕ::Float64) = vel.*(cos(ϕ), sin(ϕ))
 Heading(ϕ::Float64) = (cos(ϕ), sin(ϕ))
+Heading(ϕ::Int64) = (cos(ϕ), sin(ϕ))
+
 
 Δv(a::agent, b::agent) = v(a) .- v(b)
 Δv(v_a::NTuple{2, Float64}, v_b::NTuple{2, Float64}) = v_a .- v_b

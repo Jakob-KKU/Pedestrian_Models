@@ -1,14 +1,15 @@
+#initialization functions
+include("./struct.jl")
+include("./initialize_system.jl")
+include("./initialize_geometry.jl")
+include("./Initialize_Simple_Situations.jl")
+
 #general functions
 include("./vectors.jl")
 include("./ttc.jl")
 include("./mengen.jl")
 include("./voronoi.jl")
 
-#initialization functions
-include("./struct.jl")
-include("./initialize_system.jl")
-include("./initialize_geometry.jl")
-include("./Initialize_Simple_Situations.jl")
 
 #general modeling functions
 include("./neighbors.jl")
