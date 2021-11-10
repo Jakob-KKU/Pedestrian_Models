@@ -9,7 +9,6 @@ function Calc_Headings_Vels_step!(menge::crowd, geometrie::geometry, temp_headin
 
             temp_headings[i], temp_velocities[i]  = Calc_V_Heading_TTC_Complete(x, menge, geometrie, system_size)
             t_step[i] += 0.5
-
         end
 
 

@@ -110,3 +110,33 @@ function ttc(a_pos::NTuple{2, Float64}, a_vel::NTuple{2, Float64}, b_pos::NTuple
         (-(cos_α)*d(a_pos,b_pos,system_size)-sqrt(A))/abs(Δv(a_vel,b_vel))
     end
 end
+
+#calculates the values for a contour plot ttc(ϕ, v)
+function calc_v_ϕ_plane(a::agent, menge::crowd, geometrie::geometry, system_size, step_v, step_ϕ)
+
+
+    ϕ_s = collect(0.0:step_ϕ:2π)
+    v_s = collect(0.0:step_v:a.v_max)
+    ttc_ = fill(0.0, length(v_s), length(ϕ_s))
+
+    a_heading, a_vel  = a.heading, a.vel
+
+    for (i, v) in enumerate(v_s)
+
+        a.vel = v
+
+        for (j, ϕ) in enumerate(ϕ_s)
+
+            a.heading = Heading(ϕ)
+
+            if Min_TTC(a, menge, geometrie, system_size) >= a.T
+
+                ttc_[i, j] = 1.0
+            end
+        end
+    end
+
+    a.heading, a.vel = a_heading, a_vel
+
+    ϕ_s, v_s, ttc_
+end
