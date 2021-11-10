@@ -24,7 +24,7 @@ function Iterate_TTC_Complete_step!(menge::crowd, geometrie::geometry, temp_head
 
     Update_Neighborhood!(menge, geometrie, system_size, r)
 
-    #Update_Desired_Headings!(menge)
+    Update_Desired_Headings!(menge)
 
     Calc_Headings_Vels_step!(menge, geometrie, temp_headings, temp_velocities, i*dt, t_step, system_size)
 
