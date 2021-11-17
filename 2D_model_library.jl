@@ -28,5 +28,8 @@ include("./pure_ttc_model_approx_complete.jl")
 include("./ttc_direction_model_complete.jl")
 include("./ttc_direction_step_model.jl")
 include("./ttc_step_model_complete.jl")
+include("./ttc_only_model.jl")
+
+
 
 ;

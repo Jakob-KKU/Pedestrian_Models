@@ -12,9 +12,9 @@ function Calc_V_Heading_TTC_Complete(a::agent, menge::crowd, geometrie::geometry
 
 
 
-    for vel in 0:0.1:a.v_max
+    for vel in 0:0.02:a.v_max
 
-        for ϕ in 0:0.01:2π
+        for ϕ in 0:0.1:2π
 
             ttc_ = Min_TTC(a, vel, Heading(ϕ), menge, geometrie, system_size)
 
