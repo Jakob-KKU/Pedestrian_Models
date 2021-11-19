@@ -174,4 +174,16 @@ function Init_Hom_Vels!(menge::crowd, vel::Float64)
         x.vel = vel
     end
 end
+
+function Init_Random_Desired_Time_Gaps!(menge::crowd, μ::Float64, σ::Float64)
+
+    func = Truncated(Distributions.Normal(μ, σ), μ-2*σ, μ+2*σ)  #Construct truncated normal distribution
+
+    for x in menge.agent
+
+        x.T = rand(func)
+
+    end
+
+end
 ;

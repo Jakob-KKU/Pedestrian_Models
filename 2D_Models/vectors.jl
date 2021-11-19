@@ -208,4 +208,32 @@ function e_(a_pos::NTuple{2, Float64}, b_pos::NTuple{2, Float64}, system_size::N
     (dx, dy) ./ sqrt(dx^2 + dy^2)
 end
 
+function ϕ_(a::agent)
+
+    if a.heading[2] >= 0.0
+        acos(a.heading[1])
+    else
+        2π - acos(a.heading[1])
+    end
+end
+
+function ϕ_(a::Vector)
+
+    if a[2] >= 0.0
+        acos(a[1])
+    else
+        2π - acos(a[1])
+    end
+end
+
+function ϕ_(a::NTuple{2, Float64})
+
+    if a[2] >= 0.0
+        acos(a[1])
+    else
+        2π - acos(a[1])
+    end
+end
+
+
 ;
