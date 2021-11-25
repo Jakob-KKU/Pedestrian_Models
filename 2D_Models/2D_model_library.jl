@@ -7,6 +7,7 @@ include("./Initialize_Simple_Situations.jl")
 #general functions
 include("./vectors.jl")
 include("./ttc.jl")
+include("./timegap.jl")
 include("./mengen.jl")
 include("./voronoi.jl")
 
@@ -29,6 +30,7 @@ include("./ttc_direction_model_complete.jl")
 include("./ttc_direction_step_model.jl")
 include("./ttc_step_model_complete.jl")
 include("./ttc_only_model.jl")
+include("./timegap_model.jl")
 
 
 

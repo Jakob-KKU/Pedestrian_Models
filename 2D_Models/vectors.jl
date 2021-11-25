@@ -108,7 +108,7 @@ e_(b::agent, a::element) = (b.pos.-a.pos)./d(a, b)
 e_(b::element, a::agent) = (b.pos.-a.pos)./d(a, b)
 e_(b::agent, a::NTuple{2, Float64}) = (b.pos.-a)./d(b, a)
 
-
+e_v(a::agent) = normalize(a.vel.*a.heading)
 e_v(b::agent, a::agent) = normalize(b.vel.*b.heading .- a.vel.*a.heading)
 e_v(v_b::NTuple{2, Float64}, v_a::NTuple{2, Float64}) = normalize(v_b .- v_a)
 e_v(b::agent, a::agent, v_b::Float64) = normalize(v_b.*b.heading .- a.vel.*a.heading)
