@@ -82,3 +82,17 @@ function Init_4_Agents_Bottleneck!(ϕ1, ϕ2, ϕ3, ϕ4, dist1, dist2, dist3, dist
     menge.agent[4].desired_heading = -1 .*e_(menge.agent[4], goal)
 
 end
+
+function Initialize_Circle!(menge::crowd, R_::Float64, P_0::NTuple{2, Float64})
+
+    dϕ = 2π/length(menge.agent)
+
+    for (i, x) in enumerate(menge.agent)
+
+        x.pos = (R_*cos((i-1)*dϕ)+P_0[1], R_*sin((i-1)*dϕ)+P_0[2])
+        x.desired_heading = -1 .*e_(x.pos, P_0)
+        x.heading = x.desired_heading
+
+    end
+
+end

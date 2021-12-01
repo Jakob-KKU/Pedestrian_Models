@@ -36,8 +36,6 @@ function Update_Pos_and_Heading!(menge::crowd, temp_headings::Array{NTuple{2, Fl
      end
 end
 
-
-
 function Update_Desired_Headings!(menge::crowd)
 
     for x in menge.agent

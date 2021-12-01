@@ -1,10 +1,9 @@
 #Initialize the Parameters TimeGap, Size, Maximal Velocity
-function initialize_homogeneous_parameters(p::Vector, menge::crowd)
+function Init_Hom_Parameters!(p::Vector, menge::crowd)
 
     for x in menge.agent
 
-        x.v_max, x.T, x.l, x.interaction_length, x.interaction_strength =
-         p[1], p[2], p[3], p[4], p[5]
+        x.v_max, x.T, x.l, x.dt_step = p[1], p[2], p[3], p[4]
     end
 
 end
@@ -15,8 +14,6 @@ function Init_hom_Goal!(menge, goal)
         x.goal = goal
     end
 end
-
-
 
 #initialize positions
 function overlap(current_agent::Int, menge::crowd)
@@ -185,5 +182,13 @@ function Init_Random_Desired_Time_Gaps!(menge::crowd, μ::Float64, σ::Float64)
 
     end
 
+end
+
+function Init_Random_Step_Pos!(menge::crowd)
+
+    for x in menge.agent
+
+        x.step = round(x.dt_step.*rand(), digits = 3)
+    end
 end
 ;

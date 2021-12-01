@@ -1,37 +1,44 @@
 #initialization functions
-include("./struct.jl")
-include("./initialize_system.jl")
-include("./initialize_geometry.jl")
-include("./Initialize_Simple_Situations.jl")
+include("./Initialization/Init_Struct.jl")
+include("./Initialization/Init_System.jl")
+include("./Initialization/Init_Geometry.jl")
+include("./Initialization/Init_SimpleSituations.jl")
 
 #general functions
-include("./vectors.jl")
-include("./ttc.jl")
-include("./timegap.jl")
-include("./mengen.jl")
-include("./voronoi.jl")
+include("./General_Functions/Vectors.jl")
+include("./General_Functions/TTC.jl")
+include("./General_Functions/TimeGap.jl")
+include("./General_Functions/Sets.jl")
+include("./General_Functions/Score.jl")
+
+#interfaces to other packages
+include("./Interface_Packages/Voronoi_Cells.jl")
 
 
 #general modeling functions
-include("./neighbors.jl")
-include("./update_functions.jl")
+include("./FirstOrder_Model.jl")
+include("./Neighbors.jl")
+include("./Update_Functions.jl")
 
 #plotting and analyzing
-include("./observables.jl")
-include("./plot_functions.jl")
+include("./Plotting_Analyzing/Observables.jl")
+include("./Plotting_Analyzing/Plot_Functions.jl")
 
-#different models
-include("./distance_based_model_complete.jl")
-include("./ttc_based_model_complete.jl")
-include("./ttc_approx_complete.jl")
-include("./pure_ttc_model_complete.jl")
-include("./pure_ttc_model_approx_complete.jl")
-include("./ttc_direction_model_complete.jl")
-include("./ttc_direction_step_model.jl")
-include("./ttc_step_model_complete.jl")
-include("./ttc_only_model.jl")
-include("./timegap_model.jl")
+#include model
+function include_model(model)
 
+    path = "/home/jakob/Dokumente/Git_Project/2D_Models/Models/"
+    include(string(path, model, ".jl"))
+
+end
+
+#include update
+function include_update(scheme)
+
+    path = "/home/jakob/Dokumente/Git_Project/2D_Models/Update_Schemes/"
+    include(string(path, scheme, ".jl"))
+
+end
 
 
 ;
