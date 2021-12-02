@@ -3,8 +3,8 @@ function TimeGap(a::agent, b::agent, system_size::NTuple{2, Float64})
     cos_α = e_(a,b,system_size)⋅a.heading
     A = ((cos_α)^2-1)*d(a,b,system_size)^2+l(a, b)^2
 
-    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0
-        999
+    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0.0
+        999.0
     else
         (-(cos_α)*d(a,b,system_size)-sqrt(A))/a.vel
     end
@@ -15,8 +15,8 @@ function TimeGap(a::agent, b::element, system_size::NTuple{2, Float64})
     cos_α = e_(a,b,system_size)⋅e_v(a)
     A = ((cos_α)^2-1)*d(a,b,system_size)^2+l(a, b)^2
 
-    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0
-        999
+    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0.0
+        999.0
     else
         (-(cos_α)*d(a,b,system_size)-sqrt(A))/a.vel
     end
@@ -27,7 +27,7 @@ function TimeGap(a::agent, b::agent, a_heading::NTuple{2, Float64}, a_vel::Float
     cos_α = e_(a,b,system_size)⋅a_heading
     A = ((cos_α)^2-1)*d(a,b,system_size)^2+l(a, b)^2
 
-    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0
+    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0.0
         999.9
     else
 
@@ -40,7 +40,7 @@ function TimeGap(a::agent, b::element, a_heading::NTuple{2, Float64}, a_vel::Flo
     cos_α = e_(a,b,system_size)⋅a_heading
     A = ((cos_α)^2-1)*d(a,b,system_size)^2+l(a, b)^2
 
-    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0
+    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0.0
         999.9
     else
 

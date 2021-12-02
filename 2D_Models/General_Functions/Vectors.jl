@@ -127,6 +127,7 @@ Heading(ϕ::Int64) = (cos(ϕ), sin(ϕ))
 
 
 Δv(a::agent, b::agent) = v(a) .- v(b)
+Δv(a::NTuple{2, Float64}, b::agent) = a .- v(b)
 Δv(v_a::NTuple{2, Float64}, v_b::NTuple{2, Float64}) = v_a .- v_b
 Δv(a::agent, b::agent, v_a::Float64) = a.heading.*v_a .- v(b)
 Δv(a::agent, b::agent, v_a::Float64, v_b) = a.heading.*v_a .- b.heading.*v_b
@@ -233,6 +234,41 @@ function ϕ_(a::NTuple{2, Float64})
     else
         2π - acos(a[1])
     end
+end
+
+
+function wrap_vector!(a::NTuple{2, Float64}, system_size::NTuple{2, Float64})
+
+    (x, y) = a
+
+    if x > system_size[1]/2
+        x = x - system_size[1]
+    elseif x < -system_size[1]/2
+        x = x + system_size[1]
+    end
+    if y > system_size[2]/2
+        y = y - system_size[2]
+    elseif y < -system_size[2]/2
+        y = y + system_size[2]
+    end
+
+    (x, y)
+
+end
+
+function wrap_normed_vector!(a::NTuple{2, Float64}, system_size::NTuple{2, Float64})
+
+    (x, y) = a
+
+    if x > system_size[1]/2
+        x = system_size[1] - x
+    end
+    if y > system_size[2]/2
+        y = system_size[2] - y
+    end
+
+    (x, y)
+
 end
 
 

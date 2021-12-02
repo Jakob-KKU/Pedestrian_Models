@@ -3,7 +3,7 @@ function Init_Hom_Parameters!(p::Vector, menge::crowd)
 
     for x in menge.agent
 
-        x.v_max, x.T, x.l, x.dt_step = p[1], p[2], p[3], p[4]
+        x.v_max, x.T, x.l, x.dt_step, x.τ_A = p[1], p[2], p[3], p[4], p[5]
     end
 
 end
