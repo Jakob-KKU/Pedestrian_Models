@@ -7,9 +7,9 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
 
 
 
-    for vel in 0:0.02:a.v_max
+    for vel in 0:0.08:a.v_max
 
-        for ϕ in 0:0.1:2π
+        for ϕ in 0:0.4:2π
 
             ttc_ = Min_TTC(a, vel, Heading(ϕ), menge, geometrie, system_size)
 

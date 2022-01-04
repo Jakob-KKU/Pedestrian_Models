@@ -140,3 +140,35 @@ function calc_v_ϕ_plane(a::agent, menge::crowd, geometrie::geometry, system_siz
 
     ϕ_s, v_s, ttc_
 end
+
+#smooth a vector over n steps
+function Smooth(a, n_steps::Int)
+
+    a_ = fill(0.0, length(a)-n_steps)
+
+    for i in 1:length(a_)
+        a_[i] = sum(a[i:i+n_steps-1])/n_steps
+    end
+
+    a_
+end
+
+#order parameter: mean of the projection of the actual heading on the desired heading
+function Order_Parameter(menge::crowd, headings)
+
+    saved_steps = size(headings)[1]
+    χ = fill(0.0, saved_steps)
+
+    for j in 1:saved_steps
+
+        for (i, x) in enumerate(menge.agent)
+
+            χ[j] += x.desired_heading ⋅ headings[j, i]
+
+        end
+
+    end
+
+    χ./length(menge.agent)
+
+end
