@@ -33,7 +33,7 @@ function Single_Iteration_2nd_Order!(menge::crowd, dt::Float64, temp_acc, L)
 
     Update_Predecessors!(menge, L)
     Calc_Acc!(menge, temp_acc, L, dt)
-    Update_Pos_Vels!(menge, temp_acc, L, dt)
+    Update_Pos_Vels_Acc!(menge, temp_acc, L, dt)
 
 end
 
@@ -47,7 +47,7 @@ function Calc_Acc!(menge::crowd, temp_acc, L, dt)
     end
 end
 
-function Update_Pos_Vels!(menge::crowd, temp_acc, L, dt)
+function Update_Pos_Vels_Acc!(menge::crowd, temp_acc, L, dt)
 
     for (i, x) in enumerate(menge.agent)
 
