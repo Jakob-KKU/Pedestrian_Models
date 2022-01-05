@@ -1,4 +1,4 @@
-function Init_Hom_Parameters!(menge::crowd,v_max, T, l, τ, dt_step)
+function Init_Hom_Parameters!(menge::crowd,v_max, T, l, τ, τ_A, dt_step, γ, σ)
 
     for i in 1:length(menge.agent)
 
@@ -6,6 +6,9 @@ function Init_Hom_Parameters!(menge::crowd,v_max, T, l, τ, dt_step)
         menge.agent[i].T = T
         menge.agent[i].l = l
         menge.agent[i].τ = τ
+        menge.agent[i].τ_A = τ_A
+        menge.agent[i].σ = σ
+        menge.agent[i].γ = γ
         menge.agent[i].dt_step = dt_step
 
     end
@@ -53,5 +56,19 @@ function Init_Ampel_Start!(menge::crowd, L)
         menge.agent[i].pos = current_pos
 
     end
+end
+
+function Add_Pertubation!(menge::crowd, i, dx)
+
+    menge.agent[i].pos += menge.agent[i].pos + dx
+
+end
+
+function Add_Max_Pertubation!(menge::crowd, i, L)
+
+    x = mod(i, length(menge.agent))+1
+
+    menge.agent[i].pos += d(menge.agent[i], menge.agent[x], L) - l(menge.agent[i], menge.agent[x])
+
 end
 ;

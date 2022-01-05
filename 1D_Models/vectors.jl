@@ -19,7 +19,6 @@ function d(a::agent, b::agent, L)
     end
 end
 
-
 Δv(a::agent, b::agent) = a.vel - b.vel
 
 l(a::agent, b::agent) = (a.l + b.l)/2

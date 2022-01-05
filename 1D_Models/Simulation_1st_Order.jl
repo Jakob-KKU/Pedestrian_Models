@@ -1,6 +1,6 @@
 function Simulate!(menge::crowd, dt, dt_save, t_sim, t_relax, L)
 
-    gespeicherte_schritte = Int(round(t_sim/dt_save))-1
+    gespeicherte_schritte = Int(round((t_sim-t_relax)/dt_save))-1
     N = length(menge.agent)
 
     positions = Array{Float64, 2}(undef, gespeicherte_schritte, N)
