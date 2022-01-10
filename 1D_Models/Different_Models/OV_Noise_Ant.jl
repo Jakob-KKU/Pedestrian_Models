@@ -1,7 +1,7 @@
 function Calc_Single_Velocity(menge::crowd, i::Int64, L, dt)
 
-    x = mod(i, length(menge.agent))+1
-    x_2 = mod(x, length(menge.agent))+1
+    x = menge.agent[i].pred
+    x_2 = menge.agent[x].pred
 
     ov(menge.agent[i], menge.agent[x], L) +
     menge.agent[i].γ * (d(menge.agent[i], menge.agent[x], L) -
