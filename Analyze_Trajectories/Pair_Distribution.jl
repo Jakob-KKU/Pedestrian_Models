@@ -1,3 +1,5 @@
+Pair_Distribution_from_Hist(h_inter, h_indep) = h_inter.*sum(h_indep)./(h_indep.*sum(h_inter))
+
 function Add_Distance_Int_Data!(data::CSV.File, i, j, d_inter, frames, rows, x, step)
 
     #iterate over all frames in which i and j are together & calc the rows in the data
@@ -6,7 +8,7 @@ function Add_Distance_Int_Data!(data::CSV.File, i, j, d_inter, frames, rows, x, 
         k = rows[i]-frames[i][1]+m
         l = rows[j]-frames[j][1]+m
 
-        d_inter[Int(round((d_1D(data, k, l))/step))+1]+=1
+        d_inter[Int(round((d(data, k, l))/step))+1]+=1
 
     end
 
@@ -21,7 +23,7 @@ function Add_Distance_Ind_Data!(data::CSV.File, i, j, d_indep, frames, rows, ste
         for l in rows[j]:10:rows[j]+(frames[j][2]-frames[j][1])
 
             #calculate their distance and add it to the independend set
-            d_indep[Int(round((d_1D(data, k, l))/step))+1]+=1
+            d_indep[Int(round((d(data, k, l))/step))+1]+=1
 
         end
 
@@ -30,12 +32,33 @@ function Add_Distance_Ind_Data!(data::CSV.File, i, j, d_indep, frames, rows, ste
 end
 
 #calculate the absolute frequencies of the distances with and with out interaction
-function Pair_Dist(data, f_min, step, d_max)
+function Combined_Distance_Histograms(N, cam, path,  Δd, d_max)
+
+    distances = collect(0.0:Δd:d_max)
+    d_inter, d_indep = fill(0.0, length(distances)), fill(0.0, length(distances))
+
+    #iterate through data sets
+
+    for x in cam
+
+        for y in N
+
+            file = string("n", y, "_cam", x, ".txt")
+            data = Read_Traj(path, file)
+
+            Add_Distance_Histograms!(data, Δd, d_max, distances, d_inter, d_indep)
+
+        end
+
+    end
+
+    d_inter, d_indep, distances
+
+end
+
+function Add_Distance_Histograms!(data, step, d_max, distances, d_inter, d_indep)
 
     frames, rows = Find_Frames(data)
-
-    distances = collect(0.0:step:d_max)
-    d_inter, d_indep = fill(0.0, length(distances)), fill(0.0, length(distances))
 
     #iterate through ID's
     for i in 1:length(frames)
@@ -63,7 +86,7 @@ function Pair_Dist(data, f_min, step, d_max)
 
     end
 
-    d_inter, d_indep, distances
+    d_inter, d_indep
 
 end
 
