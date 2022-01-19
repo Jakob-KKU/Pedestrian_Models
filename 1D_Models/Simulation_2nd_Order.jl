@@ -31,7 +31,7 @@ end
 
 function Single_Iteration_2nd_Order!(menge::crowd, dt::Float64, temp_acc, L)
 
-    Update_Predecessors!(menge, L)
+    #Update_Predecessors!(menge, L)
     Calc_Acc!(menge, temp_acc, L, dt)
     Update_Pos_Vels_Acc!(menge, temp_acc, L, dt)
 
