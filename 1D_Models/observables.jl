@@ -1,4 +1,4 @@
-function st_devi(x::Matrix, x_mean)
+function variance(x::Matrix, x_mean)
 
     varianz = 0
 

@@ -31,7 +31,7 @@ end
 
 function Single_Iteration!(menge::crowd, dt::Float64, temp_velocities, L)
 
-    Update_Predecessors!(menge, L)
+    #Update_Predecessors!(menge, L)
     Calc_Velocities!(menge, temp_velocities, L, dt)
     Update_Pos_Vels!(menge, temp_velocities, L, dt)
 

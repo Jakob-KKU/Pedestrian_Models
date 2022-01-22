@@ -8,7 +8,7 @@ function ttc(a::agent, b::agent, L)
 end
 
 
-function d(a::agent, b::agent, L)
+function d_neg(a::agent, b::agent, L)
 
     dx = b.pos - a.pos
 
@@ -19,6 +19,18 @@ function d(a::agent, b::agent, L)
         else
             L + dx
         end
+    else
+        dx
+    end
+
+end
+
+function d(a::agent, b::agent, L)
+
+    dx = abs(b.pos - a.pos)
+
+    if dx > L/2
+        L - dx
     else
         dx
     end
