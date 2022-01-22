@@ -3,7 +3,7 @@ function Simulate!(menge::crowd, dt, dt_save, t_sim, t_relax, L)
     gespeicherte_schritte = Int(round((t_sim-t_relax)/dt_save))-1
     N = length(menge.agent)
 
-    Init_Predecessors!(menge, L)
+    Init_Predecessors!(menge)
 
     positions = Array{Float64, 2}(undef, gespeicherte_schritte, N)
     velocities = Array{Float64, 2}(undef, gespeicherte_schritte, N)

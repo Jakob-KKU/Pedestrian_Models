@@ -1,5 +1,3 @@
-
-
 function Calc_Single_Velocity(menge::crowd, i::Int64, L, dt)
 
     x = mod(i, length(menge.agent))+1

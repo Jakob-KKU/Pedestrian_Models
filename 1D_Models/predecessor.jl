@@ -15,7 +15,7 @@ function Update_Predecessors!(menge::crowd, L)
 end
 
 
-function Init_Predecessors!(menge::crowd, L)
+function Init_Predecessors!(menge::crowd)
 
     for (i, x) in enumerate(menge.agent)
 

@@ -8,33 +8,26 @@ function ttc(a::agent, b::agent, L)
 end
 
 
-function d_neg(a::agent, b::agent, L)
-
-    dx = b.pos - a.pos
-
-    if abs(dx) > L/2
-
-        if dx > 0.0
-            L - dx
-        else
-            L + dx
-        end
-    else
-        dx
-    end
-
-end
+#function d(a::agent, b::agent, L)
+##    dx = b.pos - a.pos
+#    if abs(dx) > L/2
+#        if dx < 0.0
+#            dx + L
+#        else
+#            dx - L
+#        end
+#    else
+#        dx
+#    end
+#end
 
 function d(a::agent, b::agent, L)
-
-    dx = abs(b.pos - a.pos)
-
-    if dx > L/2
-        L - dx
+    dx = b.pos - a.pos
+    if dx < 0
+        L + dx
     else
         dx
     end
-
 end
 
 Δv(a::agent, b::agent) = b.vel - a.vel

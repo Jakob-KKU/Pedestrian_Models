@@ -67,8 +67,11 @@ end
 function Add_Max_Pertubation!(menge::crowd, i, L)
 
     x = mod(i, length(menge.agent))+1
+    pert = d(menge.agent[i], menge.agent[x], L) - l(menge.agent[i], menge.agent[x])
 
-    menge.agent[i].pos += d(menge.agent[i], menge.agent[x], L) - l(menge.agent[i], menge.agent[x])
+
+    menge.agent[i].pos += min(pert, 1.0)
+
 
 end
 ;

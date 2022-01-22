@@ -1,19 +1,16 @@
 function Calc_Single_Acc(menge::crowd, i::Int64, L, dt)
 
     x = menge.agent[i].pred
-    x_2 = menge.agent[x].pred
 
-    acc(menge.agent[i], menge.agent[x], menge.agent[x_2], L)
+    acc(menge.agent[i], menge.agent[x], L)
 
 end
 
-function acc(a::agent, b::agent, c::agent, L)
-
-    return 1/a.τ *(ov(a, b, L) - a.vel)
-
+function acc(a::agent, b::agent, L)
+    (ov(a, b, L) - a.vel)/a.τ
 end
 #ov(a::agent, b::agent, L) = max(0.0,(d(a, b, L) - l(a, b))/a.T)
-ov(a::agent, b::agent, L) = min(a.v_max,(d(a, b, L) - l(a, b))/a.T)
-#ov(a::agent, b::agent, L) = min(a.v_max, max(0.0,(d(a, b, L) - l(a, b))/a.T))
+#ov(a::agent, b::agent, L) = min(a.v_max,(d(a, b, L) - l(a, b))/a.T)
+ov(a::agent, b::agent, L) = min(a.v_max, max(0.0,(d(a, b, L) - l(a, b))/a.T))
 #ov(a::agent, b::agent, L) = (d(a, b, L) - l(a, b))/a.T
 ;
