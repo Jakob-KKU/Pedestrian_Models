@@ -5,4 +5,6 @@ include("./vectors.jl")
 include("./plot_functions.jl")
 include("./Simulation_1st_Order.jl")
 include("./Simulation_2nd_Order.jl")
+include("./Simulation_2nd_Order_HW.jl")
+
 include("./observables.jl")

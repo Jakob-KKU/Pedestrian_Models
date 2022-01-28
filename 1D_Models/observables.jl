@@ -44,7 +44,7 @@ function Autocorrelation_V(menge::crowd, L, dt, dt_save, t_sim, t_relax, samples
 
     for i in 1:samples
 
-        println("Calculate sample ", i, " von ", samples, "... ")
+        #println("Calculate sample ", i, " von ", samples, "... ")
 
         Random.seed!()
 
@@ -56,7 +56,7 @@ function Autocorrelation_V(menge::crowd, L, dt, dt_save, t_sim, t_relax, samples
         positions, velocities = Simulate_2nd_Order!(menge, dt, dt_save, t_sim, t_relax, L);
 
         v_mean = mean(velocities)
-        σ_v += st_devi(velocities, v_mean)
+        σ_v += variance(velocities, v_mean)
 
         for (j,t) in enumerate(t_ac)
 
@@ -91,7 +91,7 @@ function Find_First_Max(x::Array)
 
     else
 
-        i_max
+        x[i_max]
 
     end
 
