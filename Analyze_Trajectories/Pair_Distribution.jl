@@ -1,84 +1,42 @@
 Pair_Distribution_from_Hist(h_inter, h_indep) = h_inter.*sum(h_indep)./(h_indep.*sum(h_inter))
 
-function Add_Distance_Int_Data!(data::CSV.File, i, j, d_inter, frames, rows, x, step)
+function Combined_Histograms(files, path, header, Δx, x_min, x_max, k, sign, Δt)
 
-    #iterate over all frames in which i and j are together & calc the rows in the data
-    for m in x[1]:x[2]
-
-        k = rows[i]-frames[i][1]+m
-        l = rows[j]-frames[j][1]+m
-
-        d_inter[Int(round((d(data, k, l))/step))+1]+=1
-
-    end
-
-end
-
-function Add_Distance_Ind_Data!(data::CSV.File, i, j, d_indep, frames, rows, step)
-
-    #iterate over all frames in which i appears
-    for k in rows[i]:10:rows[i]+(frames[i][2]-frames[i][1])
-
-        #iterate over all frames in which j appears
-        for l in rows[j]:10:rows[j]+(frames[j][2]-frames[j][1])
-
-            #calculate their distance and add it to the independend set
-            d_indep[Int(round((d(data, k, l))/step))+1]+=1
-
-        end
-
-    end
-
-end
-
-#calculate the absolute frequencies of the distances with and with out interaction
-function Combined_Distance_Histograms(N, cam, path,  Δd, d_max)
-
-    distances = collect(0.0:Δd:d_max)
-    d_inter, d_indep = fill(0.0, length(distances)), fill(0.0, length(distances))
+    x = collect(0.0:Δx:x_max)
+    p_x_INT, p_x_IND = fill(0.0, length(x)), fill(0.0, length(x))
 
     #iterate through data sets
+    for (i, file) in enumerate(files)
 
-    for x in cam
+        menge = Create_Crowd(Read_Traj(path, file, header))
+        Init_Velocities!(menge, k, Δt, sign[i])
 
-        for y in N
-
-            file = string("n", y, "_cam", x, ".txt")
-            data = Read_Traj(path, file)
-
-            Add_Distance_Histograms!(data, Δd, d_max, distances, d_inter, d_indep)
-
-        end
+        Add_to_Histogram!(menge, Δx, x_max, p_x_INT, p_x_IND)
 
     end
 
-    d_inter, d_indep, distances
+    p_x_INT, p_x_IND, x
 
 end
 
-function Add_Distance_Histograms!(data, step, d_max, distances, d_inter, d_indep)
-
-    frames, rows = Find_Frames(data)
+function Add_to_Histogram!(menge::crowd, Δx, x_max, p_x_INT, p_x_IND)
 
     #iterate through ID's
-    for i in 1:length(frames)
+    for (i, a) in enumerate(menge.agent)
 
         #iterate over all possible pairs
-        for j in i+1:length(frames)
+        for (j, b) in enumerate(menge.agent[i+1:end])
 
             #are i and j present in any frame together?
-            x = Intersection_Interval(frames[i], frames[j])
-
-
-            if x == false
+            if Intersection_Interval(a.frames, b.frames) == false
 
                 #if this is not the case: it is used to estimate the "non-interacting" distribution
-                Add_Distance_Ind_Data!(data, i, j, d_indep, frames, rows, step)
+                Add_IND_Data!(p_x_IND, Δx, x_max, x_min, a, b)
 
-            elseif x[2]-x[1] >= f_min
+            else
 
                 #if this they share at least f_min frames: it is used to estimate the "interacting" distribution
-                Add_Distance_Int_Data!(data, i, j, d_inter, frames, rows, x, step)
+                Add_INT_Data!(p_x_INT, Δx, x_max, x_min, a, b)
 
             end
 
@@ -86,57 +44,49 @@ function Add_Distance_Histograms!(data, step, d_max, distances, d_inter, d_indep
 
     end
 
-    d_inter, d_indep
+    p_x_INT, p_x_IND
 
 end
 
-#gives the intersection of two intervals, false if none
-function Intersection_Interval(i1, i2)
+function Add_INT_Data!(p_x, Δx, x_max, x_min, a, b)
 
-    if i2[1] > i1[2] || i1[1] > i2[2]
+    i_min, i_max = Intersection_Interval(a.frames, b.frames)
 
-        false
+    #iterate over all frames in which i and j are together & calc the rows in the data
+    for i in i_min:i_max
 
-    else
+        x = d(a.x[i - a.frames[1] + 1], b.x[i - b.frames[1] + 1])
 
-        (max(i1[1], i2[1]), min(i1[2], i2[2]))
+        if x < x_max && x > x_min
 
-    end
-
-end
-
-#gives the frames [start, end] in which agent i enters and leaves the filmed area and the row where his data starts
-function Find_Frames(data::CSV.File)
-
-    ID_max = data.ID[end]
-
-    frames, row_start = Array{NTuple{2, Int64}, 1}(undef, ID_max), Array{Int64, 1}(undef, ID_max)
-
-    ID_, row = 1, 1
-
-
-    while ID_ < ID_max
-
-        first = data[row].Frame
-        row_start[ID_] = row
-
-        while data[row].ID == ID_
-
-            row+=1
+                p_x[I(x,Δx,x_min)]+=1
 
         end
 
-        last = data[row-1].Frame
-
-        frames[ID_] = (first, last)
-
-        ID_+=1
-
     end
 
-    frames[ID_max] = (data[row].Frame, data[end].Frame)
-    row_start[ID_max] = row
+end
 
-    frames, row_start
+function Add_IND_Data!(p_x, Δx, x_max, x_min, a, b)
+
+    #iterate over all frames in which i appears
+    for k in 1:10:length(a.x)
+
+        #iterate over all frames in which j appears
+        for l in 1:10:length(b.x)
+
+            #calculate their distance and add it to the independend set
+            x = d(a.x[k], b.x[l])
+
+            if x < x_max && x > x_min
+
+                p_x[I(x,Δx,x_min)]+=1
+
+            end
+
+
+        end
+
+    end
 
 end

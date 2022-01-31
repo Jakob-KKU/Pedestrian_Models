@@ -1,4 +1,5 @@
 d(x_1, y_1, x_2, y_2) = sqrt((x_1-x_2)^2+(y_1-y_2)^2)
+d(x1, x2) = abs(x2 - x1)
 
 d(data::CSV.File, k::Int, l::Int) = sqrt((data[k].x-data[l].x)^2+(data[k].y-data[l].y)^2)
 
@@ -8,9 +9,16 @@ dx_1D(data::CSV.File, k::Int, l::Int) = data[k].x-data[l].x
 
 v_1D(data::CSV.File, k::Int, l::Int, Δt) = (data[l].x-data[k].x)/Δt
 
-v(x_1, y_1, x_2, y_2, Δt) = ((x_2-x_1), (y_2-y_1))./Δt
+v(x_1, y_1, x_2, y_2, Δt) = ((x_2-x_1), (y_2-y_1))./(Δt)
+
 
 v(data::CSV.File, k::Int, l::Int, Δt) = (data[l].x-data[k].x, data[l].y-data[k].y)./Δt
+
+
+
+v(p_p2, p_p1, p_n1, p_n2, Δt) = (-p_p2 + 8*p_p1 - 8*p_n1 + p_n2)/(12*Δt)
+v(p_p1, p_n1, Δt) = (p_p1-p_n1)/(2*Δt)
+
 
 d_ttc_1d(Δv, δΔv, d, δd, l) = sqrt((sqrt(δd/Δv)^2)+((d-l)/(Δv)^2*δΔv)^2)
 
