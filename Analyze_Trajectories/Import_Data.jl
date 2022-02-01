@@ -19,20 +19,6 @@ function Init_Velocities!(menge::crowd, k, Δt, sign)
 
 end
 
-function Init_Velocities_2!(menge::crowd, k, Δt)
-
-    for a in menge.agent
-
-        for i in 2*k+1:length(a.x)-2*k
-
-            a.v_x[i] = v(a.x[i-2*k], a.x[i-k], a.x[i+k], a.x[i+2*k], k*Δt)
-            a.v_y[i] = v(a.y[i-2*k], a.y[i-k], a.y[i+k], a.y[i+2*k], k*Δt)
-
-        end
-    end
-
-end
-
 function Create_Crowd(data::CSV.File)
 
     frames, row_start = Find_Frames(data)
@@ -42,8 +28,8 @@ function Create_Crowd(data::CSV.File)
     crowd([agent(frames[i],
                 data.x[row_start[i]:(row_start[i] + frames[i][2]-frames[i][1])],
                 data.y[row_start[i]:(row_start[i] + frames[i][2]-frames[i][1])],
-                fill(0.0, frames[i][2]-frames[i][1]),
-                fill(0.0, frames[i][2]-frames[i][1]))
+                fill(0.0, frames[i][2]-frames[i][1]+1),
+                fill(0.0, frames[i][2]-frames[i][1]+1))
             for i in 1:N])
 
 end
