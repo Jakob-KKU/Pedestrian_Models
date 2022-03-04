@@ -3,8 +3,3 @@ include("./Import_Data.jl")
 include("./Observables.jl")
 include("./Pair_Distribution.jl")
 include("./Pair_Distribution_binned.jl")
-
-include("./Pair_Distribution_Dist_TTC.jl")
-include("./Pair_Distribution_Dist_Dv.jl")
-include("./Pair_Distribution_TTC.jl")
-include("./Pair_Distribution_Dv.jl")

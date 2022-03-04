@@ -63,7 +63,7 @@ end
 
 function Save_Pos_Vel_TTC!(menge::crowd, geometrie::geometry, j, system_size, ttcs, positions, headings)
 
-    for i in 1:N
+    for i in 1:length(menge.agents)
         ttcs[j, i] = Min_TTC(menge.agent[i], menge, geometrie, system_size)
         positions[j, i] = menge.agent[i].pos
         headings[j, i]  = menge.agent[i].heading

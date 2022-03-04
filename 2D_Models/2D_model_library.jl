@@ -25,6 +25,8 @@ include("./Update_Functions.jl")
 #plotting and analyzing
 include("./Plotting_Analyzing/Observables.jl")
 include("./Plotting_Analyzing/Plot_Functions.jl")
+include("./Plotting_Analyzing/Velocity_Obstacles.jl")
+
 
 #include model
 function include_model(model)

@@ -1,3 +1,14 @@
+function Pair_Distribution_from_Binned_Hist(h_inter, h_indep)
+
+    a = h_inter[:, 1].*sum(h_indep[:, 1])./(h_indep[:, 1].*sum(h_inter[:, 1]))
+    b = h_inter[:, 2].*sum(h_indep[:, 2])./(h_indep[:, 2].*sum(h_inter[:, 2]))
+    c = h_inter[:, 3].*sum(h_indep[:, 3])./(h_indep[:, 3].*sum(h_inter[:, 3]))
+
+    a, b, c
+
+end
+
+
 function Combined_Histograms(files, path, header, Δx, x_min, x_max, k, sign, Δt, f_min, f_max, bins)
 
     x = collect(x_min:Δx:x_max)

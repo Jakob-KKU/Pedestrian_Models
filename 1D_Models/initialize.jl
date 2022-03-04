@@ -15,6 +15,15 @@ function Init_Hom_Parameters!(menge::crowd,v_max, T, l, τ, τ_A, dt_step, γ, �
 
 end
 
+function Init_EQ_Positions!(menge::crowd, dist)
+
+    for i in 1:length(menge.agent)
+
+        menge.agent[i].pos = (i-1)*dist
+
+    end
+end
+
 function Init_Hom_Velocities!(menge::crowd, vel::Float64)
 
     for i in 1:length(menge.agent)
