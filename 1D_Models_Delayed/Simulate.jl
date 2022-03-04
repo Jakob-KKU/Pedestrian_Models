@@ -29,6 +29,8 @@ function Simulate!(menge::crowd, dt, dt_save, t_sim, t_relax, L)
     positions, velocities
 end
 
+
+
 function Single_Iteration!(menge::crowd, t::Float64, temp_velocities, L)
 
     #Update_Predecessors!(menge, L)
@@ -84,7 +86,7 @@ end
 function Update_History!(a::agent, t)
 
     index = Int(round(mod(t/a.dt, a.τ_R/a.dt)))+1
-    
+
     a.x_h[index] = a.pos
     a.v_h[index] = a.vel
 end

@@ -16,3 +16,17 @@ function variance(x::Matrix)
 
     return varianz/(size(x)[1]*size(x)[2])
 end
+
+function variance(x::Vector)
+
+    x_mean = sum(x)/length(x)
+    varianz = 0
+
+    for val in x
+
+            varianz += (val-x_mean)^2
+
+    end
+
+    return varianz/(length(x))
+end
