@@ -33,7 +33,7 @@ end
 
 function create_crowd(N::Int, dt, τ_R)
 
-    len = Int(round(τ_R/dt))+1
+    len = Int(round(τ_R/dt))
 
     crowd([agent(0.0, 0.0, 0, fill(0.0, len),  fill(0.0, len), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) for i in 1:N])
 end

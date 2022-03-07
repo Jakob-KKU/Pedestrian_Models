@@ -26,7 +26,7 @@ function Init_Hom_History!(menge::crowd, ic_vel, L)
         end
 
         a.pos = a.x_h[end]
-        a.vel = ic_vel
+        a.vel = a.v_h[end]
 
     end
 end
@@ -34,10 +34,43 @@ end
 function Add_Max_Pertubation!(menge::crowd, i, L)
 
     x = mod(i, length(menge.agent))+1
+
     pert = d(menge.agent[i], menge.agent[x], L) - l(menge.agent[i], menge.agent[x])
 
 
     menge.agent[i].pos += min(pert, 1.0)
+    menge.agent[i].pos += min(pert, 1.0)
+
+
+end
+
+function Add_History_Pertubation!(menge::crowd, i, L)
+
+    x = mod(i, length(menge.agent))+1
+    a = menge.agent[i]
+    b = menge.agent[x]
+
+    T_a = 0.3
+    a_decc = 1.0*a.vel / T_a
+
+
+    for i in 2:length(a.x_h)
+
+        a.x_h[i] = a.x_h[1]
+
+        if i*a.dt > length(a.x_h)*a.dt - T_a
+
+            a.v_h[i] = a.v_h[i-1]-a_decc*a.dt
+
+        end
+
+        a.x_h[i] = a.x_h[i-1]+a.dt*a.v_h[i]
+
+
+    end
+
+    a.pos = a.x_h[end]
+    a.vel = a.v_h[end]
 
 
 end

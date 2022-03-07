@@ -30,3 +30,4 @@ function variance(x::Vector)
 
     return varianz/(length(x))
 end
+;
