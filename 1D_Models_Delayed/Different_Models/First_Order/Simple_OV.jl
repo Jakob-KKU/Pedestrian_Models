@@ -6,5 +6,5 @@ function Calc_Single_Velocity(menge::crowd, i::Int64, L, t)
 
 end
 
-ov(a::agent, b::agent, L, t) = max(0.0, (d_del(a, b, L, t) - l(a, b))/a.T)
+ov(a::agent, b::agent, L, t) = (d_del(a, b, L, t) - l(a, b))/a.T
 ;

@@ -1,4 +1,4 @@
-function Init_Hom_Parameters!(menge::crowd,v_max, T, l, τ_R, τ_A, dt, σ)
+function Init_Hom_Parameters!(menge::crowd,v_max, T, l, τ_R, τ_A, σ)
 
     for i in 1:length(menge.agent)
 
@@ -8,19 +8,18 @@ function Init_Hom_Parameters!(menge::crowd,v_max, T, l, τ_R, τ_A, dt, σ)
         menge.agent[i].τ_R = τ_R
         menge.agent[i].τ_A = τ_A
         menge.agent[i].σ = σ
-        menge.agent[i].dt = dt
 
     end
 
 end
 
-function Init_Hom_History!(menge::crowd, ic_vel, L)
+function Init_Hom_History!(menge::crowd, ic_vel, L, dt)
 
     for (i,a) in enumerate(menge.agent)
 
         for j in 1:length(a.x_h)
 
-            a.x_h[j] = mod((i-1)*L/length(menge.agent)+a.dt*j*ic_vel, L)
+            a.x_h[j] = mod((i-1)*L/length(menge.agent)+dt*j*ic_vel, L)
             a.v_h[j] = ic_vel
 
         end

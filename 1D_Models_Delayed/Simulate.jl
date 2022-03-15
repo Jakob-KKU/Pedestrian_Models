@@ -85,9 +85,11 @@ end
 
 function Update_History!(a::agent, t)
 
-    index = Int(round(mod(t/a.dt, a.τ_R/a.dt)))+1
+    #index = Int(round(mod(t/a.dt, a.τ_R/a.dt)))+1
 
-    a.x_h[index] = a.pos
-    a.v_h[index] = a.vel
+    a.x_h[a.i] = a.pos
+    a.v_h[a.i] = a.vel
+
+    a.i = mod(a.i, length(a.x_h))+1
 end
 ;
