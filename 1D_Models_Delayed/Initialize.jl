@@ -43,7 +43,7 @@ function Add_Max_Pertubation!(menge::crowd, i, L)
 
 end
 
-function Add_History_Pertubation!(menge::crowd, i, L)
+function Add_History_Pertubation!(menge::crowd, i, L, dt)
 
     x = mod(i, length(menge.agent))+1
     a = menge.agent[i]
@@ -57,13 +57,13 @@ function Add_History_Pertubation!(menge::crowd, i, L)
 
         a.x_h[i] = a.x_h[1]
 
-        if i*a.dt > length(a.x_h)*a.dt - T_a
+        if i*dt > length(a.x_h)*dt - T_a
 
-            a.v_h[i] = a.v_h[i-1]-a_decc*a.dt
+            a.v_h[i] = a.v_h[i-1]-a_decc*dt
 
         end
 
-        a.x_h[i] = a.x_h[i-1]+a.dt*a.v_h[i]
+        a.x_h[i] = a.x_h[i-1]+dt*a.v_h[i]
 
 
     end

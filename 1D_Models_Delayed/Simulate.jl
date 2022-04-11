@@ -14,7 +14,7 @@ function Simulate!(menge::crowd, dt, dt_save, t_sim, t_relax, L)
 
     while dt * i < t_sim
 
-        Single_Iteration!(menge, dt * i, temp_velocities, L)
+        Single_Iteration!(menge, dt,  dt * i, temp_velocities, L)
 
         if i*dt > t_relax && mod(i, Int(round(dt_save/dt))) == 0
 
@@ -31,13 +31,13 @@ end
 
 
 
-function Single_Iteration!(menge::crowd, t::Float64, temp_velocities, L)
+function Single_Iteration!(menge::crowd, dt, t::Float64, temp_velocities, L)
 
     #Update_Predecessors!(menge, L)
 
     Calc_Velocities!(menge, temp_velocities, L, t)
 
-    Update_Pos_Vels!(menge, temp_velocities, L)
+    Update_Pos_Vels!(menge, dt, temp_velocities, L)
 
     Update_Histories!(menge, t)
 
@@ -63,12 +63,12 @@ function Calc_Velocities!(menge::crowd, temp_velocities, L, t)
     end
 end
 
-function Update_Pos_Vels!(menge::crowd, temp_velocities, L)
+function Update_Pos_Vels!(menge::crowd, dt, temp_velocities, L)
 
     for (i, x) in enumerate(menge.agent)
 
         x.vel = temp_velocities[i]
-        x.pos = mod(x.pos + x.dt * x.vel, L)
+        x.pos = mod(x.pos + dt * x.vel, L)
 
     end
 end
