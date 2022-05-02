@@ -1,3 +1,6 @@
+Score(a::agent, a_vel, a_ϕ) = (a.v_max .* a.desired_heading) ⋅ v(a_vel, a_ϕ)
+
+
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
     score_ = -999.9

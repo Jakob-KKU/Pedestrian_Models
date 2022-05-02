@@ -1,4 +1,3 @@
-Score(a::agent, a_vel, a_ϕ) = (a.v_max .* a.desired_heading) ⋅ v(a_vel, a_ϕ)
 Score(ϕ, v, v_max) = v*v_max*cos(ϕ)
 Vel(ϕ, x, v_max) = x/(v_max*cos(ϕ))
 

@@ -3,7 +3,7 @@ function Calc_Single_Velocity(menge::crowd, i::Int64, L, t)
     a = menge.agent[i]
     b = menge.agent[a.pred]
 
-    ov(a, b, L, t) +  a.τ_A*ov_nod(a, b, L, t)*Δv_del(a, b, t)
+    ov(a, b, L, t) +  a.τ_A*ov_nod(a, b, L, t)*Δv_del(a, b, t) + a.σ * randn()
 
 end
 

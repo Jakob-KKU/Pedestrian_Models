@@ -44,5 +44,13 @@ function include_update(scheme)
 
 end
 
+#include order
+function include_order(order)
+
+    path = "/home/jakob/Dokumente/Git_Project/2D_Models/Order/"
+    include(string(path, order, ".jl"))
+
+end
+
 
 ;

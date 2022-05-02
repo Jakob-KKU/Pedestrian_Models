@@ -64,10 +64,10 @@ end
 
 function Calc_Leader_Acc(menge, t, dt)
 
-    T_a = 1.0
-    a = 1.2/T_a
+    T_a = 2.0
+    a = 0.2/T_a
 
-    if t < T_a
+    if t < 1*T_a
         0
     elseif t < 2*T_a
         -a

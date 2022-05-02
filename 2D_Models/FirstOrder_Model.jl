@@ -36,7 +36,9 @@ function Iterate!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple
 
     Update_Neighborhood!(menge, geometrie, system_size, r)
 
+    #Update_Voronoi_Dens!(menge, system_size)
     #Update_Desired_Headings!(menge)
+    Update_Desired_Velocity!(menge, geometrie, system_size)
 
     Calc_Temp_Headings_and_Velocities!(menge, geometrie, temp_headings,
      temp_velocities, system_size, dt)
@@ -63,7 +65,7 @@ end
 
 function Save_Pos_Vel_TTC!(menge::crowd, geometrie::geometry, j, system_size, ttcs, positions, headings)
 
-    for i in 1:length(menge.agents)
+    for i in 1:length(menge.agent)
         ttcs[j, i] = Min_TTC(menge.agent[i], menge, geometrie, system_size)
         positions[j, i] = menge.agent[i].pos
         headings[j, i]  = menge.agent[i].heading

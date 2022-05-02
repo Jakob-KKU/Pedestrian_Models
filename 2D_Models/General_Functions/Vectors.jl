@@ -230,9 +230,9 @@ end
 function ϕ_(a::NTuple{2, Float64})
 
     if a[2] >= 0.0
-        acos(a[1])
+        acos(a[1]/abs(a))
     else
-        2π - acos(a[1])
+        2π - acos(a[1]/abs(a))
     end
 end
 

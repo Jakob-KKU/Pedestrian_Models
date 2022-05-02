@@ -94,8 +94,6 @@ function Simulate_String_OD!(menge::crowd, dt, t_sim)
 
     Init_Predecessors!(menge)
 
-
-
     temp_velocities = Array{Float64,1}(undef,N)
 
     i= 0
@@ -105,8 +103,8 @@ function Simulate_String_OD!(menge::crowd, dt, t_sim)
         Single_Iteration_String!(menge, dt * i, dt, temp_velocities)
 
 
-        if round(menge.agent[1].vel - (1.0-menge.agent[1].l)/menge.agent[1].T, digits = 10) > 0.0000000001
-        #if menge.agent[1].vel < 0.0
+        #if round(menge.agent[1].vel - (1.0-menge.agent[1].l)/menge.agent[1].T, digits = 10) > 0.0000000001
+        if menge.agent[1].vel < 0.0
             return false
 
             break

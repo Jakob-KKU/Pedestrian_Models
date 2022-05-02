@@ -1,5 +1,7 @@
-#sampling based algorithm
+Score(a::agent, a_vel, a_ϕ) = (a.v_max .* a.desired_heading) ⋅ v(a_vel, a_ϕ)
 
+
+#sampling based algorithm
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
     if v_des_possible(a, menge, geometrie, system_size) == true

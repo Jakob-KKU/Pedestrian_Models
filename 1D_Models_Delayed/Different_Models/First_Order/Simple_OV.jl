@@ -1,8 +1,9 @@
 function Calc_Single_Velocity(menge::crowd, i::Int64, L, t)
 
-    x = menge.agent[i].pred
+    a = menge.agent[i]
+    b = menge.agent[i].pred
 
-    ov(menge.agent[i], menge.agent[x], L, t)
+    ov(a, b, L, t) + a.σ * randn()
 
 end
 
