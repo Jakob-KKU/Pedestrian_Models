@@ -1,7 +1,4 @@
-#Score(a::agent, vel, ϕ) = -abs(vel-a.v_des)+(v(vel, ϕ)⋅(a.v_des.*a.desired_heading))
-#Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_des.*a.desired_heading)+(v(vel, ϕ)⋅(a.v_des.*a.desired_heading))
-
-Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_des.*a.desired_heading)
+Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_max.*a.desired_heading)
 Score2(a::agent, vel, ϕ, ttc) =  -(1/ttc - Score(a, vel, ϕ))
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
@@ -14,7 +11,9 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
 
         for ϕ in 0:0.4:2π
 
-            ttc_ = Min_TTC(a, vel, Heading(ϕ), menge, geometrie, system_size)
+            ϕ_, vel_ = w_mean_rvo(a, vel, ϕ)
+
+            ttc_ = Min_TTC(a, vel_, Heading(ϕ_), menge, geometrie, system_size)
 
             if Score(a, vel, ϕ) > score_ && ttc_ > a.T
                ϕ_best, vel_best, score_ = ϕ, vel, Score(a, vel, ϕ)
@@ -31,5 +30,15 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
     else
         Heading(ϕ_best), vel_best
     end
+
+end
+
+
+function w_mean_rvo(a::agent, vel, ϕ)
+
+    #c = (Heading(ϕ).*vel .+ a.heading.*a.vel)./2
+    c = Heading(ϕ).*(vel/a.α) .+ a.heading.*(a.vel*(1-1/a.α))
+
+    ϕ_(c), abs(c)
 
 end

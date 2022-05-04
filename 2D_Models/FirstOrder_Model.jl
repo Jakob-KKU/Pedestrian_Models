@@ -37,6 +37,7 @@ function Iterate!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple
     Update_Neighborhood!(menge, geometrie, system_size, r)
 
     #Update_Voronoi_Dens!(menge, system_size)
+    #Update_Goal!(menge)
     #Update_Desired_Headings!(menge)
     Update_Desired_Velocity!(menge, geometrie, system_size)
 

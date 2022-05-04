@@ -11,8 +11,7 @@ function Init_Velocities!(menge::crowd, k, Δt, sign)
         for i in k+1:length(a.x)-k
 
             a.v_x[i] = sign*v(a.x[i-k], a.x[i+k], k*Δt)
-            a.v_x[i] = sign*v(a.x[i-k], a.x[i+k], k*Δt)
-
+            a.v_y[i] = sign*v(a.y[i-k], a.y[i+k], k*Δt)
 
         end
     end

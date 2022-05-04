@@ -14,6 +14,22 @@ function Update_Predecessors!(menge::crowd, L)
     end
 end
 
+function Update_Predecessors!(menge::crowd)
+
+    for (i, x) in enumerate(menge.agent)
+
+        for (j, y) in enumerate(menge.agent)
+
+            if d(x, y) < d(x, menge.agent[x.pred]) && i != j
+
+                x.pred = j
+
+            end
+        end
+    end
+end
+
+
 
 function Init_Predecessors!(menge::crowd)
 

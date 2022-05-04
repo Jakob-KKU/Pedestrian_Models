@@ -34,6 +34,21 @@ function variance(x::Matrix)
     return varianz/(size(x)[1]*size(x)[2])
 end
 
+function variance(v::Vector)
+
+    v_mean = mean(v)
+
+    varianz = 0
+
+    for x in v
+
+        varianz += (x-v_mean)^2
+
+    end
+
+    return varianz/(length(v))
+end
+
 function Corr(x::Matrix, x_mean, dt_x, t_ac)
 
     γ = 0

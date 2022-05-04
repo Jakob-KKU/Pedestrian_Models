@@ -139,7 +139,7 @@ function Calc_v_des(a::agent, menge::crowd, geometrie::geometry, system_size::NT
         end
     end
 
-    min(a.v_max, max(0.1, (distance-a.l)/(a.T)))
+    min(a.v_max, max(0.1, (distance-a.l)/(0.5*a.T)))
 end
 
 #use the voronoi density to calculate the desired velocity

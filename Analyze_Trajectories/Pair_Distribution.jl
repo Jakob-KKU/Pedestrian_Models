@@ -21,8 +21,6 @@ end
 
 function Add_to_Histogram!(menge::crowd, Δx, x_max, p_x_INT, p_x_IND, f_min, f_max)
 
-
-
     #iterate through ID's
     for (i, a) in enumerate(menge.agent)
 

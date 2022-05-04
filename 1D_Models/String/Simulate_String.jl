@@ -33,7 +33,7 @@ end
 
 function Single_Iteration_2nd_Order_String!(menge::crowd, t, dt::Float64, temp_acc)
 
-    #Update_Predecessors!(menge, L)
+    #Update_Predecessors!(menge)
     Calc_Acc_String!(menge, t, temp_acc, dt)
     Update_Pos_Vels_Acc_String!(menge, temp_acc, dt)
 
@@ -64,17 +64,17 @@ end
 
 function Calc_Leader_Acc(menge, t, dt)
 
-    T_a = 2.0
-    a = 0.2/T_a
+    T_a = 2.0*1.0
+    a = 2/T_a
 
-    if t < 1*T_a
+    if t < 0.0*T_a
         0
-    elseif t < 2*T_a
+    elseif t < 0.0*T_a
         -a
-    elseif t < 3*T_a
+    elseif t < T_a
         +a
     else
-        0
+        0+0.01/sqrt(dt)*randn()
     end
 
 end
