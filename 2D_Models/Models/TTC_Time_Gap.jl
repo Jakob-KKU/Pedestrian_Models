@@ -6,6 +6,29 @@ Score2(a::agent, vel, ϕ, ttc) =  -(1/ttc - Score(a, vel, ϕ))
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
+    if v_des_Possible(a, menge, geometrie, system_size) == true
+
+        a.desired_heading, a.v_des
+
+    else
+
+        Sample_Best_v(a, menge, geometrie, system_size)
+
+    end
+
+end
+
+function v_des_Possible(a::agent, menge::crowd, geometrie::geometry, system_size)
+
+    if Min_TTC(a, a.v_des, a.desired_heading, menge, geometrie, system_size) >= a.T
+        true
+    else
+        false
+    end
+end
+
+function Sample_Best_v(a::agent, menge::crowd, geometrie::geometry, system_size)
+
     score_ = -999.9
     ϕ_best, vel_best = 0.0, 0.0
     ϕ_safest, vel_safest, score2 = 0.0, 0.0, -999.9

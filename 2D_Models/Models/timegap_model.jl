@@ -1,4 +1,5 @@
-Score(a::agent, a_vel, a_ϕ) = (a.v_max .* a.desired_heading) ⋅ v(a_vel, a_ϕ)
+#Score(a::agent, a_vel, a_ϕ) = (a.v_max .* a.desired_heading) ⋅ v(a_vel, a_ϕ)
+Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_des.*a.desired_heading)
 
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
