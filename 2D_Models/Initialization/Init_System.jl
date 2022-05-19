@@ -3,7 +3,7 @@ function Init_Hom_Parameters!(p::Vector, menge::crowd)
 
     for x in menge.agent
 
-        x.v_max, x.T, x.l, x.dt_step, x.τ_A, x.τ_R, x.α, x.ζ_h, x.ζ_v = p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]
+        x.v_max, x.T, x.T2, x.l, x.dt_step, x.τ_A, x.τ_R, x.α, x.ζ_h, x.ζ_v = p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10]
 
     end
 
@@ -99,6 +99,21 @@ function initialize_random_positions(system_size::NTuple{2, Float64}, menge::cro
         end
 
     end
+end
+
+function Random_Pos_In_Rectangle(P1, P2, N_min::Int, N_max::Int, menge::crowd, heading, system_size, geometrie)
+
+        for i in N_min:N_max
+
+            menge.agent[i].pos = (P1[1] + rand()*(P2[1]-P1[1]) , P1[2] + rand()*(P2[2]-P1[2]))
+
+            while overlap(i, menge, geometrie, system_size) == true
+                menge.agent[i].pos = (P1[1] + rand()*(P2[1]-P1[1]) , P1[2] + rand()*(P2[2]-P1[2]))
+            end
+
+            menge.agent[i].desired_heading, menge.agent[i].heading = heading, heading
+        end
+
 end
 
 # if the system starts at (0, 0) i.e. x_{min}

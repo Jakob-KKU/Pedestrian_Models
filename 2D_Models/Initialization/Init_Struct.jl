@@ -14,6 +14,7 @@ mutable struct agent
 
     v_max::Float64
     T::Float64
+    T2::Float64
     l::Float64
     dt_step::Float64
     τ_A::Float64
@@ -41,6 +42,6 @@ end
 
 function create_crowd(N::Int, geometrie::geometry)
     crowd([agent((0.0, 0.0), (0.0, 0.0), 0.0, 0.0, 0.0, (0.0, 0.0), (0.0, 0.0), fill(0, N+1),
-     fill(0, length(geometrie.element)+1), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) for i in 1:N])
+     fill(0, length(geometrie.element)+1), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) for i in 1:N])
 end
 ;
