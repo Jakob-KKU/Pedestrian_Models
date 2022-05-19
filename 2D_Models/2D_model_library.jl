@@ -52,5 +52,13 @@ function include_order(order)
 
 end
 
+#special scenario
+function load_scenario(x)
+
+    path = "/home/jakob/Dokumente/Git_Project/2D_Models/Scenarios/"
+    include(string(path, x, ".jl"))
+
+end
+
 
 ;

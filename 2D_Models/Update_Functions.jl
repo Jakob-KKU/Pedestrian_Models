@@ -23,3 +23,17 @@ function Update_Desired_Velocity!(menge::crowd, geometrie::geometry, system_size
     end
 
 end
+
+function Update_Goal!(menge)
+
+    for x in menge.agent
+
+        if d(x, x.goal) < .5
+
+            x.goal = (5.0, 8.0)
+
+        end
+
+    end
+
+end

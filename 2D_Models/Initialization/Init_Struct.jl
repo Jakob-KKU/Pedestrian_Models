@@ -1,4 +1,3 @@
-
 mutable struct agent
 
     pos::NTuple{2, Float64}

@@ -192,4 +192,37 @@ function Init_Random_Step_Pos!(menge::crowd)
         x.step = round(x.dt_step.*rand(), digits = 3)
     end
 end
+
+
+function Init_N_Agents_Bottleneck!(menge, system_size, a)
+
+     initialize_random_positions((0.0, system_size[1]), (0.0, a), menge::crowd)
+
+end
+
+function Init_Random_αs!(menge::crowd, μ::Float64, σ::Float64)
+
+    func = Truncated(Distributions.Normal(μ, σ), μ-2*σ, μ+2*σ)  #Construct truncated normal distribution
+
+    for x in menge.agent
+
+        x.α = rand(func)
+
+    end
+
+end
+
+function Init_Random_τ_Rs!(menge::crowd, μ::Float64, σ::Float64)
+
+    func = Truncated(Distributions.Normal(μ, σ), μ-2*σ, μ+2*σ)  #Construct truncated normal distribution
+
+    for x in menge.agent
+
+        x.τ_R = rand(func)
+
+    end
+
+end
+
+
 ;
