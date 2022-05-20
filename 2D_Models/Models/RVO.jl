@@ -7,9 +7,9 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
     ϕ_best, vel_best = 0.0, 0.0
     ϕ_safest, vel_safest, score2 = 0.0, 0.0, -999.9
 
-    for vel in 0:0.08:a.v_max
+    for vel in 0:0.04:a.v_max
 
-        for ϕ in 0:0.4:2π
+        for ϕ in 0:0.2:2π
 
             ϕ_, vel_ = w_mean_rvo(a, vel, ϕ)
 

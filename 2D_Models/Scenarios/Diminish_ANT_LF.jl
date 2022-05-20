@@ -1,7 +1,7 @@
 function Calc_Temp_Headings_and_Velocities!(menge::crowd, geometrie::geometry, temp_headings
         , temp_velocities, system_size::NTuple{2, Float64}, dt)
 
-    N_dim = 8
+    N_dim = 0
 
     for (i,x) in enumerate(menge.agent[1:N-N_dim])
             temp_headings[i], temp_velocities[i]  = Calc_Heading_Velocity(x, menge, geometrie, system_size)
@@ -97,6 +97,30 @@ function Two_Approaching_Crowds_Dim(menge::crowd, geometrie::geometry, w_c, x_mi
         P1 = (system_size[1]-x_max_dim, 0.0)
         P2 = (system_size[1]-x_min_dim, system_size[2])
         Random_Pos_In_Rectangle(P1, P2, N-N2+1, N, menge::crowd, (-1, 0), system_size, geometrie)
+
+    end
+end
+
+function Two_Approaching_Crowds_Dim_OneSide(menge::crowd, geometrie::geometry, w_c, x_min_dim, x_max_dim, N_dim::Int, system_size)
+
+    N = length(menge.agent)
+    N1 = Int(round(N/2))
+    N2 = Int(round(N_dim/2))
+
+    if ρ_global(N1, (w_c, system_size[2])) > 7.5
+        println("The density is too high!")
+    elseif ρ_global(length(menge.agent) - N1, (w_c, system_size[2])) > 7.5
+        println("The density is too high!")
+    else
+
+        #assign normal agents on the left
+        Random_Pos_In_Rectangle((0.0, 0.0), (w_c, system_size[2]), 1, N1-N2, menge, (1, 0), system_size, geometrie)
+
+        #assign normal agents on the right
+        Random_Pos_In_Rectangle((system_size[1]-w_c, 0.0), (system_size[1],system_size[2]), N1-N2+1, N-N_dim, menge, (-1, 0), system_size, geometrie)
+
+        #assign dim agents on the left
+        Random_Pos_In_Rectangle((x_min_dim, 0.0), (x_max_dim, system_size[2]), N-N_dim+1, N, menge, (1, 0), system_size, geometrie)
 
     end
 end
