@@ -4,6 +4,7 @@ function Init_Hom_Parameters!(p::Vector, menge::crowd)
     for x in menge.agent
 
         x.v_max, x.T, x.T2, x.l, x.dt_step, x.τ_A, x.τ_R, x.α, x.ζ_h, x.ζ_v = p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10]
+        x.r, x.ϕ = p[11], p[12]
 
     end
 
@@ -236,8 +237,15 @@ function Init_Random_τ_Rs!(menge::crowd, μ::Float64, σ::Float64)
         x.τ_R = rand(func)
 
     end
+end
+
+function Init_N_Agents_Bottleneck!(menge, systemsize, a)
+
+     initialize_random_positions((0.0, systemsize[1]), (0.0, a), menge::crowd)
 
 end
+
+
 
 
 ;

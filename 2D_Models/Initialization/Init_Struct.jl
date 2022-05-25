@@ -22,8 +22,8 @@ mutable struct agent
     α::Float64
     ζ_h::Float64
     ζ_v::Float64
-
-
+    r::Float64
+    ϕ::Float64
 end
 
 struct crowd
@@ -42,6 +42,6 @@ end
 
 function create_crowd(N::Int, geometrie::geometry)
     crowd([agent((0.0, 0.0), (0.0, 0.0), 0.0, 0.0, 0.0, (0.0, 0.0), (0.0, 0.0), fill(0, N+1),
-     fill(0, length(geometrie.element)+1), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) for i in 1:N])
+     fill(0, length(geometrie.element)+1), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) for i in 1:N])
 end
 ;

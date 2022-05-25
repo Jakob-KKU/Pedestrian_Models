@@ -99,6 +99,10 @@ normalize(a::Vector{Float64}) = a./abs(a)
 ∠(a::NTuple{2, Float64}, b::NTuple{2, Float64}) = acos((a⋅b)/(abs(a)*abs(b)))
 ∠(a::Vector{Float64}, b::Vector{Float64}) = acos((a⋅b)/(abs(a)*abs(b)))
 ∠(a::agent, b::agent) = acos(a⋅b)
+#winkel zwischen orts vektor von a nach b und dem heading von a
+∠_h(a::agent, b::agent) = acos(e_(b, a)⋅a.heading)
+∠_h(a::agent, b::agent, system_size) = acos(e_(b, a, system_size)⋅a.heading)
+
 
 #einheitsvektor von b nach a
 e_(b::agent, a::agent) = (b.pos.-a.pos)./d(a, b)
@@ -270,6 +274,18 @@ function wrap_normed_vector!(a::NTuple{2, Float64}, system_size::NTuple{2, Float
     (x, y)
 
 end
+
+function In_Cone(a::agent, b::agent, system_size)
+
+    if ∠_h(a, b, system_size) <= a.ϕ/2 || ∠_h(a, b, system_size) >= 2π - a.ϕ/2 && d(a, b, system_size) <= a.r
+        true
+    else
+        false
+    end
+
+end
+
+A_Cone(a::agent) = a.r^2*a.ϕ/2
 
 
 ;

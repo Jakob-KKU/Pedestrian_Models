@@ -36,6 +36,13 @@ function include_model(model)
 
 end
 
+function include_v_des(x)
+
+    path = "/home/jakob/Dokumente/Git_Project/2D_Models/V_des/"
+    include(string(path, x, ".jl"))
+
+end
+
 #include update
 function include_update(scheme)
 
