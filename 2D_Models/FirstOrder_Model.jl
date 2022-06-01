@@ -7,7 +7,8 @@ function Simulate!(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::F
     saved_steps = Int(round((t_max-t_relax)/dt_save))-1
     positions = Array{NTuple{2, Float64}, 2}(undef, saved_steps, N)
     headings = Array{NTuple{2, Float64}, 2}(undef, saved_steps, N)
-    ttcs = Array{Float64, 2}(undef, saved_steps, N)
+    velocities = Array{Float64, 2}(undef, saved_steps, N)
+    #ttcs = Array{Float64, 2}(undef, saved_steps, N)
 
     #buffer vectors
     temp_headings, temp_velocities = Init_Temp_Vectors(menge)
@@ -20,7 +21,7 @@ function Simulate!(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::F
 
         if dt*i>t_relax && mod(i, Int(round(dt_save/dt))) == 0
 
-            Save_Pos_Vel_TTC!(menge, geometrie, j, system_size, ttcs, positions, headings)
+            Save_Pos_Vel_TTC!(menge, geometrie, j, system_size, velocities, positions, headings)
             j = j + 1
 
         end
@@ -28,7 +29,7 @@ function Simulate!(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::F
         i = i + 1
     end
 
-    positions, headings, ttcs
+    positions, headings, velocities
 end
 
 function Iterate!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple{2, Float64},1},
@@ -64,10 +65,11 @@ function Init_Temp_Vectors(menge::crowd)
 
 end
 
-function Save_Pos_Vel_TTC!(menge::crowd, geometrie::geometry, j, system_size, ttcs, positions, headings)
+function Save_Pos_Vel_TTC!(menge::crowd, geometrie::geometry, j, system_size, velocities, positions, headings)
 
     for i in 1:length(menge.agent)
-        ttcs[j, i] = Min_TTC(menge.agent[i], menge, geometrie, system_size)
+        #ttcs[j, i] = Min_TTC(menge.agent[i], menge, geometrie, system_size)
+        velocities[j , i] = menge.agent[i].vel
         positions[j, i] = menge.agent[i].pos
         headings[j, i]  = menge.agent[i].heading
     end

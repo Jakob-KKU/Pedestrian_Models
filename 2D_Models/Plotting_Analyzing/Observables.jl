@@ -172,3 +172,112 @@ function Order_Parameter(menge::crowd, headings)
     χ./length(menge.agent)
 
 end
+
+
+## ORDER PARAMETER LANEFORMATION
+
+function ϕ_LF(positions::Matrix, l, N1)
+    t, N = size(positions)
+    ϕ = fill(0.0, t)
+
+    for i in 1:t
+        ϕ[i] = ϕ_LF(positions[i, :], l/2, N1)
+    end
+
+    ϕ
+end
+
+
+
+function ϕ_LF(positions::Vector, r, N1)
+
+    ϕ = 0.0
+    N = length(positions)
+
+    for i in 1:N1
+        ϕ += ϕ_LF1(positions, i, r, N1)
+    end
+
+    for i in N1+1:N
+        ϕ += ϕ_LF2(positions, i, r, N1)
+    end
+
+    ϕ/N
+end
+
+
+function ϕ_LF1(positions, i, r, N1)
+
+    N_same, N_diff = 0, 0
+
+    for j in 1:N1
+
+        if abs(positions[j][2]-positions[i][2])<3r/2
+            N_same += 1
+        end
+    end
+
+    for j in N1+1:N
+
+        if abs(positions[j][2]-positions[i][2])<3r/2
+            N_diff += 1
+        end
+    end
+
+    ϕ_LF(N_same, N_diff)
+end
+
+function ϕ_LF2(positions, i, r, N1)
+
+    N_same, N_diff = 0, 0
+
+    for j in 1:N1
+
+        if abs(positions[j][2]-positions[i][2])<3r/2
+            N_diff += 1
+        end
+    end
+
+    for j in N1+1:N
+
+        if abs(positions[j][2]-positions[i][2])<3r/2
+            N_same += 1
+        end
+    end
+
+    ϕ_LF(N_same, N_diff)
+end
+
+ϕ_LF(N_same, N_diff) = (N_same - N_diff)^2/(N_same + N_diff)^2
+
+### fund dia ###
+
+J_Global(velocities, ρ_global) = mean(velocities)*ρ_global
+J(v, ρ) = v*ρ
+
+function J_ρ_local(positions::Matrix, velocities::Matrix, system_size)
+
+    steps, N  = size(positions)
+
+    J_local = fill(0.0, N*steps)
+    ρ_local = fill(0.0, N*steps)
+
+    for i in 1:steps
+
+        _1, _2 = (i-1)*N+1, i*N
+
+        J_local[_1:_2], ρ_local[_1:_2] = J_ρ_local(positions[i, :], velocities[i, :], system_size)
+
+    end
+
+    J_local, ρ_local
+
+end
+
+function J_ρ_local(positions::Vector, velocities::Vector, system_size)
+
+    ρ_local = Calc_Voronoi_Dens(positions, system_size)
+
+    velocities.*ρ_local, ρ_local
+
+end

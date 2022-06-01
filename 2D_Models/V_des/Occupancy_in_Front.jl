@@ -1,12 +1,12 @@
 function Calc_v_des(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
-    min(a.v_max, max(0.2, (sqrt(1/ρ_Cone(a, menge, system_size))-a.l)/(a.T2)))
+    min(a.v_max, max(0.05, (sqrt(1/ρ_Cone(a, menge, system_size))-a.l)/(a.T2)))
 
 end
 
 function ρ_Cone(a::agent, menge::crowd, system_size)
 
-    N = 2π/a.ϕ
+    N = a.ϕ/2π
 
     for i in 2:a.neighbors_agents[1]+1
 

@@ -1,7 +1,7 @@
 function Calc_Temp_Headings_and_Velocities!(menge::crowd, geometrie::geometry, temp_headings
         , temp_velocities, system_size::NTuple{2, Float64}, dt)
 
-    N_dim = 0
+    N_dim = 3
 
     for (i,x) in enumerate(menge.agent[1:N-N_dim])
             temp_headings[i], temp_velocities[i]  = Calc_Heading_Velocity(x, menge, geometrie, system_size)

@@ -20,7 +20,7 @@ function Calc_Tess_at_Step(i, positions, system_size)
 
     return voronoicells(Pos_in_Point2(positions_in_scope), rect);
 
-end 
+end
 
 function Update_Voronoi_Dens!(menge::crowd, system_size::NTuple{2, Float64})
 
@@ -53,5 +53,22 @@ function Find_Agents_In_Rectangle(positions, x_min, x_max, y_min, y_max)
     end
 
     return positions_in_scope
+
+end
+
+function Calc_Voronoi_Dens(positions::Vector, system_size)
+
+    tess = Calc_Tess(positions, system_size)
+
+    1 ./voronoiarea(tess)
+
+end
+
+function Calc_Tess(positions::Vector, system_size)
+
+    positions_in_scope = Find_Agents_In_Rectangle(positions, 0.0, system_size[1], 0.0, system_size[2])
+    rect = Rectangle(Point2(0.0,0.0), Point2(system_size[1], system_size[2]))
+
+    voronoicells(Pos_in_Point2(positions_in_scope), rect)
 
 end
