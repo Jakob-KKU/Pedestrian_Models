@@ -1,14 +1,14 @@
-#Score(a::agent, vel, ϕ) = -abs(vel-a.v_des)+(v(vel, ϕ)⋅(a.v_des.*a.desired_heading))
-#Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_des.*a.desired_heading)+(v(vel, ϕ)⋅(a.v_des.*a.desired_heading))
+#Score(a::agent, vel, ϕ) = -abs(vel-a.v_pref)+(v(vel, ϕ)⋅(a.v_pref.*a.desired_heading))
+#Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.desired_heading)+(v(vel, ϕ)⋅(a.v_pref.*a.desired_heading))
 
-Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_des.*a.desired_heading)
+Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.e_pref)
 Score2(a::agent, vel, ϕ, ttc) =  -(1/ttc - Score(a, vel, ϕ))
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
     if v_des_Possible(a, menge, geometrie, system_size) == true
 
-        a.desired_heading, a.v_des
+        a.e_pref, a.v_pref
 
     else
 
@@ -20,7 +20,7 @@ end
 
 function v_des_Possible(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    if Min_TTC(a, a.v_des, a.desired_heading, menge, geometrie, system_size) >= a.T
+    if Min_TTC(a, a.v_pref, a.e_pref, menge, geometrie, system_size) >= a.T
         true
     else
         false

@@ -1,4 +1,4 @@
-function Calc_v_des(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+function Update_Pref_Velocity!(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
     distance = 999.9
 
@@ -17,5 +17,5 @@ function Calc_v_des(a::agent, menge::crowd, geometrie::geometry, system_size::NT
         end
     end
 
-    min(a.v_max, max(0.2, (distance-a.l)/(a.T2)))
+    a.v_pref = min(a.v_max, max(0.1, (distance-a.l)/(a.T2)))
 end

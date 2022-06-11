@@ -5,7 +5,8 @@ mutable struct agent
     vel::Float64
     step::Float64
 
-    v_des::Float64
+    v_pref::Float64
+    e_pref::NTuple{2, Float64}
     goal::NTuple{2, Float64}
     desired_heading::NTuple{2, Float64}
     neighbors_agents::Vector{Int}
@@ -41,7 +42,7 @@ end
 
 
 function create_crowd(N::Int, geometrie::geometry)
-    crowd([agent((0.0, 0.0), (0.0, 0.0), 0.0, 0.0, 0.0, (0.0, 0.0), (0.0, 0.0), fill(0, N+1),
+    crowd([agent((0.0, 0.0), (0.0, 0.0), 0.0, 0.0, 0.0, (0.0, 0.0),  (0.0, 0.0), (0.0, 0.0), fill(0, N+1),
      fill(0, length(geometrie.element)+1), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) for i in 1:N])
 end
 ;

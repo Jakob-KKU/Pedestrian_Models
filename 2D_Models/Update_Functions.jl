@@ -16,10 +16,10 @@ function Update_Desired_Headings!(menge::crowd)
     end
 end
 
-function Update_Desired_Velocity!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+function Update_Pref_Velocities!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
     for x in menge.agent
-        x.v_des = Calc_v_des(x, menge, geometrie, system_size)
+        Update_Pref_Velocity!(x, menge, geometrie, system_size)
     end
 
 end

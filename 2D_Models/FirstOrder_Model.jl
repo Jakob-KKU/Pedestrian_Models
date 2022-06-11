@@ -40,7 +40,7 @@ function Iterate!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple
     #Update_Voronoi_Dens!(menge, system_size)
     #Update_Goal!(menge)
     #Update_Desired_Headings!(menge)
-    Update_Desired_Velocity!(menge, geometrie, system_size)
+    Update_Pref_Velocities!(menge, geometrie, system_size)
 
     Calc_Temp_Headings_and_Velocities!(menge, geometrie, temp_headings,
      temp_velocities, system_size, dt)
