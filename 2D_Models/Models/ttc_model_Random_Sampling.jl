@@ -1,4 +1,4 @@
-Score(a::agent, a_vel, a_ϕ) = (a.v_max .* a.desired_heading) ⋅ v(a_vel, a_ϕ)
+Score(a::agent, a_vel, a_ϕ) = (a.v_max .* a.e_des) ⋅ v(a_vel, a_ϕ)
 
 
 #sampling based algorithm
@@ -6,7 +6,7 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
 
     if v_des_possible(a, menge, geometrie, system_size) == true
 
-        a.desired_heading, a.v_max
+        a.e_des, a.v_max
 
     else
 
@@ -18,7 +18,7 @@ end
 
 function v_des_possible(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    if Min_TTC(a, a.v_max, a.desired_heading, menge, geometrie, system_size) >= a.T
+    if Min_TTC(a, a.v_max, a.e_des, menge, geometrie, system_size) >= a.T
         true
     else
         false

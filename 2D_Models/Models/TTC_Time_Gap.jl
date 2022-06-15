@@ -1,5 +1,5 @@
-#Score(a::agent, vel, ϕ) = -abs(vel-a.v_pref)+(v(vel, ϕ)⋅(a.v_pref.*a.desired_heading))
-#Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.desired_heading)+(v(vel, ϕ)⋅(a.v_pref.*a.desired_heading))
+#Score(a::agent, vel, ϕ) = -abs(vel-a.v_pref)+(v(vel, ϕ)⋅(a.v_pref.*a.e_des))
+#Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.e_des)+(v(vel, ϕ)⋅(a.v_pref.*a.e_des))
 
 Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.e_pref)
 Score2(a::agent, vel, ϕ, ttc) =  -(1/ttc - Score(a, vel, ϕ))

@@ -163,7 +163,7 @@ function Order_Parameter(menge::crowd, headings)
 
         for (i, x) in enumerate(menge.agent)
 
-            χ[j] += x.desired_heading ⋅ headings[j, i]
+            χ[j] += x.e_des ⋅ headings[j, i]
 
         end
 

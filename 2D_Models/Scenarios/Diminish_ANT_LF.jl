@@ -13,14 +13,14 @@ function Calc_Temp_Headings_and_Velocities!(menge::crowd, geometrie::geometry, t
 
 end
 
-Score_TG(a::agent, a_vel, a_ϕ) = (a.v_max .* a.desired_heading) ⋅ v(a_vel, a_ϕ)
+Score_TG(a::agent, a_vel, a_ϕ) = (a.v_max .* a.e_des) ⋅ v(a_vel, a_ϕ)
 
 
 function Calc_Heading_Velocity_TG(a::agent, menge::crowd, geometrie::geometry, system_size)
 
     if v_des_possible_TG(a, menge, geometrie, system_size) == true
 
-        a.desired_heading, a.v_max
+        a.e_des, a.v_max
 
     else
 
@@ -32,7 +32,7 @@ end
 
 function v_des_possible_TG(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    if Min_TimeGap(a, a.v_max, a.desired_heading, menge, geometrie, system_size) >= a.T
+    if Min_TimeGap(a, a.v_max, a.e_des, menge, geometrie, system_size) >= a.T
         true
     else
         false

@@ -36,7 +36,7 @@ function calculate_single_heading_distance(a::agent, menge::crowd, geometrie::ge
         temp_heading = temp_heading.+ direction_distance(a, geometrie.element[x]).*e_(a, geometrie.element[x])
     end
 
-    normalize(temp_heading .+ a.desired_heading)
+    normalize(temp_heading .+ a.e_des)
 end
 
 function calculate_velocities_distance(menge::crowd, geometrie::geometry, temp_velocities::Array{Float64,1}, agent_tree::BallTree, geo_tree::BallTree)

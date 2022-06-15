@@ -8,7 +8,7 @@ mutable struct agent
     v_pref::Float64
     e_pref::NTuple{2, Float64}
     goal::NTuple{2, Float64}
-    desired_heading::NTuple{2, Float64}
+    e_des::NTuple{2, Float64}
     neighbors_agents::Vector{Int}
     neighbors_geometry::Vector{Int}
     voronoi_dens::Float64

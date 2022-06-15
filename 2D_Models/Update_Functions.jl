@@ -12,7 +12,7 @@ end
 function Update_Desired_Headings!(menge::crowd)
 
     for x in menge.agent
-        x.desired_heading = e_(x, x.goal).*(-1)
+        x.e_des = e_(x, x.goal).*(-1)
     end
 end
 

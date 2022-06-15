@@ -112,7 +112,7 @@ function Random_Pos_In_Rectangle(P1, P2, N_min::Int, N_max::Int, menge::crowd, h
                 menge.agent[i].pos = (P1[1] + rand()*(P2[1]-P1[1]) , P1[2] + rand()*(P2[2]-P1[2]))
             end
 
-            menge.agent[i].desired_heading, menge.agent[i].heading = heading, heading
+            menge.agent[i].e_des, menge.agent[i].heading = heading, heading
         end
 
 end
@@ -139,8 +139,8 @@ end
 #Ordne den Agenten zufällige desired Headings zu
 function initialize_random_headings(menge::crowd)
     for agent in menge.agent
-        agent.desired_heading = random_heading()
-        agent.heading = agent.desired_heading
+        agent.e_des = random_heading()
+        agent.heading = agent.e_des
     end
 end
 
@@ -166,7 +166,7 @@ function Two_Approaching_Crowds(menge::crowd, geometrie::geometry, breite_crowds
                 menge.agent[i].pos = (rand()*breite_crowds , rand()*system_size[2])
             end
 
-            menge.agent[i].desired_heading, menge.agent[i].heading = (1, 0), (1, 0)
+            menge.agent[i].e_des, menge.agent[i].heading = (1, 0), (1, 0)
         end
 
         for i in N1+1:length(menge.agent)
@@ -176,7 +176,7 @@ function Two_Approaching_Crowds(menge::crowd, geometrie::geometry, breite_crowds
                 menge.agent[i].pos = (system_size[1] - rand()*breite_crowds,rand()*system_size[2])
             end
 
-            menge.agent[i].desired_heading, menge.agent[i].heading = (-1, 0), (-1, 0)
+            menge.agent[i].e_des, menge.agent[i].heading = (-1, 0), (-1, 0)
         end
     end
 end

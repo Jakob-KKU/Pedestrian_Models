@@ -39,7 +39,8 @@ function Iterate!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple
 
     #Update_Voronoi_Dens!(menge, system_size)
     #Update_Goal!(menge)
-    #Update_Desired_Headings!(menge)
+    #Update_e_dess!(menge)
+
     Update_Pref_Velocities!(menge, geometrie, system_size)
 
     Calc_Temp_Headings_and_Velocities!(menge, geometrie, temp_headings,
@@ -57,7 +58,7 @@ function Init_Temp_Vectors(menge::crowd)
     temp_headings = Array{NTuple{2, Float64},1}(undef,N)
 
     for i in 1:N
-        temp_headings[i] = menge.agent[i].desired_heading
+        temp_headings[i] = menge.agent[i].e_des
         temp_velocities[i] = menge.agent[i].vel
     end
 
