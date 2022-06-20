@@ -121,6 +121,33 @@ function Collision_(a::agent, b::agent, system_size::NTuple{2, Float64})
 end
 
 
+function V_pref(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+
+
+    distance = 999.9
+
+
+    for i in 2:a.neighbors_agents[1]+1
+
+        if Collision_pref(a, menge.agent[a.neighbors_agents[i]], system_size) == true
+            distance = min(d(a, menge.agent[a.neighbors_agents[i]], system_size), distance)
+        end
+    end
+
+    min(a.v_max, max(0.05, (distance-a.l)/(a.T2)))
+end
+
+
+function Collision_pref(a::agent, b::agent, system_size::NTuple{2, Float64})
+
+    if e_(a, b, system_size)⋅a.e_pref <= 0 && abs(⟂(a.e_pref)⋅e_(a, b, system_size)) <= l(a, b)/d(a,b, system_size)
+        true
+    else
+        false
+    end
+end
+
+
 
 #use the voronoi density to calculate the desired velocity
 #function Calc_v_des(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})

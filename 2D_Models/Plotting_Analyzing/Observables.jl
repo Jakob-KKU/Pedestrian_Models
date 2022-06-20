@@ -11,6 +11,21 @@ N_(geometrie::geometry) = length(geometrie.element)
 
 ρ_max(system_size, menge) = 0.74/L_mean(menge)^2
 
+
+function ρ_Cone(a::agent, menge::crowd, system_size)
+
+    N = a.ϕ/2π
+
+    for i in 2:a.neighbors_agents[1]+1
+
+        if In_Cone(a, menge.agent[a.neighbors_agents[i]], system_size) == true
+            N = N + 1.0
+        end
+    end
+    
+    N/A_Cone(a)
+end
+
 v(x_t1::NTuple{2, Float64}, x_t2::NTuple{2, Float64}, dt) = abs(x_t1 .- x_t2)/dt
 v(x_t1::NTuple{2, Float64}, x_t2::NTuple{2, Float64}, dt, system_size) = d(x_t1, x_t2, system_size)/dt
 

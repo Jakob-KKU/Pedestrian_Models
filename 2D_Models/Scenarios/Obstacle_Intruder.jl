@@ -6,10 +6,10 @@ function Init_Nth_Agent_as_Moving_Obstacle!(menge, system_size, l, vel)
 
 end
 
-function Update_Desired_Velocity!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+function Update_Pref_Velocities!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
     for x in menge.agent
-        x.v_des = 0.0
+        x.v_pref = 0.0
     end
 
 end
