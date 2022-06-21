@@ -55,4 +55,13 @@ function Create_Geometry_Bottleneck(länge, breite, l, system_size)
 
     geometry([element((geometry_x[i], geometry_y[i]), l) for i in 1:length(geometry_x)])
 end
+
+function Create_Closed_Room!(a0, a, b0, b, l)
+
+    geometry_x = vcat(LinRange(a0:l:a0+a), fill(a0 ,length(LinRange(0:l:b))), LinRange(a0:l:a0+a), fill(a+a0, length(LinRange(0:l:b))))
+    geometry_y = vcat(fill(b0, length(LinRange(0:l:a))), LinRange(b0:l:b+b0), fill(b+b0, length(LinRange(0:l:a))), LinRange(b0:l:b0+b))
+
+    geometry([element((geometry_x[i], geometry_y[i]), l) for i in 1:length(geometry_x)])
+end
+
 ;

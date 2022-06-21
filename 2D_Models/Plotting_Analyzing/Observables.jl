@@ -22,7 +22,7 @@ function ρ_Cone(a::agent, menge::crowd, system_size)
             N = N + 1.0
         end
     end
-    
+
     N/A_Cone(a)
 end
 
@@ -294,5 +294,85 @@ function J_ρ_local(positions::Vector, velocities::Vector, system_size)
     ρ_local = Calc_Voronoi_Dens(positions, system_size)
 
     velocities.*ρ_local, ρ_local
+
+end
+
+ρ_gauss_i(x, a::agent) = 1/(2*π*(1.5*a.l)^2)*exp(-((x[1]-a.pos[1])^2+(x[2]-a.pos[2])^2)/(2*(1.5*a.l)^2))
+ρ_gauss_i(x, a::element) = 1/(2*π*(1.5*a.l)^2)*exp(-((x[1]-a.pos[1])^2+(x[2]-a.pos[2])^2)/(2*(1.5*a.l)^2))
+
+∇ρ_gauss_i(x, a::agent) = ρ_gauss(x, a).*(x.-a.pos)
+∇ρ_gauss_i(x, a::element) = ρ_gauss(x, a).*(x.-a.pos)
+
+
+function ρ_gauss_i(x, a::agent, system_size::NTuple{2, Float64})
+
+    d_ = d_vec(x, a, system_size)
+
+    1/(2*π*(1.5*a.l)^2)*exp(-(d_[1]^2+d_[2]^2)/(2*(1.5*a.l)^2))
+
+end
+
+function ρ_gauss_i(x, a::element, system_size::NTuple{2, Float64})
+
+    d_ = d_vec(x, a, system_size)
+
+    1/(2*π*(1.5*a.l)^2)*exp(-(d_[1]^2+d_[2]^2)/(2*(1.5*a.l)^2))
+
+end
+
+∇ρ_gauss_i(x, a::agent, system_size::NTuple{2, Float64}) = ρ_gauss_i(x, a, system_size).*d_vec(x, a, system_size)./(2*π*(2*a.l)^2)^2
+∇ρ_gauss_i(x, a::element, system_size::NTuple{2, Float64}) = ρ_gauss_i(x, a, system_size).*d_vec(x, a, system_size)./(2*π*(2*a.l)^2)^2
+
+
+
+function ρ_gauss(x, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+
+    ρ = 0.0
+
+    for a in menge.agent
+        ρ += ρ_gauss_i(x, a, system_size)
+    end
+
+    ρ
+
+end
+
+function ∇ρ_gauss(x, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+
+    ∇ρ = (0.0, 0.0)
+
+    for a in menge.agent
+        ∇ρ = ∇ρ .+ ∇ρ_gauss_i(x, a, system_size)
+    end
+
+    ∇ρ
+
+end
+
+function ρ_gauss(x, a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+
+    ρ = 0.0
+
+    for i in 2:a.neighbors_agents[1]+1
+
+        ρ += ρ_gauss_i(x, menge.agent[a.neighbors_agents[i]], system_size)
+
+    end
+
+    ρ
+
+end
+
+function ∇ρ_gauss(x, a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+
+    ∇ρ = (0.0, 0.0)
+
+    for i in 2:a.neighbors_agents[1]+1
+
+        ∇ρ = ∇ρ .+ ∇ρ_gauss_i(x, menge.agent[a.neighbors_agents[i]], system_size)
+
+    end
+
+    ∇ρ
 
 end

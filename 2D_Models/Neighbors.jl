@@ -134,7 +134,7 @@ function V_pref(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple
         end
     end
 
-    min(a.v_max, max(0.05, (distance-a.l)/(a.T2)))
+    min(a.v_max, max(0.1, (distance-a.l)/(a.T2)))
 end
 
 

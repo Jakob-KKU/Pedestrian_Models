@@ -245,6 +245,24 @@ function Init_N_Agents_Bottleneck!(menge, systemsize, a)
 
 end
 
+function Init_Rand_Rect!(a0, a, b0, b, menge::crowd, geometrie::geometry)
+
+    if ρ_global(menge, system_size, geometrie) > 7.5
+        println("The density is too high!")
+        false
+    end
+
+    for (i, agent) in enumerate(menge.agent)
+
+       agent.pos = rand()*a+a0 , rand()*b+b0
+
+        while overlap(i, menge, geometrie) == true
+           agent.pos = rand()*a+a0 , rand()*b+b0
+        end
+
+    end
+end
+
 
 
 
