@@ -141,7 +141,7 @@ Heading(ϕ::Int64) = (cos(ϕ), sin(ϕ))
 
 
 R(ϕ) = [cos(ϕ) -sin(ϕ); sin(ϕ) cos(ϕ)] #2d Rotationsmatrix
-
+R(ϕ, vec::NTuple{2, Float64}) = (cos(ϕ)*vec[1]-sin(ϕ*vec[2]), sin(ϕ)*vec[1]+cos(ϕ)*vec[2])
 
 
 function e_(a::agent, b::agent, system_size::NTuple{2, Float64})
