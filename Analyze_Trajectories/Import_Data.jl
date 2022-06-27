@@ -4,14 +4,28 @@ function Read_Traj(path, file, header_)
 
 end
 
-function Init_Velocities!(menge::crowd, k, Δt, sign)
+function Init_Velocities!(menge::crowd, k, Δt, dir)
 
     for a in menge.agent
 
         for i in k+1:length(a.x)-k
 
-            a.v_x[i] = sign*v(a.x[i-k], a.x[i+k], k*Δt)
-            a.v_y[i] = sign*v(a.y[i-k], a.y[i+k], k*Δt)
+            a.v_x[i] = dir*v(a.x[i-k], a.x[i+k], k*Δt)
+            a.v_y[i] = dir*v(a.y[i-k], a.y[i+k], k*Δt)
+
+        end
+    end
+
+end
+
+function Init_Velocities!(menge::crowd, k, Δt)
+
+    for a in menge.agent
+
+        for i in k+1:length(a.x)-k
+
+            a.v_x[i] = v(a.x[i-k], a.x[i+k], k*Δt)
+            a.v_y[i] = v(a.y[i-k], a.y[i+k], k*Δt)
 
         end
     end
