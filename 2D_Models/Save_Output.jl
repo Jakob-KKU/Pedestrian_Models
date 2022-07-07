@@ -17,7 +17,7 @@ end
 
 function FileName(dir)
 
-    my_time = Dates.format(Dates.now(), "_dd_u_yyyy_HHMM")
+    my_time = Dates.format(Dates.now(), "_dd_u_yyyy_HHMMs")
 
     string(dir, my_time, ".txt")
 

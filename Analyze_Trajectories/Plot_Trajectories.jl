@@ -47,3 +47,16 @@ function Plot_Trajectories(menge::crowd, frames::NTuple{2, Int})
     end
 
 end
+
+
+function Plot_Trajectories(a::agent, frames::NTuple{2, Int}, size)
+
+    if In_Frame(frames, a) == true
+
+        xy = XY_Frame(frames, a)
+
+        scatter!(xy, msw=0, label=false, color=:black, markersize = size)
+
+    end
+
+end

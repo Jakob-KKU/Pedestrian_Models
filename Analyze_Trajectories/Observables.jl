@@ -129,7 +129,7 @@ function In_Frame(i::Int, a::agent)
 
 end
 
-function In_Frame(frames1::NTuple{2, Int}, a::agent)
+function In_Frame(frames::NTuple{2, Int}, a::agent)
 
     if frames[1] > a.frames[2] || a.frames[1] > frames[2]
 

@@ -4,7 +4,7 @@ function Calc_e_pref(a::agent, menge::crowd, geometrie::geometry, system_size::N
 
     ∇ρ = ∇ρ_gauss(x, a, menge, geometrie, system_size)
 
-    if abs(∇ρ) < 0.004
+    if abs(∇ρ) < a.r
 
         a.e_des
 

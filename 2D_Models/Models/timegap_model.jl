@@ -1,11 +1,12 @@
-Score(a::agent, a_vel, a_ϕ) = (a.v_max .* a.e_des) ⋅ v(a_vel, a_ϕ)
+Score(a::agent, a_vel, a_ϕ) = (a.v_pref .* a.e_pref) ⋅ v(a_vel, a_ϕ)
+#Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.e_pref)
 
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
     if v_des_possible(a, menge, geometrie, system_size) == true
 
-        a.e_des, a.v_max
+        a.e_des, a.v_pref
 
     else
 
@@ -17,7 +18,7 @@ end
 
 function v_des_possible(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    if Min_TimeGap(a, a.v_max, a.e_des, menge, geometrie, system_size) >= a.T2
+    if Min_TimeGap(a, a.v_pref, a.e_des, menge, geometrie, system_size) >= a.T2
         true
     else
         false

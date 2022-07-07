@@ -320,8 +320,8 @@ function ρ_gauss_i(x, a::element, system_size::NTuple{2, Float64})
 
 end
 
-∇ρ_gauss_i(x, a::agent, system_size::NTuple{2, Float64}) = ρ_gauss_i(x, a, system_size).*d_vec(x, a, system_size)./(2*π*(2*a.l)^2)^2
-∇ρ_gauss_i(x, a::element, system_size::NTuple{2, Float64}) = ρ_gauss_i(x, a, system_size).*d_vec(x, a, system_size)./(2*π*(2*a.l)^2)^2
+∇ρ_gauss_i(x, a::agent, system_size::NTuple{2, Float64}) = ρ_gauss_i(x, a, system_size).*d_vec(x, a, system_size)./(1.5*a.l)^2
+∇ρ_gauss_i(x, a::element, system_size::NTuple{2, Float64}) = ρ_gauss_i(x, a, system_size).*d_vec(x, a, system_size)./(1.5*a.l)^2
 
 
 

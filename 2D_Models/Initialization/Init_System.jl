@@ -139,8 +139,8 @@ end
 #Ordne den Agenten zufällige desired Headings zu
 function initialize_random_headings(menge::crowd)
     for agent in menge.agent
-        agent.e_des = random_heading()
-        agent.heading = agent.e_des
+        #agent.e_des = random_heading()
+        agent.heading = random_heading()
     end
 end
 
