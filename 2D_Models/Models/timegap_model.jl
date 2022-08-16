@@ -1,5 +1,5 @@
-Score(a::agent, a_vel, a_ϕ) = (a.v_pref .* a.e_pref) ⋅ v(a_vel, a_ϕ)
-#Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.e_pref)
+#Score(a::agent, a_vel, a_ϕ) = (a.v_pref .* a.e_pref) ⋅ v(a_vel, a_ϕ)
+Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.e_pref)
 
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)

@@ -64,4 +64,55 @@ function Create_Closed_Room!(a0, a, b0, b, l)
     geometry([element((geometry_x[i], geometry_y[i]), l) for i in 1:length(geometry_x)])
 end
 
+function Create_Cross_Section(l1, l2, size)
+
+    #1
+    x1, y1 = Line((0, l1), (l1, l1), size)
+
+    #2
+    x2, y2 = Line((l1, 0), (l1, l1), size)
+
+    #3
+    x3, y3 = Line((l1+l2, 0), (l1+l2, l1), size)
+
+    #4
+    x4, y4 = Line((l1+l2, l1), (2*l1+l2, l1), size)
+
+    #5
+    x5, y5 = Line((0, l1+l2), (l1, l1+l2), size)
+
+    #6
+    x6, y6 = Line((l1, l1+l2), (l1, 2*l1+l2), size)
+
+    #7
+    x7, y7 = Line((l1+l2, 2*l1+l2), (l1+l2, l1+l2), size)
+
+    #8
+    x8, y8 = Line((l1+l2, l1+l2), (2*l1+l2, l1+l2), size)
+
+
+    geometry_y = vcat(x1, x2, x3, x4, x5, x6, x7, x8)
+    geometry_x = vcat(y1, y2, y3, y4, y5, y6, y7, y8)
+
+    geometry([element((geometry_x[i], geometry_y[i]), size) for i in 1:length(geometry_x)])
+end
+
+function Line(P1, P2, size)
+
+    N = Int(round(abs(P2.-P1)/size+1))
+    cor_x, cor_y = fill(0.0, N), fill(0.0, N)
+
+    for i in 1:N
+
+        cor_x[i], cor_y[i] = Point_on_Line(P1, P2, size, i)
+
+    end
+
+    cor_x, cor_y
+
+end
+
+Point_on_Line(P1, P2, size, i) = P1 .+ (P2.-P1)./abs(P2.-P1).*size.*(i-1)
+
+
 ;

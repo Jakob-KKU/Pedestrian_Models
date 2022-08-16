@@ -201,6 +201,18 @@ function Init_Random_Desired_Time_Gaps!(menge::crowd, μ::Float64, σ::Float64)
 
 end
 
+function Init_Random_V_max!(menge::crowd, μ::Float64, σ::Float64)
+
+    func = Truncated(Distributions.Normal(μ, σ), μ-2*σ, μ+2*σ)  #Construct truncated normal distribution
+
+    for x in menge.agent
+
+        x.v_max = rand(func)
+
+    end
+
+end
+
 function Init_Random_Step_Pos!(menge::crowd)
 
     for x in menge.agent

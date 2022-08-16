@@ -253,7 +253,7 @@ function ϕ_(a::agent)
     if a.heading[2] >= 0.0
         acos(a.heading[1])
     else
-        2π - acos(a.heading[1])
+        2π - acos(a.heading[1]/abs(a.heading))
     end
 end
 

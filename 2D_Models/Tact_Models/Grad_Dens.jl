@@ -1,6 +1,6 @@
 function Calc_e_pref(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
-    x = a.pos .+ a.e_des
+    x = a.pos #.+ a.e_des
 
     ∇ρ = ∇ρ_gauss(x, a, menge, geometrie, system_size)
 
@@ -24,7 +24,7 @@ function Calc_V_pref(a::agent, menge::crowd, geometrie::geometry, system_size::N
 
     else
 
-        x = a.pos .+ a.e_pref
+        x = a.pos .+ a.l .* a.e_pref
 
         max(0.05, min((1/sqrt(ρ_gauss(x, a, menge, geometrie, system_size))-a.l)/a.T2, a.v_max))
 

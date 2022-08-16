@@ -66,6 +66,30 @@ function Init_Velocities!(df::DataFrame, k::Int, Δt::Float64, L)
 
 end
 
+function Init_Global_Density!(df::DataFrame, L)
+
+    n = nrow(df)
+    index = 0
+
+
+    frames = unique(df[!, :Frame])
+    ρ_global = fill(0.0, n)
+
+
+    for fr in frames
+
+        df_ = df[(df.Frame .== fr), :]
+        n_ = nrow(df_)
+
+        ρ_global[index+1:index+n_] .= n_/(L[1]*L[2])
+        index += n_
+
+    end
+
+    df[!, :ρ_global] = ρ_global
+
+end
+
 Base.abs(a, b) = sqrt(a^2+b^2)
 
 ϕ(r::Float64, ξ::Float64) = r ≤ 2*ξ ? exp(-r^2/(2*ξ^2)) : 0.0

@@ -1,26 +1,28 @@
 function Calc_Temp_Headings_and_Velocities!(menge::crowd, geometrie::geometry, temp_headings
         , temp_velocities, system_size::NTuple{2, Float64}, dt)
 
-    N_dim = 3
+    N_dim = 0
 
-    for (i,x) in enumerate(menge.agent[1:N-N_dim])
+    for (i,x) in enumerate(menge.agent)
+
+        if i in 27-N_dim+1:27
+            temp_headings[i], temp_velocities[i]  = Calc_Heading_Velocity_TG(x, menge, geometrie, system_size)
+        else
             temp_headings[i], temp_velocities[i]  = Calc_Heading_Velocity(x, menge, geometrie, system_size)
-    end
-
-    for (i,x) in enumerate(menge.agent[N-N_dim+1:end])
-            temp_headings[N-N_dim+i], temp_velocities[N-N_dim+i]  = Calc_Heading_Velocity_TG(x, menge, geometrie, system_size)
+        end
     end
 
 end
 
-Score_TG(a::agent, a_vel, a_ϕ) = (a.v_max .* a.e_des) ⋅ v(a_vel, a_ϕ)
+#Score_TG(a::agent, a_vel, a_ϕ) = (a.v_max .* a.e_des) ⋅ v(a_vel, a_ϕ)
+Score_TG(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.e_pref)
 
 
 function Calc_Heading_Velocity_TG(a::agent, menge::crowd, geometrie::geometry, system_size)
 
     if v_des_possible_TG(a, menge, geometrie, system_size) == true
 
-        a.e_des, a.v_max
+        a.e_pref, a.v_pref
 
     else
 
@@ -32,7 +34,7 @@ end
 
 function v_des_possible_TG(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    if Min_TimeGap(a, a.v_max, a.e_des, menge, geometrie, system_size) >= a.T
+    if Min_TimeGap(a, a.v_pref, a.e_pref, menge, geometrie, system_size) >= a.T
         true
     else
         false
@@ -122,6 +124,11 @@ function Two_Approaching_Crowds_Dim_OneSide(menge::crowd, geometrie::geometry, w
         #assign dim agents on the left
         Random_Pos_In_Rectangle((x_min_dim, 0.0), (x_max_dim, system_size[2]), N-N_dim+1, N, menge, (1, 0), system_size, geometrie)
 
+        #if N_dim >0
+        #    for a in menge.agent[N-N_dim+1:end]
+        #        #a.T = 0.5
+        #    end
+        #end
     end
 end
 
