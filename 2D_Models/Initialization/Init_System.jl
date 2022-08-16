@@ -275,6 +275,57 @@ function Init_Rand_Rect!(a0, a, b0, b, menge::crowd, geometrie::geometry)
     end
 end
 
+function Init_CrossSection_Crowds!(menge::crowd, geometrie::geometry, l1, l2 ,system_size)
+
+    N = length(menge.agent)
+    ΔN = Int(round(N/4))
+
+    #left
+    for i in 1:ΔN
+        menge.agent[i].pos = (rand()*l1 , rand()*l2+l1)
+
+        while overlap(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos = (rand()*l1 , rand()*l2+l1)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (1.0, 0), (1.0, 0)
+    end
+
+    #bottom
+    for i in ΔN+1:2*ΔN
+        menge.agent[i].pos = (rand()*l2 + l1 , rand()*l1)
+
+        while overlap(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos =  (rand()*l2 + l1 , rand()*l1)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (0.0, 1.0), (0.0, 1.0)
+    end
+
+    #right
+    for i in 2*ΔN+1:3*ΔN
+        menge.agent[i].pos = (l1+l2+rand()*l1 , rand()*l2+l1)
+
+        while overlap(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos =(l1+l2+rand()*l1 , rand()*l2+l1)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (-1.0, 0), (-1.0, 0)
+    end
+
+    #top
+    for i in 3*ΔN+1:N
+        menge.agent[i].pos = (rand()*l2 + l1 , rand()*l1+l1+l2)
+
+        while overlap(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos = (rand()*l2 + l1 , rand()*l1+l1+l2)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (0.0, -1.0), (0.0, -1.0)
+    end
+
+end
+
 
 
 
