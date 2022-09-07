@@ -27,15 +27,14 @@ end
 #ov(a::agent, b::agent, L) = min(a.v_max, max(0.0,(d(a, b, L) - l(a, b))/a.T))
 ov(a::agent, b::agent, L) = (d(a, b, L) - l(a, b))/a.T
 
-#function d(a::agent, b::agent, L)
+function d(a::agent, b::agent, L)
 
-#    dx = b.pos - a.pos
-
-#    if b.pos < L/5 && a.pos > 4*L/5
-#        b.pos + L - a.pos
-#    else
-#        dx
-#    end
-#end
+   dx = b.pos - a.pos
+   if b.pos < L/5 && a.pos > 4*L/5
+        b.pos + L - a.pos
+    else
+        dx
+    end
+end
 
 ;

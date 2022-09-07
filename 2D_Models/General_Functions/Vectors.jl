@@ -213,6 +213,24 @@ function e_(a_pos::NTuple{2, Float64}, b_pos::NTuple{2, Float64}, system_size::N
     (dx, dy) ./ sqrt(dx^2 + dy^2)
 end
 
+function d_vec(a::agent, b::agent, system_size::NTuple{2, Float64})
+
+   dx, dy = a.pos.-b.pos
+
+    if dx > system_size[1]/2
+        dx = dx - system_size[1]
+    elseif dx < -system_size[1]/2
+        dx = dx + system_size[1]
+    end
+    if dy > system_size[2]/2
+        dy = dy - system_size[2]
+    elseif dy < -system_size[2]/2
+        dy = dy + system_size[2]
+    end
+
+    (dx, dy)
+end
+
 function d_vec(x, a::agent, system_size::NTuple{2, Float64})
 
     dx, dy = x.-a.pos
