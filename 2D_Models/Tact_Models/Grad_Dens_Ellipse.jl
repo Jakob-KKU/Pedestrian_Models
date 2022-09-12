@@ -15,7 +15,7 @@ function Calc_V_pref(a::agent, menge::crowd, geometrie::geometry, system_size::N
     if a.e_pref == (0.0, 0.0)
         0.0
     else
-        max(0.05, min((1/sqrt(ρ_gauss_ellipse(a, menge, geometrie, system_size))-a.l)/a.T2, a.v_max))
+        max(0.0, min((1/sqrt(ρ_gauss_ellipse(a, menge, geometrie, system_size))-a.l)/a.T2, a.v_max))
     end
 
 end
@@ -29,15 +29,15 @@ end
 
 function ρ_gauss_ellipse_i(a::agent, b::agent, system_size::NTuple{2, Float64})
 
-    d_para, d_perp = d_vec_ellipse(a, b, system_size)
+    d_tilde = d_vec_ellipse(a, b, system_size)
 
-    if d_para[1] == 999.0
+    if d_tilde[1] == 999.0
 
         0.0
 
     else
 
-        1/(2*π*(1.5*b.l)^2)*exp(-(abs(d_para)^2+abs(d_perp)^2)/(2*(1.5*b.l)^2))
+        1/(2*π*(1.5*b.l)^2)*exp(-(d_tilde[1]^2+d_tilde[2]^2)/(2*(1.5*b.l)^2))
 
     end
 
@@ -45,15 +45,15 @@ end
 
 function ∇ρ_gauss_ellipse_i(a::agent, b::agent, system_size::NTuple{2, Float64})
 
-    d_para, d_perp = d_vec_ellipse(a, b, system_size)
+    d_tilde = d_vec_ellipse(a, b, system_size)
 
-    if d_para[1] == 999.0
+    if d_tilde[1] == 999.0
 
         (0.0, 0.0)
 
     else
 
-        ρ_gauss_i(a, b, system_size).* (d_para .+ d_perp)./(1.5*b.l)^2
+        d_tilde .* (ρ_gauss_ellipse_i(a, b, system_size)/(1.5*b.l)^2)
 
     end
 
@@ -94,14 +94,14 @@ function d_ellipse(a::agent, b::agent, system_size::NTuple{2, Float64})
 
     if a.heading ⋅ d_ab > 0.0
 
-        999.0, 999.0
+        999.0
 
     else
 
         d_para = (a.heading ⋅ d_ab).*a.heading
         d_perp = d_ab .- d_para
 
-        abs(d_para), abs(d_para)*L_ellipse(a)/w_ellipse(a)
+        abs(d_para.+d_para*L_ellipse(a)/w_ellipse(a))
 
     end
 end
@@ -112,14 +112,14 @@ function d_vec_ellipse(a::agent, b::agent, system_size::NTuple{2, Float64})
 
     if a.heading ⋅ d_ab > 0.0
 
-        (999.0, 999.0), (999.0, 999.0)
+        (999.0, 999.0)
 
     else
 
         d_para = (d_ab ⋅ a.heading).*a.heading
         d_perp = d_ab .- d_para
 
-        d_para, d_perp.*(L_ellipse(a)/w_ellipse(a))
+        d_para .+ d_perp.*(L_ellipse(a)/w_ellipse(a))
 
     end
 end
