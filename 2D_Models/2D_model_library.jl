@@ -37,14 +37,14 @@ include("./Save_Output.jl")
 #include model
 function include_model(model)
 
-    path = "/home/jakob/Dokumente/Git_Project/2D_Models/Models/"
+    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Models/"
     include(string(path, model, ".jl"))
 
 end
 
 function include_tact_model(x)
 
-    path = "/home/jakob/Dokumente/Git_Project/2D_Models/Tact_Models/"
+    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Tact_Models/"
     include(string(path, x, ".jl"))
 
 end
@@ -52,7 +52,7 @@ end
 #include update
 function include_update(scheme)
 
-    path = "/home/jakob/Dokumente/Git_Project/2D_Models/Update_Schemes/"
+    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Update_Schemes/"
     include(string(path, scheme, ".jl"))
 
 end
@@ -60,7 +60,7 @@ end
 #include order
 function include_order(order)
 
-    path = "/home/jakob/Dokumente/Git_Project/2D_Models/Order/"
+    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Order/"
     include(string(path, order, ".jl"))
 
 end
@@ -68,7 +68,7 @@ end
 #special scenario
 function load_scenario(x)
 
-    path = "/home/jakob/Dokumente/Git_Project/2D_Models/Scenarios/"
+    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Scenarios/"
     include(string(path, x, ".jl"))
 
 end

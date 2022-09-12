@@ -9,13 +9,7 @@ function Init_Nth_Agent_as_Moving_Obstacle!(menge, system_size, l, vel)
 
 end
 
-#function Update_Pref_Velocities!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
-#    for x in menge.agent
-#        x.v_pref = 0.0
-#    end
-
-#end
 
 function Update_Pos_and_Heading!(menge::crowd, temp_headings::Array{NTuple{2, Float64},1},
      temp_velocities::Array{Float64,1}, dt::Float64, system_size::NTuple{2, Float64})
@@ -62,7 +56,8 @@ end
 function Update_Pref_Velocities_!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
     for x in menge.agent
-        Update_Pref_Velocity_!(x, menge, geometrie, system_size)
+        x.e_pref = (0.0, 0.0)
+        x.v_pref = 0.0
     end
 
 end

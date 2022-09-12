@@ -10,7 +10,6 @@ function Calc_e_pref(a::agent, menge::crowd, geometrie::geometry, system_size::N
 
     else
 
-
         normalize(a.e_des .+ a.α .* ∇ρ)
 
     end

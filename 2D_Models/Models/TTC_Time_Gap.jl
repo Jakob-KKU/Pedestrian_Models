@@ -40,7 +40,7 @@ function Sample_Best_v(a::agent, menge::crowd, geometrie::geometry, system_size)
 
             ttc_ = Min_TTC(a, vel, Heading(ϕ), menge, geometrie, system_size)
 
-            if Score(a, vel, ϕ) > score_ && ttc_ > a.T
+            if Score(a, vel, ϕ) >= score_ && ttc_ > a.T
                ϕ_best, vel_best, score_ = ϕ, vel, Score(a, vel, ϕ)
            #elseif abs(ϕ-π)<0.01 && Score(a, vel, ϕ) >= score_ && ttc_ > a.T
             #   ϕ_best, vel_best, score_ = ϕ, vel, Score(a, vel, ϕ)
