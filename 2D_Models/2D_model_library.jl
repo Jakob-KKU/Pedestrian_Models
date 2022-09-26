@@ -37,7 +37,7 @@ include("./Save_Output.jl")
 #include model
 function include_model(model)
 
-    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Models/"
+    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/OP_Models/"
     include(string(path, model, ".jl"))
 
 end

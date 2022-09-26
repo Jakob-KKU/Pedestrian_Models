@@ -24,7 +24,7 @@ end
 function Calc_V_pref(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
     #if a.e_pref == a.e_des
-        0.0
+        #0.0
     #else
         x = a.pos .+ (0.0*a.l/2 + a.vel/2 ) .*a.heading
 
