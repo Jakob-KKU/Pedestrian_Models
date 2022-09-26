@@ -231,7 +231,7 @@ function d_vec(a::agent, b::agent, system_size::NTuple{2, Float64})
     (dx, dy)
 end
 
-function d_vec(x, a::agent, system_size::NTuple{2, Float64})
+function d_vec(x::NTuple{2, Float64}, a::agent, system_size::NTuple{2, Float64})
 
     dx, dy = x.-a.pos
 
@@ -249,7 +249,7 @@ function d_vec(x, a::agent, system_size::NTuple{2, Float64})
     (dx, dy)
 end
 
-function d_vec(x, a::element, system_size::NTuple{2, Float64})
+function d_vec(x::NTuple{2, Float64}, a::element, system_size::NTuple{2, Float64})
     dx, dy = x.-a.pos
 
     if dx > system_size[1]/2

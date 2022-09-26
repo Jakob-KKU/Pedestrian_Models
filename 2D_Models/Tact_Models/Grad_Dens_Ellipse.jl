@@ -1,18 +1,20 @@
 function Calc_e_pref(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
     ∇ρ = ∇ρ_gauss_ellipse(a, menge, geometrie, system_size)
+    #println(abs(∇ρ))
 
     if abs(∇ρ) < a.r
         a.e_des
     else
         normalize(a.e_des .+ a.α .* ∇ρ)
+        #normalize(∇ρ)
     end
 
 end
 
 function Calc_V_pref(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
-    if a.e_pref == (0.0, 0.0)
+    if a.e_pref == a.e_des
         0.0
     else
         max(0.0, min((1/sqrt(ρ_gauss_ellipse(a, menge, geometrie, system_size))-a.l)/a.T2, a.v_max))
@@ -45,15 +47,17 @@ end
 
 function ∇ρ_gauss_ellipse_i(a::agent, b::agent, system_size::NTuple{2, Float64})
 
+    d_ = d_vec(a, b, system_size)
     d_tilde = d_vec_ellipse(a, b, system_size)
 
-    if d_tilde[1] == 999.0
+
+    if d_[1] == 999.0
 
         (0.0, 0.0)
 
     else
 
-        d_tilde .* (ρ_gauss_ellipse_i(a, b, system_size)/(1.5*b.l)^2)
+        normalize(d_) .* abs(d_tilde) .* (ρ_gauss_ellipse_i(a, b, system_size)/(1.5*b.l)^2)
 
     end
 

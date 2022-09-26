@@ -56,7 +56,7 @@ end
 function Update_Pref_Velocities_!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
     for x in menge.agent
-        x.e_pref = (0.0, 0.0)
+        x.e_pref = x.e_des
         x.v_pref = 0.0
     end
 

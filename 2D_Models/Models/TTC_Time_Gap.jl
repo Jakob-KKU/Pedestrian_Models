@@ -2,7 +2,7 @@
 #Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.e_des)+(v(vel, ϕ)⋅(a.v_pref.*a.e_des))
 
 Score(a::agent, vel, ϕ) = -abs(v(vel, ϕ).-a.v_pref.*a.e_pref)
-Score2(a::agent, vel, ϕ, ttc) =  -(1/ttc - Score(a, vel, ϕ))
+#Score2(a::agent, vel, ϕ, ttc) =  -(1/ttc - Score(a, vel, ϕ))
 Score2(a::agent, vel, ϕ, ttc) =  -1/ttc
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
