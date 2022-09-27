@@ -1,3 +1,7 @@
+#heavyside
+Θ(x) = x > 0.0 ? 1.0 : 0.0
+Θ(x, k::Int) = 0.5 + 0.5 * tanh(k*x)
+
 #define a dot product
 ⋅(u::NTuple{2, Float64}, v::NTuple{2, Float64}) = u[1]*v[1]+u[2]*v[2]
 ⋅(u::Vector{Float64}, v::Vector{Float64}) = u[1]*v[1]+u[2]*v[2]

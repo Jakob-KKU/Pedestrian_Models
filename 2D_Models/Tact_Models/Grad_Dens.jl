@@ -12,8 +12,7 @@ function Calc_e_pref(a::agent, menge::crowd, geometrie::geometry, system_size::N
 
     else
 
-        #normalize(a.e_des .+ a.α .* ∇ρ)
-        normalize(∇ρ)
+        normalize(a.e_des .+ a.α .* ∇ρ)
 
     end
 
@@ -21,18 +20,18 @@ end
 
 function Calc_V_pref(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
-    if a.e_pref == a.e_des#(0.0, 0.0)
+    #if a.e_pref == a.e_des#(0.0, 0.0)
 
-        0.0
+    #    0.0
 
-    else
+    #else
 
         x = a.pos .+ (0.0*a.l/2 + a.vel/2 ).*a.heading
 
         #0.25
-        max(0.05, min((1/sqrt(ρ_gauss(x, a, menge, geometrie, system_size))-a.l)/a.T2, a.v_max))
+        max(0.0, min((1/sqrt(ρ_gauss(x, a, menge, geometrie, system_size))-a.l)/a.T2, a.v_max))
 
-    end
+    #end
 
 end
 

@@ -17,6 +17,14 @@ function Init_hom_Goal!(menge, goal)
     end
 end
 
+function Init_E_des!(menge::crowd, dir)
+
+    for a in menge.agent
+        a.e_des = dir
+    end
+
+end
+
 #initialize positions
 function overlap(current_agent::Int, menge::crowd)
 

@@ -149,4 +149,4 @@ function d_vec_ellipse2(x::NTuple{2, Float64}, a::agent, b::agent, system_size::
 end
 
 L_ellipse(a::agent) = a.l + a.vel*a.T2
-w_ellipse(a::agent) = a.l + a.vel*a.T2/3
+w_ellipse(a::agent) = a.l + a.vel*a.T2/2
