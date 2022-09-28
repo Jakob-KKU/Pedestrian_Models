@@ -46,7 +46,7 @@ function p_in_D(p, m, r)
 
 end
 
-function Calc_Vel_Obs_2(a::agent, b::agent, τ, dτ, dv)
+function Calc_Vel_Obs_2(a::agent, b::agent, dv)
 
     v_x = collect(-a.v_max:dv:a.v_max)
     v_y = collect(-a.v_max:dv:a.v_max)
@@ -63,11 +63,13 @@ function Calc_Vel_Obs_2(a::agent, b::agent, τ, dτ, dv)
             a_vel = abs((vx, vy))
             a_heading = (vx, vy)./a_vel
 
-            if ttc(a, b, a_heading, a_vel) <= τ
+            vel_obs[j, i] = 1/ttc(a, b, a_heading, a_vel)
 
-                vel_obs[j, i] = 0.0
+            #if ttc(a, b, a_heading, a_vel) <= a.T
 
-            end
+            #    vel_obs[j, i] = 0.0
+
+            #end
         end
     end
 

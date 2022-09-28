@@ -12,6 +12,25 @@ function Init_Two_Agents_α!(menge::crowd, α, d, x_min, y_min, ϵ)
 
 end
 
+function Init_Three_Agents!(menge::crowd, d, x_min, y_min, ϵ)
+
+    menge.agent[1].pos = (x_min, y_min)
+    menge.agent[2].pos = (x_min, y_min + 2*ϵ)
+    menge.agent[3].pos = (x_min + d, y_min + ϵ)
+
+
+    menge.agent[1].e_des = (1.0, 0.0)
+    menge.agent[2].e_des = (1.0, 0.0)
+    menge.agent[3].e_des = (-1.0, 0.0)
+
+
+    menge.agent[1].heading = menge.agent[1].e_des
+    menge.agent[2].heading = menge.agent[2].e_des
+    menge.agent[3].heading = menge.agent[3].e_des
+
+
+end
+
 
 function Init_Overtaking!(menge::crowd, d, x_min, y_min, ϵ, v1, v2)
 

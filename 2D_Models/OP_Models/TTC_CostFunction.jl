@@ -36,6 +36,7 @@ function Sample_Best_v(a::agent, menge::crowd, geometrie::geometry, system_size)
 
             if Score(a, v(vel, ϕ), ttc_) <= score_
                 ϕ_, vel_, score_ = ϕ, vel, Score(a, v(vel, ϕ), ttc_)
+                println(vel_)
             end
 
         end
