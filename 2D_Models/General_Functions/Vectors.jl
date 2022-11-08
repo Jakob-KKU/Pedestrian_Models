@@ -100,12 +100,14 @@ normalize(a::NTuple{2, Float64}) = a./abs(a)
 normalize(a::Vector{Float64}) = a./abs(a)
 
 #winkel zwischen a und b
-∠(a::NTuple{2, Float64}, b::NTuple{2, Float64}) = acos((a⋅b)/(abs(a)*abs(b)))
-∠(a::Vector{Float64}, b::Vector{Float64}) = acos((a⋅b)/(abs(a)*abs(b)))
-∠(a::agent, b::agent) = acos(a⋅b)
+∠(a::NTuple{2, Float64}, b::NTuple{2, Float64}) = acos(clamp((a⋅b)/(abs(a)*abs(b)),-1.0, 1.0))
+∠(a::Vector{Float64}, b::Vector{Float64}) = acos(clamp((a⋅b)/(abs(a)*abs(b)),-1.0, 1.0))
+∠(a::agent, b::agent) = acos(clamp((a⋅b)/(abs(a)*abs(b)),-1.0, 1.0))
 #winkel zwischen orts vektor von a nach b und dem heading von a
-∠_h(a::agent, b::agent) = acos(e_(b, a)⋅a.heading)
-∠_h(a::agent, b::agent, system_size) = acos(e_(b, a, system_size)⋅a.heading)
+∠_h(a::agent, b::agent) = acos(clamp(e_(b, a)⋅a.heading,-1.0, 1.0))
+∠_h(a::agent, b::agent, system_size) = acos(clamp(e_(b, a, system_size)⋅a.heading,-1.0, 1.0))
+∠_h(a::agent, a_v, b::agent, system_size) = acos(clamp(e_(b, a, system_size)⋅normalize(a_v),-1.0, 1.0))
+
 
 
 #einheitsvektor von b nach a
