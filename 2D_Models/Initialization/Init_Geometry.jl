@@ -25,9 +25,9 @@ function create_corridor_with_obstacle(width, laenge, size)
     geometry([element((geometry_x[i], geometry_y[i]), size) for i in 1:length(geometry_x)])
 end
 
-function create_corridor(width, laenge, size)
-    geometry_y = vcat(zeros(length(LinRange(0:size:laenge))), fill(width, length(LinRange(0:size:laenge))))
-    geometry_x = vcat(LinRange(0:size:laenge), LinRange(0:size:laenge))
+function create_corridor(width, laenge, size, dx)
+    geometry_y = vcat(zeros(length(LinRange(0:dx:laenge))), fill(width, length(LinRange(0:dx:laenge))))
+    geometry_x = vcat(LinRange(0:dx:laenge), LinRange(0:dx:laenge))
 
     geometry([element((geometry_x[i], geometry_y[i]), size) for i in 1:length(geometry_x)])
 end
