@@ -9,6 +9,7 @@ mutable struct agent
     e_pref::NTuple{2, Float64}
     goal::NTuple{2, Float64}
     e_des::NTuple{2, Float64}
+    v_des::Float64
     neighbors_agents::Vector{Int}
     neighbors_geometry::Vector{Int}
     voronoi_dens::Float64
@@ -42,7 +43,7 @@ end
 
 
 function create_crowd(N::Int, geometrie::geometry)
-    crowd([agent((0.0, 0.0), (0.0, 0.0), 0.0, 0.0, 0.0, (0.0, 0.0),  (0.0, 0.0), (0.0, 0.0), fill(0, N+1),
+    crowd([agent((0.0, 0.0), (0.0, 0.0), 0.0, 0.0, 0.0, (0.0, 0.0),  (0.0, 0.0), (0.0, 0.0), 0.0, fill(0, N+1),
      fill(0, length(geometrie.element)+1), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) for i in 1:N])
 end
 ;

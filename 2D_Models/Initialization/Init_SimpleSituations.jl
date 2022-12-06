@@ -121,7 +121,7 @@ function Init_4_Agents_Bottleneck!(ϕ1, ϕ2, ϕ3, ϕ4, dist1, dist2, dist3, dist
 
 end
 
-function Initialize_Circle!(menge::crowd, R_::Float64, P_0::NTuple{2, Float64})
+function Init_Antipodal!(menge::crowd, R_::Float64, P_0::NTuple{2, Float64})
 
     dϕ = 2π/length(menge.agent)
 
@@ -130,6 +130,7 @@ function Initialize_Circle!(menge::crowd, R_::Float64, P_0::NTuple{2, Float64})
         x.pos = (R_*cos((i-1)*dϕ)+P_0[1], R_*sin((i-1)*dϕ)+P_0[2])
         x.e_des = -1 .*e_(x.pos, P_0)
         x.heading = x.e_des
+        x.goal = (R_*cos((i-1)*dϕ + π)+P_0[1], R_*sin((i-1)*dϕ + π)+P_0[2])
 
     end
 

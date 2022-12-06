@@ -1,5 +1,5 @@
-Score(a::agent, v, ttc) = Θ(a.T/ttc - 1)/0.00001+abs(v .- a.e_pref .* a.v_pref)^2
-#Score(a::agent, v, ttc) = a.T/ttc+abs(v .- a.e_pref .* a.v_pref)^2
+#Score(a::agent, v, ttc) = Θ(a.T/ttc - 1)/0.00001+abs(v .- a.e_pref .* a.v_pref)^2
+Score(a::agent, v, ttc) = a.T/ttc+abs(v .- a.e_pref .* a.v_pref)
 
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
