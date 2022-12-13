@@ -75,3 +75,36 @@ function Write_Agents_XML(menge::crowd, file, path)
         write(test, str)
     end
 end
+
+function Create_Scenario(δt, t_max, policy, agents, system_size)
+
+    str_help = string("Simulation delta_time=\"", δt, "\" end_time=\"", t_max, "\"")
+
+    str = Write_BeginLine(str_help)
+
+    str_help = string("World type=\"Toric\" width=\"", system_size[1], "\" height=\"", system_size[2], "\"")
+    #str_help = string("World type=\"Infinite\" width=\"", system_size[1], "\" height=\"", system_size[2], "\"")
+
+
+    str = string(str, Write_Line(str_help, 1))
+
+    str_help = string("Policies file=\"policies/", policy, ".xml\"")
+
+    str = string(str, Write_Line(str_help, 1))
+
+    str_help = string("Agents file=\"agents/", agents, ".xml\"")
+
+    str = string(str, Write_Line(str_help, 1))
+
+    string(str, Write_EndLine("Simulation"))
+
+end
+
+function Write_Scenario_XML(path, name, sim_p, system_size, policy, agents)
+
+    str = Create_Scenario(sim_p[4], sim_p[2], policy, agents, system_size)
+
+    open(string(path, name, ".xml"), "w") do file
+        write(file, str)
+    end
+end
