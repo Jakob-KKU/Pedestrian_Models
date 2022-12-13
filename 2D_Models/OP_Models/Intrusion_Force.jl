@@ -2,8 +2,8 @@ r_soc(a::agent, b::agent, system_size) = 0.8#(1.4-0.1)/2*(cos(∠_h(a, b, system
 
 #IN(a::agent, b::agent, system_size) = (r_soc(a, b, system_size) - 0.1)/(d(a, b, system_size) - 0.1)
 
-IN(a::agent, b::agent, system_size) = ((r_soc(a, b, system_size) - 2/3*l(a, b))/(d(a, b, system_size) - 2/3*l(a, b)))^2
-IN(a::agent, b::element, system_size) = ((r_soc(a, b, system_size) - 2/3*l(a, b))/(d(a, b, system_size)  - 2/3*l(a, b)))^2
+IN(a::agent, b::agent, system_size) = ((r_soc(a, b, system_size) - 2/3*l(a, b))/(d(a, b, system_size) - 2/3*l(a, b)))
+IN(a::agent, b::element, system_size) = ((r_soc(a, b, system_size) - 2/3*l(a, b))/(d(a, b, system_size)  - 2/3*l(a, b)))
 
 
 
