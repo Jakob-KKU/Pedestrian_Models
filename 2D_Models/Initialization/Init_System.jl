@@ -78,6 +78,25 @@ function overlap(current_agent::Int, menge::crowd, geometrie::geometry, system_s
     false
 end
 
+function Too_Close(current_agent::Int, menge::crowd, geometrie::geometry, system_size)
+
+    for i in 1:current_agent-1
+
+        if d(menge.agent[current_agent], menge.agent[i], system_size) < 2*l(menge.agent[current_agent], menge.agent[i])
+            return true
+        end
+    end
+
+    for x in geometrie.element
+
+        if d(menge.agent[current_agent], x, system_size) < 2*l(menge.agent[current_agent], x)
+            return true
+        end
+    end
+
+    false
+end
+
 #Ordne den Agenten zufällige Positionen zu
 function initialize_random_positions(x::NTuple{2, Float64}, y::NTuple{2, Float64}, menge::crowd)
 

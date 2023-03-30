@@ -62,5 +62,5 @@ function Collision(a::agent, b::element, system_size::NTuple{2, Float64})
 end
 
 
-F(a::agent, b::agent, system_size) =  a.α*exp(-d(a, b, system_size)/a.r).*e_(a, b, system_size)
-F(a::agent, b::element, system_size) =  0.1*a.α*exp(-d(a, b, system_size)/a.r).*e_(a, b, system_size)
+F(a::agent, b::agent, system_size) =  a.α*exp(-(d(a, b, system_size)-l(a, b))/a.r).*e_(a, b, system_size)
+F(a::agent, b::element, system_size) =  0.1*a.α*exp(-(d(a, b, system_size)-l(a, b))/a.r).*e_(a, b, system_size)

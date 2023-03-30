@@ -127,7 +127,7 @@ function Init_Antipodal!(menge::crowd, R_::Float64, P_0::NTuple{2, Float64})
 
     for (i, x) in enumerate(menge.agent)
 
-        x.pos = (R_*cos((i-1)*dϕ)+P_0[1], R_*sin((i-1)*dϕ)+P_0[2])
+        x.pos = (R_*cos((i-1)*dϕ)+P_0[1], R_*sin((i-1)*dϕ)+P_0[2]) .+ (rand().*0.01, rand().*0.01)
         x.e_des = -1 .*e_(x.pos, P_0)
         x.heading = x.e_des
         x.goal = (R_*cos((i-1)*dϕ + π)+P_0[1], R_*sin((i-1)*dϕ + π)+P_0[2])

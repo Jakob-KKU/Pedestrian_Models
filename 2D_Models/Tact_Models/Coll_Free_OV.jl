@@ -16,4 +16,4 @@ function Update_Pref_Velocity!(a::agent, menge::crowd, geometrie::geometry, syst
 
 end
 
-F(a::agent, b::agent, system_size) = a.α*exp(-d(a, b, system_size)/a.l).*e_(a, b, system_size)
+F(a::agent, b::agent, system_size) = a.α*exp(-(d(a, b, system_size)-l(a, b))/a.r).*e_(a, b, system_size)

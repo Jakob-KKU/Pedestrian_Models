@@ -83,7 +83,7 @@ function Create_Scenario(δt, t_max, policy, agents, system_size)
     str = Write_BeginLine(str_help)
 
     str_help = string("World type=\"Toric\" width=\"", system_size[1], "\" height=\"", system_size[2], "\"")
-    #str_help = string("World type=\"Infinite\" width=\"", system_size[1], "\" height=\"", system_size[2], "\"")
+    #str_help = string("World type=\"Infinite\"")
 
 
     str = string(str, Write_Line(str_help, 1))
@@ -107,4 +107,25 @@ function Write_Scenario_XML(path, name, sim_p, system_size, policy, agents)
     open(string(path, name, ".xml"), "w") do file
         write(file, str)
     end
+end
+
+function Set_Goal_from_E_des!(menge ,dist)
+
+    for a in menge.agent
+
+        a.goal = a.pos .+ a.e_des .* dist
+
+    end
+
+end
+
+function Change_Coordinate_System_Agents!(menge, dx)
+
+    for a in menge.agent
+
+        a.pos = a.pos .+ dx
+        a.goal = a.goal .+ dx
+
+    end
+
 end
