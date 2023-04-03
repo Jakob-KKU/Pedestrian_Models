@@ -132,4 +132,102 @@ function Two_Approaching_Crowds_Dim_OneSide(menge::crowd, geometrie::geometry, w
     end
 end
 
+function Two_Approaching_Crowds(menge::crowd, geometrie::geometry, system_size, condition)
+
+    N = length(menge.agent)
+
+    if N != 54
+
+        println("N has to be 54!")
+
+    else
+
+
+        if condition == "BaseLine"
+
+            Assign_BL!(menge, system_size)
+
+        elseif condition == "Front"
+
+            Assign_Front!(menge, system_size)
+
+        end
+    end
+
+
+end
+
+
+function Assign_BL!(menge, system_size)
+
+    r = 0.5
+    r2 = 1.0
+
+    for i in 0:8
+
+        ind = i*3
+
+        menge.agent[ind+1].pos = (1.5*i+r2*rand(), system_size[2]/4+r*rand())
+        menge.agent[ind+2].pos = (1.5*i+r2*rand(), 2*system_size[2]/4+r*rand())
+        menge.agent[ind+3].pos = (1.5*i+r2*rand(), 3*system_size[2]/4+r*rand())
+
+        menge.agent[27+ind+1].pos = (26+1.5*i+r2*rand(), system_size[2]/4+r*rand())
+        menge.agent[27+ind+2].pos = (26+1.5*i+r2*rand(), 2*system_size[2]/4+r*rand())
+        menge.agent[27+ind+3].pos = (26+1.5*i+r*rand(), 3*system_size[2]/4+r*rand())
+
+    end
+
+    for i in 1:27
+        menge.agent[i].e_des, menge.agent[i].heading = (1.0, 0.0), (1.0, 0.0)
+        menge.agent[i].vel = 1.0
+    end
+
+    for i in 28:N
+        menge.agent[i].e_des, menge.agent[i].heading = (-1.0, 0.0), (-1.0, 0.0)
+        menge.agent[i].vel = -1.0
+    end
+
+end
+
+function Assign_Front!(menge, system_size)
+
+    for i in 0:7
+
+        ind = i*3
+
+        menge.agent[ind+1].pos = (1.5*i+0.0, system_size[2]/4+rand())
+        menge.agent[ind+2].pos = (1.5*i+0.0, 2*system_size[2]/4+rand()*0.1)
+        menge.agent[ind+3].pos = (1.5*i+0.0, 3*system_size[2]/4+rand()*0.1)
+
+        menge.agent[27+ind+1].pos = (26+1.5*i, system_size[2]/4+rand()*0.1)
+        menge.agent[27+ind+2].pos = (26+1.5*i, 2*system_size[2]/4+rand()*0.1)
+        menge.agent[27+ind+3].pos = (26+1.5*i, 3*system_size[2]/4+rand()*0.1)
+
+    end
+
+
+    for i in 1:27
+        menge.agent[i].e_des, menge.agent[i].heading = (1.0, 0.0), (1.0, 0.0)
+        menge.agent[i].vel = 1.0
+    end
+
+    for i in 28:N
+        menge.agent[i].e_des, menge.agent[i].heading = (-1.0, 0.0), (-1.0, 0.0)
+        menge.agent[i].vel = -1.0
+    end
+
+end
+
+function Init_Mobile_Users!(menge::crowd, v_max, T, dia, N_dim)
+
+    for a in menge.agent[27-N_dim+1:27]
+
+        a.v_max = v_max
+        a.T = T
+        #a.l = dia
+
+    end
+
+end
+
 ;
