@@ -80,7 +80,7 @@ l(u::element, v::agent) = u.l/2 + v.l/2
 l(u::agent, v::element) = u.l/2 + v.l/2
 
 #betrag
-Base.abs(a::NTuple{2, Float64}) = sqrt(a[1]^2+a[2]^2)
+Base.abs(a::T) where T<:NTuple{2, Real} = sqrt(a[1]^2+a[2]^2)
 
 function Base.abs(a::Vector{Float64})
 

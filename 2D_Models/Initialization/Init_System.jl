@@ -354,6 +354,131 @@ function Init_CrossSection_Crowds!(menge::crowd, geometrie::geometry, l1, l2 ,sy
 
 end
 
+function Init_CrossSection_Crowds!(menge::crowd, geometrie::geometry, l1, l2, system_size, d_goal)
+
+    N = length(menge.agent)
+    ΔN = Int(round(N/4))
+    a = 0.35
+
+
+    #left
+    for i in 1:ΔN
+        menge.agent[i].pos = ((i-1)*l1/ΔN+a*rand(), a*(rand()-0.5)*l2+l1+l2/2)
+
+        while Too_Close(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos = ((i-1)*l1/ΔN+a*(rand()-0.5) , a*(rand()-0.5)*l2+l1+l2/2)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (1.0, 0), (1.0, 0)
+        menge.agent[i].goal = (system_size[1]/2 + d_goal, menge.agent[i].pos[2])
+    end
+
+    #bottom
+    for i in ΔN+1:2*ΔN
+        ind = i - ΔN
+        menge.agent[i].pos = (a*(rand()-0.5)*l2+l1+l2/2 , (ind-1)*l1/ΔN+a*rand())
+
+        while Too_Close(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos =  (a*(rand()-0.5)*l2+l1+l2/2 , (ind-1)*l1/ΔN+a*(rand()-0.5))
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (0.0, 1.0), (0.0, 1.0)
+        menge.agent[i].goal = (menge.agent[i].pos[1], system_size[2]/2 + d_goal)
+
+    end
+
+    #right
+    for i in 2*ΔN+1:3*ΔN
+        ind = i - 2*ΔN
+        menge.agent[i].pos = (l1+l2+(ind-1)*l1/ΔN+a*(rand()-0.5) , a*(rand()-0.5)*l2+l1+l2/2)
+
+        while Too_Close(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos =(l1+l2+(ind-1)*l1/ΔN+a*(rand()-0.5) ,  a*(rand()-0.5)*l2+l1+l2/2)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (-1.0, 0), (-1.0, 0)
+        menge.agent[i].goal = (system_size[1]/2-d_goal, menge.agent[i].pos[2])
+
+    end
+
+    #top
+    for i in 3*ΔN+1:N
+        ind = i - 3*ΔN
+        menge.agent[i].pos = (a*(rand()-0.5)*l2+l1+l2/2 , (ind-1)*l1/ΔN+a*(rand()-0.5)+l1+l2)
+
+        while Too_Close(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos = (a*(rand()-0.5)*l2+l1+l2/2 , (ind-1)*l1/ΔN+a*(rand()-0.5)+l1+l2)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (0.0, -1.0), (0.0, -1.0)
+        menge.agent[i].goal = (menge.agent[i].pos[1],system_size[2]/2 + -d_goal)
+
+    end
+
+end
+
+function Init_CrossSection_Crowds2!(menge::crowd, geometrie::geometry, l1, l2, system_size, d_goal)
+
+    N = length(menge.agent)
+    ΔN = Int(round(N/4))
+
+    #left
+    for i in 1:ΔN
+        menge.agent[i].pos = (l1*rand(), rand()*l2+l1)
+
+        while Too_Close(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos = (l1*rand(), rand()*l2+l1)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (1.0, 0), (1.0, 0)
+        menge.agent[i].goal = (system_size[1]/2 + d_goal, menge.agent[i].pos[2])
+    end
+
+    #bottom
+    for i in ΔN+1:2*ΔN
+        ind = i - ΔN
+        menge.agent[i].pos = (rand()*l2+l1 , l1*rand())
+
+        while Too_Close(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos =  (rand()*l2+l1 , l1*rand())
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (0.0, 1.0), (0.0, 1.0)
+        menge.agent[i].goal = (menge.agent[i].pos[1], system_size[2]/2 + d_goal)
+
+    end
+
+    #right
+    for i in 2*ΔN+1:3*ΔN
+        ind = i - 2*ΔN
+        menge.agent[i].pos = (l1+l2+l1*rand() , rand()*l2+l1)
+
+        while Too_Close(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos = (l1+l2+l1*rand() , rand()*l2+l1)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (-1.0, 0), (-1.0, 0)
+        menge.agent[i].goal = (system_size[1]/2-d_goal, menge.agent[i].pos[2])
+
+    end
+
+    #top
+    for i in 3*ΔN+1:N
+        ind = i - 3*ΔN
+        menge.agent[i].pos = (rand()*l2+l1, l1*rand()+l1+l2)
+
+        while Too_Close(i, menge, geometrie, system_size) == true
+            menge.agent[i].pos = (rand()*l2+l1, l1*rand()+l1+l2)
+        end
+
+        menge.agent[i].e_des, menge.agent[i].heading = (0.0, -1.0), (0.0, -1.0)
+        menge.agent[i].goal = (menge.agent[i].pos[1],system_size[2]/2 - d_goal)
+
+    end
+
+end
+
+
 
 
 
