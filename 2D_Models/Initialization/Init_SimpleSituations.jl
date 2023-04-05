@@ -135,3 +135,25 @@ function Init_Antipodal!(menge::crowd, R_::Float64, P_0::NTuple{2, Float64})
     end
 
 end
+
+function CrowdOneSide!(menge::crowd, dist, ξ, L)
+
+    j = 1
+    i = 1
+
+    for a in menge.agent
+
+        if i*dist >= L
+            j += 1
+            i = 1
+        end
+
+        a.pos = (i*dist + ξ*rand(), ξ*rand()+j*dist)
+        direction = Heading(2π*rand())
+        a.v_des, a.e_des, a.heading = 0, direction, direction
+
+        i+=1
+
+    end
+
+end
