@@ -11,6 +11,6 @@ function acc(a::agent, b::agent, L)
 end
 #ov(a::agent, b::agent, L) = max(0.0,(d(a, b, L) - l(a, b))/a.T)
 #ov(a::agent, b::agent, L) = min(a.v_max,(d(a, b, L) - l(a, b))/a.T)
-#ov(a::agent, b::agent, L) = min(a.v_max, max(0.0,(d(a, b, L) - l(a, b))/a.T))
-ov(a::agent, b::agent, L) = (d(a, b, L) - l(a, b))/a.T
+ov(a::agent, b::agent, L) = min(a.v_max, max(0.0,(d(a, b, L) - l(a, b))/a.T))
+#ov(a::agent, b::agent, L) = (d(a, b, L) - l(a, b))/a.T
 ;
