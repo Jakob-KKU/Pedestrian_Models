@@ -19,6 +19,10 @@ function Simulate!(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::F
 
         Iterate!(menge, geometrie, temp_headings, temp_velocities, dt, r, system_size)
 
+        #if rand() < 0.1
+        #    println(menge.agent[1], menge.agent[2], system_size))
+        #end
+
         if dt*i>t_relax && mod(i, Int(round(dt_save/dt))) == 0
 
             Save_Pos_Vel_TTC!(menge, geometrie, j, system_size, velocities, positions, headings)

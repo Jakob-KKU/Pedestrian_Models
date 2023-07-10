@@ -4,32 +4,32 @@ Score(a::agent, v, ttc) = a.T/ttc+abs(v .- a.e_pref .* a.v_pref)^2
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    if v_des_Possible(a, menge, geometrie, system_size) == true
+    r_soc = 0.25
+
+    if v_des_Possible(a, r_soc, menge, geometrie, system_size) == true
 
         a.e_pref, a.v_pref
 
     else
 
-        Sample_Best_v(a, menge, geometrie, system_size)
+        Sample_Best_v(a, r_soc, menge, geometrie, system_size)
 
     end
 
 end
 
-function v_des_Possible(a::agent, menge::crowd, geometrie::geometry, system_size)
+function v_des_Possible(a::agent, r_soc, menge::crowd, geometrie::geometry, system_size)
 
-    if Min_TTC_Variable_Radius(a, a.v_pref, a.e_pref, menge, geometrie, system_size) >= a.T
+    if Min_TTC(a, a.v_pref, a.e_pref, r_soc, menge, geometrie, system_size) >= a.T
         true
     else
         false
     end
 end
 
-function Sample_Best_v(a::agent, menge::crowd, geometrie::geometry, system_size)
+function Sample_Best_v(a::agent, r_soc, menge::crowd, geometrie::geometry, system_size)
 
     score_, vel_, ϕ_ = 999.9, 0.0, 0.0
-
-    r_soc = 0.4
 
     for vel in 0:0.08:a.v_max
 

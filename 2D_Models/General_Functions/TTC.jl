@@ -105,16 +105,15 @@ function ttc(a::agent, b::agent, a_heading::NTuple{2, Float64}, a_vel::Float64, 
     end
 end
 
-function ttc(a::agent, b::agent, a_heading::NTuple{2, Float64}, a_vel::Float64, dia_effectiv, system_size::NTuple{2, Float64})
+function ttc(a::agent, b::agent, a_heading::NTuple{2, Float64}, a_vel::Float64, dia_effective, system_size::NTuple{2, Float64})
 
     cos_α = e_(a,b,system_size)⋅e_v(a, b, a_heading, a_vel)
-    A = (cos_α^2-1)*d(a,b,system_size)^2+dia_effectiv^2
-
+    A = (cos_α^2-1)*d(a,b,system_size)^2+dia_effective^2
 
     if A < 0 || -cos_α*d(a,b,system_size)-sqrt(A) < 0 || abs(Δv(a,b, a_heading, a_vel)) == 0
         999.9
     else
-        (-cos_α*d(a,b,system_size)-sqrt(A))/abs(Δv(a,b, a_heading, a_vel))
+        (-cos_α*d(a,b,system_size)-sqrt(A))/abs(Δv(a, b, a_heading, a_vel))
     end
 end
 
@@ -316,9 +315,12 @@ function Min_TTC_Agents(a::agent, a_vel::Float64, a_heading::NTuple{2, Float64},
         b = menge.agent[a.neighbors_agents[i]]
 
         #the social diameter
-        dia_effective = 2*min(r_soc, d(a, b)/4)
+        dia_effective = 2*min(r_soc, d(a, b, system_size)/4)
 
-        ttc_help = ttc(a, b, a_heading, a_vel, dia_effectiv, system_size)
+        
+
+
+        ttc_help = ttc(a, b, a_heading, a_vel, dia_effective, system_size)
 
         ttc_min = min(ttc_help, ttc_min)
     end

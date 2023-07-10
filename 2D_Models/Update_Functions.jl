@@ -11,8 +11,6 @@ end
 
 function Update_Desired_Headings!(menge::crowd, system_size)
 
-
-
     for x in menge.agent
         x.e_des = e_(x, x.goal).*(-1)
 
