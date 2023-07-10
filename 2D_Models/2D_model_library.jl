@@ -31,46 +31,43 @@ include("./Plotting_Analyzing/Velocity_Obstacles.jl")
 #output
 include("./Save_Output.jl")
 
-
-
-
-
 #include model
-function include_model(model)
+function include_op_model(model, path)
 
-    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/OP_Models/"
-    include(string(path, model, ".jl"))
+    include(string(path, "OP_Models/", model, ".jl"))
 
 end
 
-function include_tact_model(x)
+function include_tact_model(x, path)
 
-    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Tact_Models/"
-    include(string(path, x, ".jl"))
+    include(string(path, "Tact_Models/", x, ".jl"))
+
+end
+
+function include_strat_model(x, path)
+
+    include(string(path, "Strat_Models/", x, ".jl"))
 
 end
 
 #include update
-function include_update(scheme)
+function include_update(scheme, path)
 
-    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Update_Schemes/"
-    include(string(path, scheme, ".jl"))
+    include(string(path, "Update_Schemes/", scheme, ".jl"))
 
 end
 
 #include order
-function include_order(order)
+function include_order(order, path)
 
-    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Order/"
-    include(string(path, order, ".jl"))
+    include(string(path, "Order/", order, ".jl"))
 
 end
 
 #special scenario
-function load_scenario(x)
+function load_scenario(x, path)
 
-    path = "/home/jakob/Dokumente/Repositories/Modeling_Framework/2D_Models/Scenarios/"
-    include(string(path, x, ".jl"))
+    include(string(path, "Scenarios/", x, ".jl"))
 
 end
 

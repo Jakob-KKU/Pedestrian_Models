@@ -42,18 +42,15 @@ function Iterate!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple
     Update_Neighborhood!(menge, geometrie, system_size, r)
 
     #Update_Voronoi_Dens!(menge, system_size)
+
     #Update_Goal!(menge, system_size)
-    #Update_Desired_Headings!(menge, system_size)
+
+    Update_Desired_Headings!(menge, system_size)
 
     Update_Pref_Velocities!(menge, geometrie, system_size)
 
-    #println("agent 1, v_pref", menge.agent[1].v_pref)
-
-
     Calc_Temp_Headings_and_Velocities!(menge, geometrie, temp_headings,
      temp_velocities, system_size, dt)
-
-    #println("agent 1, v_calc", temp_velocities[1])
 
     Update_Pos_and_Heading!(menge, temp_headings, temp_velocities, dt, system_size)
 
