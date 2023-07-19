@@ -3,7 +3,7 @@
 
 This is the code I use to model crowds of pedestrians. This ReadMe focusses on the 2D motion.
 
-Even though this is a public repository, this is my personal scientific software for my PhD and as such a scientific endeavour is anything but a linear process, and this code is a constant part of it, there are many open ends and unfinished paths. To sum up, this was not developed to be used by others. Nontheless you should be able to run existing simulations for different scenarios. And with a little bit of work, to extend these. Apart from this you should be able to reproduce the modelling results of the manuscript 'Dimensionless Numbers Reveal Distinct Regimes in the Structure and Dynamics of Pedestrian Crowds'.
+Even though this is a public repository, this is my personal scientific software for my PhD and as such a scientific endeavour is anything but a linear process, and this code is a constant part of it, there are many open ends and unfinished paths. To sum up, this was not developed to be used by others. Nontheless you should be able to run existing simulations for different scenarios. And with a little bit of work, to extend these. Apart from this you should be able to reproduce the modelling results of the manuscript 'Dimensionless Numbers Reveal Distinct Regimes in the Structure and Dynamics of Pedestrian Crowds' which has been submitted to PRL.
 
 This readme is intended as a very small documentation. This documentation will not be sufficient to a full understanding, so if you have any questions do not hesitate to contact me.
 
@@ -15,4 +15,6 @@ In the next cell of the Jupyter Notebook, the parameters of the Simulation are s
 
 The function 'Simulate!' now takes the fully defined scenario and returns the positions (as well as velocities and minimal TTC's) of the agents saved after the relaxation period at the specified saving time-step.
 
-Finally the result is visualized using the GR Framework. The trajectories can be saved in the typical Format 'ID/FRAME/X/Y' for a further analysis.
+Finally the result is visualized using the GR Framework (https://gr-framework.org/). The trajectories can be saved in the typical Format 'ID/FRAME/X/Y' for a further analysis.
+
+At https://youtu.be/E8NvgRLPvLg the dynamics of different scenarios are shown together with experimental results. 
