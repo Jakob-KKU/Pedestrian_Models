@@ -56,6 +56,20 @@ function Iterate!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple
 
 end
 
+function Iterate_x_TimeSteps!(menge::crowd, geometrie::geometry, x::Int, dt::Float64,
+        r::Float64, system_size::NTuple{2, Float64})
+
+    #buffer vectors
+    temp_headings, temp_velocities = Init_Temp_Vectors(menge)
+
+    for i ∈ 1:x
+
+        Iterate!(menge, geometrie, temp_headings, temp_velocities, dt, r, system_size)
+
+    end
+
+end
+
 function Init_Temp_Vectors(menge::crowd)
 
     N = length(menge.agent)
