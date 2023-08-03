@@ -25,7 +25,7 @@ function Update_Pos_and_Heading!(menge::crowd, temp_headings::Array{NTuple{2, Fl
 
     menge.agent[end].step += dt
 
-    if menge.agent[end].step > 5.0
+    if menge.agent[end].step > 0.1
 
         menge.agent[end].vel = menge.agent[end].v_max
 

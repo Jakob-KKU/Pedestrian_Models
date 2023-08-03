@@ -1,26 +1,21 @@
-function Score(a::agent, v, menge::crowd, geometrie::geometry, system_size)
-    
+function Score(a::agent, v, menge::crowd, geometrie::geometry, system_size, dt = 0.01)
+
     #save current position
-    a_vel_temp = a.vel
-    a_head_temp = a.heading
+    a_pos_temp = a.pos
 
-    #initialize test velocity
-    a.vel = abs(v)
-    a.heading = normalize(v)
+    #initialize test position x+v*dt
+    a.pos = a.pos .+ v .* dt
 
-    #calculate associated AVOIDANCE
-    AV_v = AV(a, menge, geometrie, system_size)
+    #calculate associated INTRUSION
+    IN_v = IN(a, menge, geometrie, system_size)
 
     #reset position
-    a.vel = a_vel_temp
-    a.heading = a_head_temp
-
+    a.pos = a_pos_temp
 
     #return Score
-    AV_v+abs(v .- a.e_pref .* a.v_pref)^2
+    a.α*IN_v+abs(v .- a.e_pref .* a.v_pref)^2
 
 end
-
 
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
@@ -38,9 +33,11 @@ end
 
 function Preferred_Velocity_Optmial(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    if Min_TTC(a, a.v_pref, a.e_pref, menge, geometrie, system_size) >= 99.9
+    #take v_pref as optimal if no one else is in in Radius of 3*R_soc
+    if Score(a, a.v_pref .* a.e_pref, menge, geometrie, system_size) < 0.05
         true
     else
+
         false
     end
 end

@@ -1,4 +1,4 @@
-Score(ϕ, v, v_max) = v*v_max*cos(ϕ)
+#Score(ϕ, v, v_max) = v*v_max*cos(ϕ)
 Vel(ϕ, x, v_max) = x/(v_max*cos(ϕ))
 
 
@@ -68,17 +68,36 @@ function Calc_CostFunctionMatrix(a::agent, menge::crowd, geometrie::geometry, sy
 
         for (j, v_y) in enumerate(v_ys)
 
-            vel = abs((v_x, v_y))
-            dir = normalize((v_x, v_y))
-
-            ttc_ = Min_TTC(a, vel, dir, menge, geometrie, system_size)
-
-            cost[j, i] = Score(a, (v_x, v_y), ttc_)
+            cost[j, i] = Score(a, (v_x, v_y), menge, geometrie, system_size)
 
         end
     end
 
     v_xs, v_ys, cost
+end
+
+
+#Return the velocity that minimizes the function Score
+function Argmin_CostFunction(a::agent, menge::crowd, geometrie::geometry, system_size)
+
+    score_, vel_, ϕ_ = 999.9, 0.0, 0.0
+
+    for vel ∈ 0:0.08:a.v_max
+
+        for ϕ ∈ 0:0.4:2π
+
+            #println( vel .* Heading(ϕ))
+
+            score_help = Score(a, vel .* Heading(ϕ), menge, geometrie, system_size)
+
+            if score_help <= score_
+                ϕ_, vel_, score_ = ϕ, vel, score_help
+            end
+
+        end
+    end
+
+    Heading(ϕ_), vel_
 end
 
 
