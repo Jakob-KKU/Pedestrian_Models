@@ -165,7 +165,7 @@ function initialize_random_positions(system_size::NTuple{2, Float64}, menge::cro
 end
 
 #Ordne den Agenten zufällige desired Headings zu
-function initialize_random_headings(menge::crowd)
+function Init_Random_Headings!(menge::crowd)
     for agent in menge.agent
         #agent.e_des = random_heading()
         agent.heading = random_heading()

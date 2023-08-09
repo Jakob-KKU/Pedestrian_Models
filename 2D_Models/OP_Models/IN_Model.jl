@@ -68,11 +68,10 @@ function ∇IN(a::agent, b::element, system_size)
         ((IN_x, IN_y) .- IN_0)./h
 end
 
-function Update_Pref_Velocity!(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    v_new = a.v_des .* a.e_des .- a.α .* ∇IN(a, menge, system_size) .- 0.1 .* a.α .* ∇IN(a, geometrie, system_size)
+    v_new = a.v_pref .* a.e_pref .- a.α .* ∇IN(a, menge, system_size)
 
-    a.v_pref = min(a.v_max, abs(v_new))
-    a.e_pref = normalize(v_new)
+    normalize(v_new), min(a.v_max, abs(v_new))
 
 end

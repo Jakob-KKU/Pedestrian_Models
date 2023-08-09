@@ -1,5 +1,5 @@
 function Score(a::agent, v, menge::crowd, geometrie::geometry, system_size)
-    
+
     #save current position
     a_vel_temp = a.vel
     a_head_temp = a.heading
@@ -30,7 +30,7 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
 
     else
 
-        Argmin_CostFunction(a, menge, geometrie, system_size)
+        Argmin_CostFunction_RandomSampling(a, menge, geometrie, system_size)
 
     end
 

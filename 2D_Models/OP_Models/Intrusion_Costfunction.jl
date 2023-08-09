@@ -25,7 +25,7 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
 
     else
 
-        Argmin_CostFunction(a, menge, geometrie, system_size)
+        Argmin_CostFunction_RandomSampling(a, menge, geometrie, system_size)
 
     end
 
@@ -33,8 +33,10 @@ end
 
 function Preferred_Velocity_Optmial(a::agent, menge::crowd, geometrie::geometry, system_size)
 
+    #println(Score(a, a.v_pref .* a.e_pref, menge, geometrie, system_size))
     #take v_pref as optimal if no one else is in in Radius of 3*R_soc
-    if Score(a, a.v_pref .* a.e_pref, menge, geometrie, system_size) < 0.05
+    if Min_R(a, menge, geometrie, system_size) > 3*r_soc(a, a, system_size)
+
         true
     else
 

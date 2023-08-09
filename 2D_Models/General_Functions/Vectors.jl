@@ -346,7 +346,45 @@ end
 
 A_Cone(a::agent) = a.r^2*a.ϕ/2
 
+#calculate the minimal distance to all other geometry and agents
+function Min_R(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
 
+    r_geo = Min_R_Geometry(a, geometrie, system_size)
+    r_agents = Min_R_Agents(a, menge, system_size)
+
+    min(r_geo, r_agents)
+
+end
+
+#calculate the minimal distance to all other agents
+function Min_R_Agents(a::agent, menge::crowd, system_size::NTuple{2, Float64})
+
+    r_min = 999.0
+
+    for i in 2:a.neighbors_agents[1]+1
+
+        r_help = d(a, menge.agent[a.neighbors_agents[i]], system_size)
+        r_min = min(r_help, r_min)
+
+    end
+
+    r_min
+end
+
+#calculate the minimal distance to all geometry
+function Min_R_Geometry(a::agent, geometrie::geometry, system_size::NTuple{2, Float64})
+
+    r_min = 999.0
+
+    for i in 2:a.neighbors_geometry[1]+1
+
+        r_help = d(a, geometrie.element[a.neighbors_geometry[i]], system_size)
+
+        r_min = min(r_help, r_min)
+    end
+
+    r_min
+end
 
 
 ;

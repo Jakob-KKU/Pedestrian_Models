@@ -4,7 +4,7 @@ r_soc(a::agent, b::element, system_size) = 0.5
 
 IN(a::agent, b::element, system_size) = ((r_soc(a, b, system_size) - 0.1)/(d(a, b, system_size)  - 0.1))^2
 
-function IN(a::agent, b::agent, system_size, ϵ = 0.1)
+function IN(a::agent, b::agent, system_size, ϵ = 0.05)
 
     if  d(a, b, system_size)-l(a, b) < ϵ
         ((r_soc(a, b, system_size) - 2/3*l(a, b))/ϵ)^2*(1 + 2 + 2/ϵ*(2/3*l(a, b) - d(a, b, system_size)))
