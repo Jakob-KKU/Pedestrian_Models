@@ -17,7 +17,7 @@ function Score(a::agent, v, menge::crowd, geometrie::geometry, system_size)
 
 
     #return Score
-    AV_v+abs(v .- a.e_pref .* a.v_pref)^2
+    AV_v+6*abs(v .- a.e_pref .* a.v_pref)^2
 
 end
 
@@ -30,6 +30,7 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
 
     else
 
+        #Argmin_CostFunction(a, menge, geometrie, system_size)
         Argmin_CostFunction_RandomSampling(a, menge, geometrie, system_size)
 
     end
@@ -38,7 +39,7 @@ end
 
 function Preferred_Velocity_Optmial(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    if Min_TTC(a, a.v_pref, a.e_pref, menge, geometrie, system_size) >= 99.9
+    if Min_TTC(a, a.v_pref, a.e_pref, menge, geometrie, system_size) >= 2*a.T
         true
     else
         false

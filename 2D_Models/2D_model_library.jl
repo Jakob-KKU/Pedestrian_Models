@@ -20,7 +20,7 @@ include("./Interface_Packages/Voronoi_Cells.jl")
 
 
 #general modeling functions
-include("./FirstOrder_Model.jl")
+include("./Simulate_Model.jl")
 include("./Neighbors.jl")
 include("./Update_Functions.jl")
 
@@ -69,6 +69,13 @@ end
 function load_scenario(x, path)
 
     include(string(path, "Scenarios/", x, ".jl"))
+
+end
+
+#include optimization scheme
+function include_optimization_scheme(x, path)
+
+    include(string(path, "Optimization_Scheme/", x, ".jl"))
 
 end
 

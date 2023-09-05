@@ -1,7 +1,7 @@
 #calculate all distances and save the neighbouring agents
-function calculate_neighboring_agents(menge::crowd, r=2.0::Float64)
+function Update_Neighboring_Agents!(menge::crowd, r=2.0::Float64)
 
-    delete_values_agents(menge)
+    Delete_Old_Neighbours_Agents!(menge)
 
     for (i, agent) in enumerate(menge.agent)
 
@@ -21,9 +21,9 @@ function calculate_neighboring_agents(menge::crowd, r=2.0::Float64)
 end
 
 # .... with periodic boundaries
-function calculate_neighboring_agents(menge::crowd, system_size::NTuple{2, Float64}, r=2.0::Float64)
+function Update_Neighboring_Agents!(menge::crowd, system_size::NTuple{2, Float64}, r=2.0::Float64)
 
-    delete_values_agents(menge)
+    Delete_Old_Neighbours_Agents!(menge)
 
     for (i, agent) in enumerate(menge.agent)
 
@@ -44,9 +44,9 @@ end
 
 #calculate the neighboring geometry
 
-function calculate_neighboring_geometry(menge::crowd, geometrie::geometry, r=2.0::Float64)
+function Update_Neighboring_Geometry!(menge::crowd, geometrie::geometry, r=2.0::Float64)
 
-    delete_values_geometry(menge)
+    Delete_Old_Neighbours_Geometry!(menge)
 
     for (i, agent) in enumerate(menge.agent)
 
@@ -63,10 +63,10 @@ function calculate_neighboring_geometry(menge::crowd, geometrie::geometry, r=2.0
 end
 
 # ... with periodic boundaries
-function calculate_neighboring_geometry(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64},
+function Update_Neighboring_Geometry!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64},
         r=2.0::Float64)
 
-    delete_values_geometry(menge)
+    Delete_Old_Neighbours_Geometry!(menge)
 
     for (i, agent) in enumerate(menge.agent)
 
@@ -83,7 +83,7 @@ function calculate_neighboring_geometry(menge::crowd, geometrie::geometry, syste
 end
 
 
-function delete_values_agents(menge::crowd)
+function Delete_Old_Neighbours_Agents!(menge::crowd)
 
     for x in menge.agent
         for i in 1:x.neighbors_agents[1]
@@ -92,7 +92,7 @@ function delete_values_agents(menge::crowd)
     end
 end
 
-function delete_values_geometry(menge::crowd)
+function Delete_Old_Neighbours_Geometry!(menge::crowd)
 
     for x in menge.agent
         for i in 1:x.neighbors_geometry[1]
@@ -100,61 +100,4 @@ function delete_values_geometry(menge::crowd)
         end
     end
 end
-
-function Collision_(a::agent, b::element, system_size::NTuple{2, Float64})
-
-    if e_(a, b, system_size)⋅a.heading <= 0 && abs(⟂(a.heading)⋅e_(a, b, system_size)) <= l(a, b)/d(a,b, system_size)
-        true
-    else
-        false
-    end
-end
-
-
-function Collision_(a::agent, b::agent, system_size::NTuple{2, Float64})
-
-    if e_(a, b, system_size)⋅a.heading <= 0 && abs(⟂(a.heading)⋅e_(a, b, system_size)) <= l(a, b)/d(a,b, system_size)
-        true
-    else
-        false
-    end
-end
-
-
-function V_pref(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
-
-
-    distance = 999.9
-
-
-    for i in 2:a.neighbors_agents[1]+1
-
-        if Collision_pref(a, menge.agent[a.neighbors_agents[i]], system_size) == true
-            distance = min(d(a, menge.agent[a.neighbors_agents[i]], system_size), distance)
-        end
-    end
-
-    min(a.v_max, max(0.1, (distance-a.l)/(a.T2)))
-end
-
-
-function Collision_pref(a::agent, b::agent, system_size::NTuple{2, Float64})
-
-    if e_(a, b, system_size)⋅a.e_pref <= 0 && abs(⟂(a.e_pref)⋅e_(a, b, system_size)) <= l(a, b)/d(a,b, system_size)
-        true
-    else
-        false
-    end
-end
-
-
-
-#use the voronoi density to calculate the desired velocity
-#function Calc_v_des(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
-#    min(a.v_max, max(0.1, (a.voronoi_dens^(-1/2)-a.l)/(0.5*a.T)))
-#end
-
-
-
-
 ;

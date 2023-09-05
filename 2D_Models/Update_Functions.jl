@@ -1,24 +1,16 @@
 function Update_Neighborhood!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64},
      r::Float64)
-    calculate_neighboring_agents(menge,system_size, r)
-    calculate_neighboring_geometry(menge, geometrie, system_size, r)
+
+    Update_Neighboring_Agents!(menge,system_size, r)
+    Update_Neighboring_Geometry!(menge, geometrie, system_size, r)
+
 end
 
 function Update_Neighborhood!(menge::crowd, geometrie::geometry, r::Float64)
-    calculate_neighboring_agents(menge, r)
-    calculate_neighboring_geometry(menge, geometrie, r)
-end
 
-function Update_Desired_Headings!(menge::crowd, system_size)
+    Update_Neighboring_Agents!(menge, r)
+    Update_Neighboring_Geometry!(menge, geometrie, r)
 
-    for x in menge.agent
-        x.e_des = e_(x, x.goal).*(-1)
-
-        x.v_des = clamp(d(x.pos, x.goal, system_size), 0.001, x.v_des)
-        x.v_max = clamp(d(x.pos, x.goal, system_size), 0.001, x.v_max)
-
-
-    end
 end
 
 function Update_Pref_Velocities!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
