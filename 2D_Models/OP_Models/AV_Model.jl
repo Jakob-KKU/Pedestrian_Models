@@ -17,7 +17,7 @@ function Score(a::agent, v, menge::crowd, geometrie::geometry, system_size)
 
 
     #return Score
-    AV_v+6*abs(v .- a.e_pref .* a.v_pref)^2
+    AV_v+a.β*abs(v .- a.e_pref .* a.v_pref)^2
 
 end
 

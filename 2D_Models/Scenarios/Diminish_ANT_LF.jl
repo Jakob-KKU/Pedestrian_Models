@@ -1,4 +1,4 @@
-function Calc_Temp_Headings_and_Velocities!(menge::crowd, geometrie::geometry, temp_headings
+function Update_Temp_Headings_and_Velocities!(menge::crowd, geometrie::geometry, temp_headings
         , temp_velocities, system_size::NTuple{2, Float64}, dt)
 
     N_dim = 0

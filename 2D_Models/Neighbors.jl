@@ -43,7 +43,6 @@ function Update_Neighboring_Agents!(menge::crowd, system_size::NTuple{2, Float64
 end
 
 #calculate the neighboring geometry
-
 function Update_Neighboring_Geometry!(menge::crowd, geometrie::geometry, r=2.0::Float64)
 
     Delete_Old_Neighbours_Geometry!(menge)
@@ -61,6 +60,7 @@ function Update_Neighboring_Geometry!(menge::crowd, geometrie::geometry, r=2.0::
         end
     end
 end
+
 
 # ... with periodic boundaries
 function Update_Neighboring_Geometry!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64},
@@ -81,7 +81,6 @@ function Update_Neighboring_Geometry!(menge::crowd, geometrie::geometry, system_
         end
     end
 end
-
 
 function Delete_Old_Neighbours_Agents!(menge::crowd)
 

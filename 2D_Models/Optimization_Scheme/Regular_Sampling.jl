@@ -1,10 +1,12 @@
 #Return the velocity that minimizes the function Score, optimization solved by sampling a regular grid
-function Argmin_CostFunction(a::agent, menge::crowd, geometrie::geometry, system_size)
+function Argmin_CostFunction(a::agent, menge::crowd, geometrie::geometry, system_size, N = 500)
 
     score_, vel_, ϕ_ = 999.9, 0.0, 0.0
 
-    Δv = a.v_max / 25
-    Δϕ = 2π / 25
+    n1 = Int(round(N))
+
+    Δv = a.v_max / n1
+    Δϕ = 2π / n1
 
     for vel ∈ 0:Δv:a.v_max
 

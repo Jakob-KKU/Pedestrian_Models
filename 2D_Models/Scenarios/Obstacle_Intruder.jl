@@ -42,7 +42,7 @@ function Iterate!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple
 
     Update_Pref_Velocities!(menge, geometrie, system_size)
 
-    Calc_Temp_Headings_and_Velocities!(menge, geometrie, temp_headings,
+    Update_Temp_Headings_and_Velocities!(menge, geometrie, temp_headings,
      temp_velocities, system_size, dt)
 
     Update_Pos_and_Heading!(menge, temp_headings, temp_velocities, dt, system_size)

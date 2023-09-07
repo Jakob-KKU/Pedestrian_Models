@@ -1,23 +1,23 @@
-r_soc(a::agent, b::agent, system_size) = a.r
-r_soc(a::agent, b::element, system_size) = a.r/2
+#r_soc(a::agent, b::agent, system_size) = a.r
+#r_soc(a::agent, b::element, system_size) = a.r/2
 
 
-IN(a::agent, b::element, system_size) = ((r_soc(a, b, system_size) - 0.1)/(d(a, b, system_size)  - 0.1))^2
+IN(a::agent, b::element, system_size) = ((a.r/2 - 0.1)/(d(a, b, system_size)  - 0.1))^2
 
 function IN(a::agent, b::agent, system_size, ϵ = 0.01)
 
     if  d(a, b, system_size)-2/3*l(a, b) < ϵ
         g(a, b, system_size, ϵ)
     else
-      ((r_soc(a, b, system_size) - 2/3*l(a, b))/(d(a, b, system_size)  - 2/3*l(a, b)))^2
+      ((a.r - 2/3*l(a, b))/(d(a, b, system_size)  - 2/3*l(a, b)))^2
     end
 
 end
 
 function g(a, b, system_size, ϵ = 0.01)
 
-    - 2 * d(a, b, system_size)*(r_soc(a, b, system_size) - 2/3*l(a, b))^2/ϵ^3 +
-    ((r_soc(a, b, system_size)-2/3*l(a, b))/ϵ)^2 + 2*(2/3*l(a, b)+ϵ)*(r_soc(a, b, system_size)-2/3*l(a, b))^2/ϵ^3
+    - 2 * d(a, b, system_size)*(a.r - 2/3*l(a, b))^2/ϵ^3 +
+    ((a.r-2/3*l(a, b))/ϵ)^2 + 2*(2/3*l(a, b)+ϵ)*(a.r-2/3*l(a, b))^2/ϵ^3
 
 end
 

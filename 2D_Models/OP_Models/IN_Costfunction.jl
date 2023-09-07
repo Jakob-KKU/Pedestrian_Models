@@ -13,7 +13,7 @@ function Score(a::agent, v, menge::crowd, geometrie::geometry, system_size, dt =
     a.pos = a_pos_temp
 
     #return Score
-    a.α*IN_v+abs(v .- a.e_pref .* a.v_pref)^2
+    a.α*IN_v+a.β*abs(v .- a.e_pref .* a.v_pref)^2
 
 end
 
@@ -35,7 +35,7 @@ function Preferred_Velocity_Optmial(a::agent, menge::crowd, geometrie::geometry,
 
     #println(Score(a, a.v_pref .* a.e_pref, menge, geometrie, system_size))
     #take v_pref as optimal if no one else is in in Radius of 3*R_soc
-    if Min_R(a, menge, geometrie, system_size) > 3*r_soc(a, a, system_size)
+    if Min_R(a, menge, geometrie, system_size) > 3*a.r
 
         true
     else
