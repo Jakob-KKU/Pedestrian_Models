@@ -13,7 +13,7 @@ function Simulate!(menge::crowd, geometrie::geometry, t_relax::Float64, t_max::F
 
     i, j = 0, 1
 
-    while dt * i < t_max
+    while dt * i < t_max+1
 
         Iterate!(menge, geometrie, temp_headings, temp_velocities, dt, r, system_size)
 
