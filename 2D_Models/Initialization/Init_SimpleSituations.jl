@@ -46,6 +46,9 @@ function Init_Overtaking!(menge::crowd, d, x_min, y_min, ϵ, v1, v2)
     menge.agent[1].v_max = v1
     menge.agent[2].v_max = v2
 
+    menge.agent[1].v_des = v1
+    menge.agent[2].v_des = v2
+
 end
 
 function Init_Overtaking!(menge::crowd, d, x_min, y_min, ϵ, v1, v2, T1, T2)
@@ -64,6 +67,9 @@ function Init_Overtaking!(menge::crowd, d, x_min, y_min, ϵ, v1, v2, T1, T2)
 
     menge.agent[1].T2 = T1
     menge.agent[2].T2 = T2
+
+    menge.agent[1].v_des = v1
+    menge.agent[2].v_des = v2
 
 end
 
@@ -127,7 +133,7 @@ function Init_Antipodal!(menge::crowd, R_::Float64, P_0::NTuple{2, Float64})
 
     for (i, x) in enumerate(menge.agent)
 
-        x.pos = (R_*cos((i-1)*dϕ)+P_0[1], R_*sin((i-1)*dϕ)+P_0[2]) .+ (rand().*0.01, rand().*0.01)
+        x.pos = (R_*cos((i-1)*dϕ)+P_0[1], R_*sin((i-1)*dϕ)+P_0[2]) .+ (rand().*0.1, rand().*0.1)
         x.e_des = -1 .*e_(x.pos, P_0)
         x.heading = x.e_des
         x.goal = (R_*cos((i-1)*dϕ + π)+P_0[1], R_*sin((i-1)*dϕ + π)+P_0[2])

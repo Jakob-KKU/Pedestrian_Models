@@ -80,5 +80,12 @@ function include_optimization_scheme(x, path)
 
 end
 
+#include optimization scheme
+function include_perception_model(x, path)
+
+    include(string(path, "Perceptional_Model/", x, ".jl"))
+
+end
+
 
 ;

@@ -22,9 +22,7 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
         end
     end
 
-
     Heading(ϕ_best), vel_best
-
 
 end
 

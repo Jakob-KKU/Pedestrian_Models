@@ -12,7 +12,7 @@ function Argmin_CostFunction(a::agent, menge::crowd, geometrie::geometry, system
 
         for ϕ ∈ 0:Δϕ:2π
 
-            score_help = Score(a, vel .* Heading(ϕ), menge, geometrie, system_size)
+            score_help = Calc_Score(a, vel .* Heading(ϕ), menge, geometrie, system_size)
 
             if score_help <= score_
                 ϕ_, vel_, score_ = ϕ, vel, score_help

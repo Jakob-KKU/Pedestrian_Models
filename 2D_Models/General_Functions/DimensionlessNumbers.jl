@@ -65,4 +65,16 @@ function AV(a::agent, menge::crowd, geometrie::geometry, system_size)
     a.T/Min_TTC(a, menge, geometrie, system_size)
 
 end
+
+function AV(a::agent, b::agent, system_size)
+
+    a.T/ttc(a, b, system_size)
+
+end
+
+function AV(a::agent, b::element, system_size)
+
+    a.T/ttc(a, b, system_size)
+
+end
 ;

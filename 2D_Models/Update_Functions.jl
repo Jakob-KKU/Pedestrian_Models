@@ -1,14 +1,14 @@
 function Update_Neighborhood!(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64},
      r::Float64)
 
-    Update_Neighboring_Agents!(menge,system_size, r)
+    Update_Neighboring_Agents!(menge, geometrie,system_size, r)
     Update_Neighboring_Geometry!(menge, geometrie, system_size, r)
 
 end
 
 function Update_Neighborhood!(menge::crowd, geometrie::geometry, r::Float64)
 
-    Update_Neighboring_Agents!(menge, r)
+    Update_Neighboring_Agents!(menge, geometrie, r)
     Update_Neighboring_Geometry!(menge, geometrie, r)
 
 end
