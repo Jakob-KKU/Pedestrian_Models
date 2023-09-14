@@ -32,28 +32,28 @@ function create_corridor(width, laenge, size, dx)
     geometry([element((geometry_x[i], geometry_y[i]), size) for i in 1:length(geometry_x)])
 end
 
-function Create_Geometry_Bottleneck(länge, breite, l, system_size)
+function Create_Geometry_Bottleneck(länge, breite, size, system_size)
 
     b1 = (system_size[1]-breite)/2
 
 
-    a_x = LinRange(0:l:b1)
+    a_x = LinRange(0.0:size:b1)
     a_y = fill(system_size[2]/2, length(a_x))
 
-    b_x = LinRange(b1+breite:l:system_size[2])
+    b_x = LinRange(b1+breite:size:system_size[2])
     b_y = fill(system_size[2]/2, length(b_x))
 
-    c_y = LinRange(system_size[2]/2:l:system_size[2]/2+länge)
+    c_y = LinRange(system_size[2]/2:size:system_size[2]/2+länge)
     c_x = fill(b1, length(c_y))
 
-    d_y = LinRange(system_size[2]/2:l:system_size[2]/2+länge)
+    d_y = LinRange(system_size[2]/2:size:system_size[2]/2+länge)
     d_x = fill(b1+breite, length(c_y))
 
 
     geometry_x = vcat(a_x, b_x, c_x, d_x)
     geometry_y = vcat(a_y, b_y, c_y, d_y)
 
-    geometry([element((geometry_x[i], geometry_y[i]), l) for i in 1:length(geometry_x)])
+    geometry([element((geometry_x[i], geometry_y[i]), size) for i in 1:length(geometry_x)])
 end
 
 function Create_Closed_Room!(a0, a, b0, b, l)

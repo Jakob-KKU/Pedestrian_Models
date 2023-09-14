@@ -155,8 +155,8 @@ function CrowdOneSide!(menge::crowd, dist, ξ, L)
         end
 
         a.pos = (i*dist + ξ*rand(), ξ*rand()+j*dist)
-        direction = Heading(2π*rand())
-        a.v_des, a.e_des, a.heading = 0, direction, direction
+        #direction = Heading(2π*rand())
+        #a.v_des, a.e_des, a.heading = 0, direction, direction
 
         i+=1
 

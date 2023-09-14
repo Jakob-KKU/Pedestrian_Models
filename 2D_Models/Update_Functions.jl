@@ -19,18 +19,4 @@ function Update_Pref_Velocities!(menge::crowd, geometrie::geometry, system_size:
         Update_Pref_Velocity!(x, menge, geometrie, system_size)
     end
 
-end
-
-function Update_Goal!(menge)
-
-    for x in menge.agent
-
-        if d(x, x.goal) < .5
-
-            x.goal = (5.0, 8.0)
-
-        end
-
-    end
-
-end
+end;

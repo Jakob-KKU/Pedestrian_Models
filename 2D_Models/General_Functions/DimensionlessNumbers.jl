@@ -2,7 +2,17 @@
 #r_soc(a::agent, b::element, system_size) = a.r/2
 
 
-IN(a::agent, b::element, system_size) = ((a.r/2 - 0.1)/(d(a, b, system_size)  - 0.1))^2
+#IN(a::agent, b::element, system_size) = ((a.r/2 - 0.1)/(d(a, b, system_size)  - 0.1))^2
+
+function IN(a::agent, b::element, system_size, ϵ = 0.01)
+
+    if  d(a, b, system_size)-2/3*l(a, b) < ϵ
+        g(a, b, system_size, ϵ)
+    else
+      ((a.r - 2/3*l(a, b))/(d(a, b, system_size)  - 2/3*l(a, b)))^2
+    end
+
+end
 
 function IN(a::agent, b::agent, system_size, ϵ = 0.01)
 

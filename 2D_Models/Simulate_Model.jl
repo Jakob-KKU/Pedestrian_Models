@@ -33,13 +33,12 @@ end
 function Iterate!(menge::crowd, geometrie::geometry, temp_headings::Array{NTuple{2, Float64},1},
         temp_velocities, dt::Float64, r::Float64, system_size::NTuple{2, Float64})
 
+    Update_Desired_Headings!(menge, system_size)
+
     Update_Neighborhood!(menge, geometrie, system_size, r)
 
     #Update_Voronoi_Dens!(menge, system_size)
 
-    #Update_Goal!(menge, system_size)
-
-    Update_Desired_Headings!(menge, system_size)
 
     Update_Pref_Velocities!(menge, geometrie, system_size)
 
