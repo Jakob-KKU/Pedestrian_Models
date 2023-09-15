@@ -86,4 +86,6 @@ function boundaries_rectangle_positions(system_size)
 
     return x, y
 end
+
+Create_LaTeXString(x) = [latexstring(x_i) for x_i in x]
 ;

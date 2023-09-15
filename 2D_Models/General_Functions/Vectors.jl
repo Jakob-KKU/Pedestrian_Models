@@ -404,4 +404,34 @@ function Min_R_Geometry(a::agent, geometrie::geometry, system_size::NTuple{2, Fl
 end
 
 
+### To round by the absolute value of the vector v_x, v_y for plotting of force
+function Round_Velocity(v_x, v_y, ϵ = 0.01)
+
+    if abs((v_x, v_y)) ≤ ϵ
+
+        0.0, 0.0
+
+    else
+
+        v_x, v_y
+
+    end
+
+end
+
+function Round_Velocities(v_xs, v_ys, ϵ = 0.01)
+
+    v_xs_round, v_ys_round = fill(0.0, length(v_xs)), fill(0.0, length(v_xs))
+
+    for i ∈ 1:length(v_xs)
+
+        v_xs_round[i], v_ys_round[i] = Round_Velocity(v_xs[i], v_ys[i], ϵ)
+
+    end
+
+    v_xs_round, v_ys_round
+
+end
+
+
 ;
