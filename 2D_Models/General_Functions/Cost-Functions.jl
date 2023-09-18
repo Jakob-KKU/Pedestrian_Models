@@ -16,6 +16,7 @@ function Calc_CostFunctionMatrix(a::agent, menge::crowd, geometrie::geometry, sy
     v_xs, v_ys, cost
 end
 
+
 #Gradient for Potential at operational level
 function ∇r_ϕ(a::agent, menge::crowd, geometrie::geometry, system_size, h = 0.001)
 
