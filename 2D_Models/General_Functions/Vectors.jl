@@ -451,5 +451,122 @@ function Round_Velocities(v_xs, v_ys, ϵ = 0.01)
 
 end
 
+function d(a::agent, b::agent, t, system_size)
+
+    #save original positions
+    a_pos, b_pos = a.pos, b.pos
+
+    #initialize test positions and calc anticipated distance
+    a.pos = a.pos .+ a.heading .* a.vel .* t
+    b.pos = b.pos .+ b.heading .* b.vel .* t
+
+    d_ant = d(a, b, system_size)
+
+    #return to actual positions
+    a.pos, b.pos = a_pos, b_pos
+
+    d_ant
+
+end
+
+function d_vec(a::agent, b::agent, t, system_size)
+
+    #save original positions
+    a_pos, b_pos = a.pos, b.pos
+
+    #initialize test positions and calc anticipated distance
+    a.pos = a.pos .+ a.heading .* a.vel .* t
+    b.pos = b.pos .+ b.heading .* b.vel .* t
+
+    d_ant = d_vec(a, b, system_size)
+
+    #return to actual positions
+    a.pos, b.pos = a_pos, b_pos
+
+    d_ant
+
+end
+
+function e_(a::agent, b::agent, t, system_size)
+
+    #save original positions
+    a_pos, b_pos = a.pos, b.pos
+
+    #initialize test positions and calc anticipated distance
+    a.pos = a.pos .+ a.heading .* a.vel .* t
+    b.pos = b.pos .+ b.heading .* b.vel .* t
+
+    if d(a, b, system_size) == 0
+
+        #e_ant ???
+
+        a.pos = a.pos .+ a.heading .* a.vel .* (t - 0.01)
+        b.pos = b.pos .+ b.heading .* b.vel .* (t - 0.01)
+    end
+
+    e_ant = e_(a, b, system_size)
+
+    #return to actual positions
+    a.pos, b.pos = a_pos, b_pos
+
+    e_ant
+
+end
+
+function d(a::agent, b::element, t, system_size)
+
+    #save original positions
+    a_pos = a.pos
+
+    #initialize test positions and calc anticipated distance
+    a_pos = a.pos .+ a.heading .* a.vel .* t
+
+    d_ant = d(a, b, system_size)
+
+    #return to actual positions
+    a.pos = a_pos
+
+    d_ant
+
+end
+
+function d_vec(a::agent, b::element, t, system_size)
+
+    #save original positions
+    a_pos = a.pos
+
+    #initialize test positions and calc anticipated distance
+    a.pos = a.pos .+ a.heading .* a.vel .* t
+
+    d_ant = d_vec(a, b, system_size)
+
+    #return to actual positions
+    a.pos = a_pos
+
+    d_ant
+
+end
+
+function e_(a::agent, b::element, t, system_size)
+
+    #save original positions
+    a_pos = a.pos
+
+    #initialize test positions and calc anticipated distance
+    a.pos = a.pos .+ a.heading .* a.vel .* t
+
+    if d(a, b, system_size) == 0
+        a.pos = a.pos .+ a.heading .* a.vel .* (t - 0.01)
+    end
+
+    e_ant = e_(a, b, system_size)
+
+    #return to actual positions
+    a.pos = a_pos
+
+    e_ant
+
+end
+
 
 ;

@@ -249,17 +249,17 @@ end
 
 #calculates the minimal TTC with the other Agents with different Variables
 
-function Min_TTC_Agents(a::agent, menge::crowd, system_size::NTuple{2, Float64})
+    function Min_TTC_Agents(a::agent, menge::crowd, system_size::NTuple{2, Float64})
 
-    ttc_min = 999.0
+        ttc_min = 999.0
 
-    for i in 2:a.neighbors_agents[1]+1
+        for i in 2:a.neighbors_agents[1]+1
 
-        ttc_help = ttc(a, menge.agent[a.neighbors_agents[i]], system_size)
-        ttc_min = min(ttc_help, ttc_min)
+            ttc_help = ttc(a, menge.agent[a.neighbors_agents[i]], system_size)
+            ttc_min = min(ttc_help, ttc_min)
+        end
+        ttc_min
     end
-    ttc_min
-end
 
 function Min_TTC_Agents(a::agent, a_heading::NTuple{2, Float64}, menge::crowd, system_size::NTuple{2, Float64})
 
