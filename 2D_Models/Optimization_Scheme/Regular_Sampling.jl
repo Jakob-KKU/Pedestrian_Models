@@ -3,7 +3,7 @@ function Argmin_CostFunction(a::agent, menge::crowd, geometrie::geometry, system
 
     score_, vel_, ϕ_ = 999.9, 0.0, 0.0
 
-    n1 = Int(round(N))
+    n1 = Int(round(sqrt(N)))
 
     Δv = a.v_max / n1
     Δϕ = 2π / n1

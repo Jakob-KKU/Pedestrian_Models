@@ -1,65 +1,88 @@
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    e_a = a.e_pref
+    Calc_Heading(a, menge, geometrie, system_size), Calc_Velocity(a, menge, geometrie, system_size)
+
+end
+
+function Calc_Heading(a::agent, menge::crowd, geometrie::geometry, system_size)
+
+    normalize(a.e_pref .+ F(a, menge, system_size))
+
+end
+
+function F(a::agent, menge::crowd, geometrie::geometry, system_size)
+
+    F(a, menge, system_size) .+ F(a, geometrie, system_size)
+
+end
+
+
+function F(a::agent, menge::crowd, system_size)
+
+    F_ = (0.0, 0.0)
 
     for i in 2:a.neighbors_agents[1]+1
 
-        e_a = e_a .+ F(a, menge.agent[a.neighbors_agents[i]], system_size)
+        b = menge.agent[a.neighbors_agents[i]]
+
+        F_ = F_ .+ F(a, b, system_size)
 
     end
+
+    F_
+
+end
+
+function F(a::agent, geometrie::geometry, system_size)
+
+    F_ = (0.0, 0.0)
 
     for i in 2:a.neighbors_geometry[1]+1
 
-        e_a = e_a .+ F(a, geometrie.element[a.neighbors_geometry[i]], system_size)
+        b = geometrie.element[a.neighbors_geometry[i]]
+
+        F_ = F_ .+ F(a, b, system_size)
 
     end
 
-    normalize(e_a), OV(a, menge, geometrie, system_size)
+    F_
 
-
-end
-
-function OV(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
-
-
-    distance = 999.9
-
-
-    for i in 2:a.neighbors_agents[1]+1
-
-        if Collision(a, menge.agent[a.neighbors_agents[i]], system_size) == true
-            distance = min(d(a, menge.agent[a.neighbors_agents[i]], system_size), distance)
-        end
-    end
-
-    for i in 2:a.neighbors_geometry[1]+1
-
-        if Collision(a, geometrie.element[a.neighbors_geometry[i]], system_size) == true
-            distance = min(d(a, geometrie.element[a.neighbors_geometry[i]], system_size), distance)
-        end
-    end
-
-    clamp((distance-a.l)/(a.T2), 0.0, a.v_max)
-end
-
-
-function Collision(a::agent, b::agent, system_size::NTuple{2, Float64})
-
-    if e_(a, b, system_size)⋅a.heading <= 0 && abs(⟂(a.heading)⋅e_(a, b, system_size)) <= l(a, b)/d(a,b, system_size)
-        true
-    else
-        false
-    end
-end
-
-function Collision(a::agent, b::element, system_size::NTuple{2, Float64})
-
-    if e_(a, b, system_size)⋅a.heading <= 0 && abs(⟂(a.heading)⋅e_(a, b, system_size)) <= l(a, b)/d(a,b, system_size)
-        true
-    else
-        false
-    end
 end
 
 F(a::agent, b::agent, system_size) =  a.α*exp(-(d(a, b, system_size)-l(a, b))/a.r).*e_(a, b, system_size)
 F(a::agent, b::element, system_size) =  0.1*a.α*exp(-(d(a, b, system_size)-l(a, b))/a.r).*e_(a, b, system_size)
+
+function Calc_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+
+    d_ = Min_R_in_Front(a, menge, geometrie, system_size)
+
+    clamp((d_-a.l)/(a.T2), 0.0, a.v_max)
+
+end
+
+function Min_R_in_Front(a::agent, menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64})
+
+    d_ = 999.9
+
+    for i in 2:a.neighbors_agents[1]+1
+
+        b = menge.agent[a.neighbors_agents[i]]
+
+        if TimeGap(a, b, system_size) <= 999.0
+            d_ = min(d(a, b, system_size), d_)
+        end
+
+    end
+
+    for i in 2:a.neighbors_geometry[1]+1
+
+        b = geometrie.element[a.neighbors_geometry[i]]
+
+        if TimeGap(a, b, system_size) <= 999.0
+            d_ = min(d(a, b, system_size), d_)
+        end
+    end
+
+    d_
+
+end
