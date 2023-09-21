@@ -26,7 +26,7 @@ mutable struct agent
     ζ_h::Float64
     ζ_v::Float64
     r::Float64
-    ϕ::Float64
+    λ::Float64
 end
 
 struct crowd
