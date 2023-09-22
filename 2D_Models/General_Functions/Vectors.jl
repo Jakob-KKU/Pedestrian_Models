@@ -498,8 +498,6 @@ function e_(a::agent, b::agent, t, system_size)
 
     if d(a, b, system_size) == 0
 
-        #e_ant ???
-
         a.pos = a.pos .+ a.heading .* a.vel .* (t - 0.01)
         b.pos = b.pos .+ b.heading .* b.vel .* (t - 0.01)
     end
