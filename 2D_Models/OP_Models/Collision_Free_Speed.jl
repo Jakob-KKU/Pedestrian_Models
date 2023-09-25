@@ -86,3 +86,13 @@ function Min_R_in_Front(a::agent, menge::crowd, geometrie::geometry, system_size
     d_
 
 end
+
+
+p = [1.4, 1.4, 0.0, 1.0, 0.3, 0.0, 0.0, 0.0, 5.0, 0.0, 0.0, 0.1, 0.0]
+# ModelParameter: v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, ϕ
+p_desc = "v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, ϕ"
+
+
+println("The following parameters were given in tordeux_CollisionFreeSpeedModel_2016:")
+println(p)
+println(p_desc)

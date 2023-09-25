@@ -1,5 +1,5 @@
 #Return the velocity that minimizes the function Score, optimization solved by random sampling
-function Argmin_CostFunction(a::agent, menge::crowd, geometrie::geometry, system_size, N = 500)
+function Argmin_CostFunction(a::agent, menge::crowd, geometrie::geometry, system_size, N = 50000)
 
     score_, vel_, heading_ = 99999999.9, 0.0, (0.0, 0.0)
 

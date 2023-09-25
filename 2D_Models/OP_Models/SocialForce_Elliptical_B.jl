@@ -65,3 +65,12 @@ function ϕ(a::agent, geometrie::geometry, system_size)
     ϕ_
 
 end
+
+p = [2.0, 1.7, 0.0, 0.0, 0.0, 0.0, 1.74, 1.2, 0.67, 0.0, 0.0, 0.0, 0.62, 0.19]
+# ModelParameter: v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, ϕ
+p_desc = "v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, λ"
+
+
+println("The following parameters were given in zanlungo_SocialForceModel_2011:")
+println(p)
+println(p_desc)

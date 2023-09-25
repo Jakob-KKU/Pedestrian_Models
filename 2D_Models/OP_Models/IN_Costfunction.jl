@@ -24,3 +24,12 @@ function Preferred_Velocity_Optmial(a::agent, menge::crowd, geometrie::geometry,
         false
     end
 end
+
+p = [2.0, 1.7, 0.0, 0.0, 0.3, 0.0, 0.0, 0.1, 5.0, 0.0, 0.0, 0.0, 0.5, 0.0]
+# ModelParameter: v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, ϕ
+p_desc = "v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, λ"
+
+
+println("Typical parameters would be:")
+println(p)
+println(p_desc)

@@ -42,3 +42,12 @@ function F(a::agent, geometrie::geometry, system_size)
     F_geometry
 
 end
+
+p = [2.0, 1.7, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 500.0, 0.0, 0.0, 0.0, 1.5, -0.25]
+# ModelParameter: v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, ϕ
+p_desc = "v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, λ"
+
+
+println("The following parameters were given in totzeck_AnisotropicInteractionModel_2020:")
+println(p)
+println(p_desc)
