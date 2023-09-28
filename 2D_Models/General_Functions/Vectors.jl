@@ -566,5 +566,11 @@ function e_(a::agent, b::element, t, system_size)
 
 end
 
+RoA(a::agent, b::agent) = -1 .*Δv(a, b)⋅e_(a, b)
+RoA(a::agent, b::agent, system_size) = -1 .*Δv(a, b)⋅e_(a, b, system_size)
+
+RoA(a::agent, b::element) = -1 .*v(a)⋅e_(a, b)
+RoA(a::agent, b::element, system_size) = -1 .*v(a)⋅e_(a, b, system_size)
+
 
 ;
