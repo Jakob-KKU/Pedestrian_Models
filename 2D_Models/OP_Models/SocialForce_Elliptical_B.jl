@@ -1,9 +1,8 @@
 function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
 
-    #v_ = a.e_pref .* a.v_pref .+ SF(a, menge, system_size) .+ SF(a, geometrie, system_size)
     v_ = a.e_pref .* a.v_pref .- a.α .* ∇r_ϕ(a, menge, geometrie, system_size)
 
-    normalize(v_), abs(v_)
+    normalize(v_), min(a.v_max, abs(v_))
 
 end
 

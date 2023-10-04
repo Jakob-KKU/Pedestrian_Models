@@ -1,3 +1,11 @@
+function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, system_size)
+
+    v_new = a.v_pref .* a.e_pref .+ F(a, menge, geometrie, system_size)
+
+    normalize(v_new), min(a.v_max, abs(v_new))
+
+end
+
 F(a::agent, b::agent, system_size) = a.α .* (RoA_pos(a, b, system_size) + a.β)^2 /
     (d(a, b, system_size) - l(a, b)).*e_(a, b, system_size)
 F(a::agent, b::element, system_size) = a.α .* (RoA_pos(a, b, system_size) + a.β)^2 /

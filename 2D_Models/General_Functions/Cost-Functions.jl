@@ -16,6 +16,46 @@ function Calc_CostFunctionMatrix(a::agent, menge::crowd, geometrie::geometry, sy
     v_xs, v_ys, cost
 end
 
+#used for plotting the field lines
+function Calculate_Direction_Matrix(a::agent, b::agent, menge::crowd, geometrie::geometry, system_size, x_values, y_values)
+
+    Grid_x = fill(0.0, length(x_values)*length(y_values))
+    Grid_y = copy(Grid_x)
+
+    v_x = copy(Grid_x)
+    v_y = copy(Grid_x)
+
+    counter = 1
+
+    for (i, x) in enumerate(x_values)
+
+        for (j, y) in enumerate(y_values)
+
+            a.pos = (x, y)
+
+            if d(a, b) >= l(a, b)+0.05
+
+                e_opt, v_opt = Calc_Heading_Velocity(a, menge, geometrie, system_size)
+                gradient = e_opt .* v_opt
+
+                v_x[counter] = gradient[1]
+                v_y[counter] = gradient[2]
+
+
+            end
+
+            Grid_x[counter] = x
+            Grid_y[counter] = y
+
+            counter = counter + 1
+
+        end
+    end
+
+    Grid_x, Grid_y, v_x, v_y
+
+end
+
 
 #Gradient for Potential at operational level
 function ∇r_ϕ(a::agent, menge::crowd, geometrie::geometry, system_size, h = 0.001)
