@@ -9,7 +9,7 @@ include(string(path, "./2D_model_library.jl"));
 
 #op_model = "Constant"
 #op_model = "Collision_Free_Speed"
-#op_model = "Collision_Free_Speed_XU"
+op_model = "Collision_Free_Speed_XU"
 #op_model = "RVO"
 #op_model = "SocialForce"
 #op_model = "AV_Model"
@@ -20,7 +20,7 @@ include(string(path, "./2D_model_library.jl"));
 #op_model = "SocialForce"
 #op_model = "SocialForce_Elliptical_A"
 #op_model = "SocialForce_Elliptical_B"
-op_model = "SocialForce_CollisionPrediction"
+#op_model = "SocialForce_CollisionPrediction"
 #op_model = "SocialForce_Rotation"
 #op_model = "Centrifugal_Force"
 #op_model = "Generalized_Centrifugal_Force"
@@ -93,14 +93,14 @@ a = menge.agent[1]
 b = menge.agent[2];
 
 a.v_des = 0.0
-a.vel = 0.0
+a.vel = 0.5
 a.heading = normalize((1.0, 0.0))
-a.e_pref = a.heading
+a.e_pref = a.heading#(0.0, 1.0)
 a.v_des = 0.0
 a.l = 0.3
 
 
-b.vel = 1.0
+b.vel = 0.5
 b.l = 0.3
 b.heading = normalize((-1.0, 0.0))
 b.pos = (0.0001, 0.0001)
@@ -110,7 +110,7 @@ Update_Neighborhood!(menge, geometrie, system_size, 5.0)
 dx = 0.4
 space = collect(-2.0+dx:dx:2.0-dx)
 
-Grid_x, Grid_y, v_x, v_y = Calculate_Direction_Matrix(a, b, menge, geometrie, system_size, space, space)
+Grid_x, Grid_y, v_x, v_y = Calculate_Direction_Matrix_CollFree(a, b, menge, geometrie, system_size, space, space)
 
 
 using Plots
@@ -140,6 +140,7 @@ b_vel = -1 .*Δv(a, b)
 if abs(b_vel) > 0.01
     quiver!([0.2], [0.0], quiver = 0.4.*([b_vel[1]], [b_vel[2]]), color =:black, linewidth=3.8, thickness_scaling = 1)
 end
+
 
 #reference velocity
 quiver!([0.5], [-1.5], quiver = (scale*[2.0], [0.0]), color =:red, linewidth=5, thickness_scaling = 1)

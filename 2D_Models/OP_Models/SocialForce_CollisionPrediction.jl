@@ -63,7 +63,7 @@ function F(a::agent, geometrie::geometry, tca_a, system_size)
 
 end
 
-p = [2.0, 1.7, 0.0, 0.0, 0.0, 0.0, 0.0, 0.66, 1.71, 0.0, 0.0, 0.0, 0.71, 0.0]
+p = [2.0, 1.7, 0.0, 0.0, 0.3, 0.0, 0.0, 0.66, 1.71, 0.0, 0.0, 0.0, 0.71, 0.0]
 # ModelParameter: v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, ϕ
 p_desc = "v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, ϕ"
 

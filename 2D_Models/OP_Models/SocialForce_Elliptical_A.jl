@@ -3,7 +3,7 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
     #v_ = a.e_pref .* a.v_pref .+ SF(a, menge, system_size) .+ SF(a, geometrie, system_size)
     v_ = a.e_pref .* a.v_pref .- a.α .* ∇r_ϕ(a, menge, geometrie, system_size)
 
-    normalize(v_), abs(v_)
+    normalize(v_), min(a.v_max, abs(v_))
 
 end
 
@@ -62,7 +62,7 @@ function ϕ(a::agent, geometrie::geometry, system_size)
 
 end
 
-p = [2.0, 1.7, 0.0, 0.0, 0.0, 0.0, 0.53, 0.31, 30.0, 0.0, 0.0, 0.0, 0.44, 0.58]
+p = [2.0, 1.7, 0.0, 0.0, 0.3, 0.0, 0.53, 0.31, 30.0, 0.0, 0.0, 0.0, 0.44, 0.58]
 # ModelParameter: v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, ϕ
 p_desc = "v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, λ"
 

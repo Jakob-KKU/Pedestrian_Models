@@ -6,7 +6,7 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
 
 end
 
-α_rot(a::agent, b::agent) = a.λ*∠(a.heading, b.heading)
+α_rot(a::agent, b::agent) = a.vel * b.vel == 0 ? 0.0 : a.λ*∠(a.heading, b.heading)
 
 F_Rot(a::agent, b::agent, system_size) = R(α_rot(a, b), F(a, b, system_size))
 
@@ -51,7 +51,7 @@ function F(a::agent, geometrie::geometry, system_size)
 
 end
 
-p = [2.0, 1.7, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 500.0, 0.0, 0.0, 0.0, 1.5, -0.25]
+p = [2.0, 1.7, 0.0, 0.0, 0.3, 0.0, 0.0, 1.0, 500.0, 0.0, 0.0, 0.0, 1.5, -0.25]
 # ModelParameter: v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, ϕ
 p_desc = "v_max, v_des, T, T2, l, step_time, τ_A, τ_R, α, β, ζ_h, ζ_v, r, λ"
 

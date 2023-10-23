@@ -19,8 +19,8 @@ include(string(path, "./2D_model_library.jl"));
 #op_model = "IN_Model"
 #op_model = "SocialForce"
 #op_model = "SocialForce_Elliptical_A"
-#op_model = "SocialForce_Elliptical_B"
-op_model = "SocialForce_CollisionPrediction"
+op_model = "SocialForce_Elliptical_B"
+#op_model = "SocialForce_CollisionPrediction"
 #op_model = "SocialForce_Rotation"
 #op_model = "Centrifugal_Force"
 #op_model = "Generalized_Centrifugal_Force"
@@ -107,7 +107,7 @@ b.pos = (0.0001, 0.0001)
 
 Update_Neighborhood!(menge, geometrie, system_size, 5.0)
 
-dx = 0.4
+dx = 0.25
 space = collect(-2.0+dx:dx:2.0-dx)
 
 Grid_x, Grid_y, v_x, v_y = Calculate_Direction_Matrix(a, b, menge, geometrie, system_size, space, space)
@@ -122,7 +122,7 @@ Plots.scalefontsizes(2)
 plot(layout=(1,1), legend=:topleft, legendfontsize = 15, grid = false,
     xtickfontsize=15, ytickfontsize=15, xguidefontsize=20, yguidefontsize=20)
 
-ϵ = 0.01
+ϵ = 0.02
 v_x, v_y = Round_Velocities(v_x, v_y, ϵ)
 
 scale = (dx-0.1)/a.v_max
@@ -136,10 +136,8 @@ quiver!(Grid_x, Grid_y, quiver = scale .*(v_x, v_y), color =:darkblue, linewidth
 scatter!((0.0, 0.0), label =:false,  markersize=40, msw=2, alpha = 1.0, color =:lightblue)
 
 b_vel = -1 .*Δv(a, b)
+quiver!([0.2], [0.0], quiver = 0.4.*([b_vel[1]], [b_vel[2]]), color =:black, linewidth=3.8, thickness_scaling = 1)
 
-if abs(b_vel) > 0.01
-    quiver!([0.2], [0.0], quiver = 0.4.*([b_vel[1]], [b_vel[2]]), color =:black, linewidth=3.8, thickness_scaling = 1)
-end
 
 #reference velocity
 quiver!([0.5], [-1.5], quiver = (scale*[2.0], [0.0]), color =:red, linewidth=5, thickness_scaling = 1)
