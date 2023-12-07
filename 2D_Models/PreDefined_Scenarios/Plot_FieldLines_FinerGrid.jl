@@ -19,7 +19,8 @@ include(string(path, "./2D_model_library.jl"));
 #op_model = "IN_Model"
 #op_model = "SocialForce"
 #op_model = "SocialForce_Elliptical_A"
-op_model = "SocialForce_Elliptical_B"
+#op_model = "SocialForce_Elliptical_B"
+op_model = "VelocityObstacles"
 #op_model = "SocialForce_CollisionPrediction"
 #op_model = "SocialForce_Rotation"
 #op_model = "Centrifugal_Force"
@@ -125,7 +126,7 @@ plot(layout=(1,1), legend=:topleft, legendfontsize = 15, grid = false,
 ϵ = 0.02
 v_x, v_y = Round_Velocities(v_x, v_y, ϵ)
 
-scale = (dx-0.1)/a.v_max
+scale = 5*(dx-0.1)/a.v_max
 
 #plot velocity grid
 scatter!(Grid_x, Grid_y, label =:false,  markersize=2, msw=0, color=:darkblue)

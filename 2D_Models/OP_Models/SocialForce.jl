@@ -7,8 +7,8 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
 
 end
 
-ϕ(a::agent, b::agent, system_size) = a.α * a.r * exp(-(d(a, b, system_size)-l(a, b))/a.r)
-ϕ(a::agent, b::element, system_size) = a.α * a.r * exp(-(d(a, b, system_size)-l(a,b))/a.r)
+ϕ(a::agent, b::agent, system_size) = a.r * exp(-(d(a, b, system_size)-l(a, b))/a.r)
+ϕ(a::agent, b::element, system_size) = a.r * exp(-(d(a, b, system_size)-l(a,b))/a.r)
 
 
 #DEFINITION OF POTENTIAL

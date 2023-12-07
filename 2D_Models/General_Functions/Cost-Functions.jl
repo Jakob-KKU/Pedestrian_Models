@@ -56,6 +56,46 @@ function Calculate_Direction_Matrix(a::agent, b::agent, menge::crowd, geometrie:
 
 end
 
+#used for plotting the field lines
+function Calculate_Direction_Matrix(a::agent, menge::crowd, geometrie::geometry, system_size, x_values, y_values)
+
+    Grid_x = fill(0.0, length(x_values)*length(y_values))
+    Grid_y = copy(Grid_x)
+
+    v_x = copy(Grid_x)
+    v_y = copy(Grid_x)
+
+    counter = 1
+
+    for (i, x) in enumerate(x_values)
+
+        for (j, y) in enumerate(y_values)
+
+            a.pos = (x, y)
+
+            if Min_R(a, menge, geometrie, system_size) >= l(a, a)+0.05
+
+                e_opt, v_opt = Calc_Heading_Velocity(a, menge, geometrie, system_size)
+                gradient = e_opt .* v_opt
+
+                v_x[counter] = gradient[1]
+                v_y[counter] = gradient[2]
+
+
+            end
+
+            Grid_x[counter] = x
+            Grid_y[counter] = y
+
+            counter = counter + 1
+
+        end
+    end
+
+    Grid_x, Grid_y, v_x, v_y
+
+end
+
 function Calculate_Direction_Matrix_CollFree(a::agent, b::agent, menge::crowd, geometrie::geometry, system_size, x_values, y_values)
 
     Grid_x = fill(0.0, length(x_values)*length(y_values))
@@ -157,5 +197,25 @@ function Calc_Score(a::agent, v, menge::crowd, geometrie::geometry, system_size,
     score_
 
 end
+
+function Calculate_Field_Line(a::agent, menge::crowd, geometrie, p_start, N, system_size, dt = 0.01)
+
+    field_line = fill((0.0, 0.0), N)
+
+    a.pos = p_start
+    field_line[1] = a.pos
+
+    for i in 2:N
+
+        a_heading, a_vel = Calc_Heading_Velocity(a, menge, geometrie, system_size)
+        a_vel = min(a_vel, a.v_max)
+        a.pos = a.pos .+ a_heading .* a_vel .* dt
+        field_line[i] = a.pos
+
+    end
+
+    field_line
+
+end 
 
 ;

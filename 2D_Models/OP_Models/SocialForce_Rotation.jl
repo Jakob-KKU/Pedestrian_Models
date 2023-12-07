@@ -10,8 +10,8 @@ end
 
 F_Rot(a::agent, b::agent, system_size) = R(α_rot(a, b), F(a, b, system_size))
 
-F(a::agent, b::agent, system_size) = a.α .* exp(-(d(a, b, system_size)-l(a, b))/a.r) .* e_(a, b, system_size)
-F(a::agent, b::element, system_size) = a.α .* exp(-(d(a, b, system_size)-l(a, b))/a.r) .* e_(a, b, system_size)
+F(a::agent, b::agent, system_size) = a.α .* exp(-(d(a, b, system_size))/a.r) .* e_(a, b, system_size)
+F(a::agent, b::element, system_size) = a.α .* exp(-(d(a, b, system_size))/a.r) .* e_(a, b, system_size)
 
 function F(a::agent, menge::crowd, geometrie::geometry, system_size)
 

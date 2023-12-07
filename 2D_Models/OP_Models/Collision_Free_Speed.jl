@@ -68,7 +68,7 @@ function Min_R_in_Front(a::agent, menge::crowd, geometrie::geometry, system_size
 
         b = menge.agent[a.neighbors_agents[i]]
 
-        if TimeGap(a, b, system_size) <= 999.0
+        if TimeGap(a, b, system_size) <= 25.0#999.0
             d_ = min(d(a, b, system_size), d_)
         end
 
@@ -78,7 +78,7 @@ function Min_R_in_Front(a::agent, menge::crowd, geometrie::geometry, system_size
 
         b = geometrie.element[a.neighbors_geometry[i]]
 
-        if TimeGap(a, b, system_size) <= 999.0
+        if TimeGap(a, b, system_size) <= 25.0#999.0
             d_ = min(d(a, b, system_size), d_)
         end
     end

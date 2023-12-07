@@ -8,7 +8,7 @@ function ttc(a::agent, b::agent)
 
     if d(a,b) < l(a, b)
         0.0
-    elseif A < 0.0 || -(cos_α)*d(a,b)-sqrt(A) < 0.0
+    elseif A < 0.0 || -(cos_α)*d(a,b)-sqrt(A) < 0.0 || abs(Δv(a,b)) == 0
         999.9
     else
         (-(cos_α)*d(a,b)-sqrt(A))/abs(Δv(a,b))
@@ -60,8 +60,8 @@ function ttc(a::agent, b::agent, system_size::NTuple{2, Float64})
     cos_α = e_(a,b,system_size)⋅e_v(a, b)
     A = ((cos_α)^2-1)*d(a,b,system_size)^2+l(a, b)^2
 
-    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0
-        999
+    if A < 0 || -(cos_α)*d(a,b,system_size)-sqrt(A) < 0 || abs(Δv(a,b)) == 0
+        999.9
     else
         (-(cos_α)*d(a,b,system_size)-sqrt(A))/abs(Δv(a,b))
     end

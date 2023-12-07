@@ -13,6 +13,7 @@ include(string(path, "./2D_model_library.jl"));
 #op_model = "RVO"
 #op_model = "SocialForce"
 #op_model = "AV_Model"
+#op_model = "VelocityObstacles"
 #op_model = "AV_IN_Model"
 #op_model = "PowerLaw"
 #op_model = "IN_Costfunction"
@@ -20,8 +21,8 @@ include(string(path, "./2D_model_library.jl"));
 #op_model = "SocialForce"
 #op_model = "SocialForce_Elliptical_A"
 #op_model = "SocialForce_Elliptical_B"
-op_model = "SocialForce_CollisionPrediction"
-#op_model = "SocialForce_Rotation"
+#op_model = "SocialForce_CollisionPrediction"
+op_model = "SocialForce_Rotation"
 #op_model = "Centrifugal_Force"
 #op_model = "Generalized_Centrifugal_Force"
 
@@ -93,14 +94,13 @@ a = menge.agent[1]
 b = menge.agent[2];
 
 a.v_des = 0.0
-a.vel = 0.0
+a.vel = 0.5
 a.heading = normalize((1.0, 0.0))
 a.e_pref = a.heading
-a.v_des = 0.0
 a.l = 0.3
 
 
-b.vel = 1.0
+b.vel = 0.5
 b.l = 0.3
 b.heading = normalize((-1.0, 0.0))
 b.pos = (0.0001, 0.0001)
