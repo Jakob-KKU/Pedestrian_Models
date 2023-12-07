@@ -159,15 +159,15 @@ function ∇r_ϕ_TACT(a::agent, menge::crowd, geometrie::geometry, system_size, 
 
     a.pos = a.pos .+ h .*(1.0, 0.0)
 
-    ϕ_x = ϕ(a, menge, geometrie, system_size)
+    ϕ_x = ϕ_TACT(a, menge, geometrie, system_size)
 
     a.pos = a.pos .- h .*(1.0, 0.0)  .+ h .*(0.0, 1.0)
 
-    ϕ_y = ϕ(a, menge, geometrie, system_size)
+    ϕ_y = ϕ_TACT(a, menge, geometrie, system_size)
 
     a.pos = a.pos .- h .*(0.0, 1.0)
 
-    ((ϕ_x, ϕ_y) .- ϕ(a, menge, geometrie, system_size))./h
+    ((ϕ_x, ϕ_y) .- ϕ_TACT(a, menge, geometrie, system_size))./h
 
 end
 
@@ -216,6 +216,6 @@ function Calculate_Field_Line(a::agent, menge::crowd, geometrie, p_start, N, sys
 
     field_line
 
-end 
+end
 
 ;
