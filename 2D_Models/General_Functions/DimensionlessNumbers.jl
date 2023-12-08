@@ -6,28 +6,28 @@
 
 function IN(a::agent, b::element, system_size, ϵ = 0.01)
 
-    if  d(a, b, system_size)-2/3*l(a, b) < ϵ
+    if  d(a, b, system_size)-l_min(a, b) < ϵ
         g(a, b, system_size, ϵ)
     else
-      ((a.r - 2/3*l(a, b))/(d(a, b, system_size)  - 2/3*l(a, b)))^2
+      ((a.r - l_min(a, b))/(d(a, b, system_size)  - l_min(a, b)))^2
     end
 
 end
 
 function IN(a::agent, b::agent, system_size, ϵ = 0.01)
 
-    if  d(a, b, system_size)-2/3*l(a, b) < ϵ
+    if  d(a, b, system_size)-l_min(a, b) < ϵ
         g(a, b, system_size, ϵ)
     else
-      ((a.r - 2/3*l(a, b))/(d(a, b, system_size)  - 2/3*l(a, b)))^2
+      ((a.r - l_min(a, b))/(d(a, b, system_size)  - l_min(a, b)))^2
     end
 
 end
 
 function g(a, b, system_size, ϵ = 0.01)
 
-    - 2 * d(a, b, system_size)*(a.r - 2/3*l(a, b))^2/ϵ^3 +
-    ((a.r-2/3*l(a, b))/ϵ)^2 + 2*(2/3*l(a, b)+ϵ)*(a.r-2/3*l(a, b))^2/ϵ^3
+    - 2 * d(a, b, system_size)*(a.r - l_min(a, b))^2/ϵ^3 +
+    ((a.r-l_min(a, b))/ϵ)^2 + 2*(l_min(a, b)+ϵ)*(a.r-l_min(a, b))^2/ϵ^3
 
 end
 

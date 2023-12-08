@@ -3,7 +3,7 @@ function Init_Hom_Parameters!(p::Vector, menge::crowd)
 
     for x in menge.agent
 
-        x.v_max, x.v_des, x.T, x.T2, x.l, x.dt_step, x.τ_A, x.τ_R, x.α, x.β, x.ζ_h, x.ζ_v, x.r, x.λ =
+        x.v_max, x.v_des, x.T, x.T2, x.l, x.l_min, x.τ_A, x.τ_R, x.α, x.β, x.ζ_h, x.ζ_v, x.r, x.λ =
             p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12], p[13], p[14]
 
     end
@@ -475,6 +475,74 @@ function Init_CrossSection_Crowds2!(menge::crowd, geometrie::geometry, l1, l2, s
 
     end
 
+end
+
+function Init_Homogeneous_Random_InitialPositions(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64},
+        ε::Float64)
+
+    ρ = ρ_global(menge, system_size, geometrie)
+    d_des = max(1/√ρ - ε, menge.agent[1].l)
+
+    println(ρ)
+
+    if ρ > 7.5
+        println("The density is too high!")
+        false
+    end
+
+    for (i, a) in enumerate(menge.agent)
+
+       a.pos = rand()*system_size[1] , rand()*system_size[2]
+
+        while Too_Close(i, menge, geometrie, system_size, d_des)
+            a.pos = rand()*system_size[1] , rand()*system_size[2]
+        end
+
+    end
+end
+
+function Init_Homogeneous_Random_InitialPositions_INTRUDER(menge::crowd, geometrie::geometry, system_size::NTuple{2, Float64},
+        ε::Float64)
+
+    ρ = ρ_global(menge, system_size, geometrie)
+    d_des = max(1/√ρ - ε, menge.agent[1].l)
+    p_intruder = (system_size[1], system_size[2]/2)
+
+    println(ρ)
+
+    if ρ > 7.5
+        println("The density is too high!")
+        false
+    end
+
+    for (i, a) in enumerate(menge.agent)
+
+       a.pos = rand()*system_size[1] , rand()*system_size[2]
+
+        while Too_Close(i, menge, geometrie, system_size, d_des) || d(a.pos, p_intruder, system_size) < d_des
+            a.pos = rand()*system_size[1] , rand()*system_size[2]
+        end
+
+    end
+end
+
+function Too_Close(current_agent::Int, menge::crowd, geometrie::geometry, system_size, d_des)
+
+    for i in 1:current_agent-1
+
+        if d(menge.agent[current_agent], menge.agent[i], system_size) < d_des
+            return true
+        end
+    end
+
+    for x in geometrie.element
+
+        if d(menge.agent[current_agent], x, system_size) < d_des
+            return true
+        end
+    end
+
+    false
 end
 
 

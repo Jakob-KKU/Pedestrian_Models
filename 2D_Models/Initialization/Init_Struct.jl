@@ -18,7 +18,7 @@ mutable struct agent
     T::Float64
     T2::Float64
     l::Float64
-    dt_step::Float64
+    l_min::Float64
     τ_A::Float64
     τ_R::Float64
     α::Float64

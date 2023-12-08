@@ -79,6 +79,10 @@ l(u::agent, v::agent) = u.l/2 + v.l/2
 l(u::element, v::agent) = u.l/2 + v.l/2
 l(u::agent, v::element) = u.l/2 + v.l/2
 
+l_min(u::agent, v::agent) = u.l_min/2 + v.l_min/2
+l_min(u::element, v::agent) = u.l/2 + v.l_min/2
+l_min(u::agent, v::element) = u.l_min/2 + v.l/2
+
 #betrag
 Base.abs(a::T) where T<:NTuple{2, Real} = sqrt(a[1]^2+a[2]^2)
 
