@@ -5,7 +5,11 @@ function Calc_Heading_Velocity(a::agent, menge::crowd, geometrie::geometry, syst
 
     v_new = a.v_pref .* a.e_pref .- a.α .* ∇r_ϕ(a, menge, geometrie, system_size)
 
-    normalize(v_new), min(a.v_max, abs(v_new))
+    if abs(v_new) == 0.0
+        a.e_pref, 0.0
+    else
+        normalize(v_new), min(a.v_max, abs(v_new))
+    end
 
 end
 

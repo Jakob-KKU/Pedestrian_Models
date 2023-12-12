@@ -1,4 +1,6 @@
-function Init_Nth_Agent_as_Moving_Obstacle!(menge, system_size, l, vel)
+function Init_Nth_Agent_as_Moving_Obstacle!(menge, system_size, l, l_min, vel)
+
+    menge.agent[end].l_min = l_min
 
     menge.agent[end].l = l
     menge.agent[end].pos = (system_size[1], system_size[2]/2)

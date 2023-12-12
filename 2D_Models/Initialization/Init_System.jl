@@ -483,8 +483,6 @@ function Init_Homogeneous_Random_InitialPositions(menge::crowd, geometrie::geome
     ρ = ρ_global(menge, system_size, geometrie)
     d_des = max(1/√ρ - ε, menge.agent[1].l)
 
-    println(ρ)
-
     if ρ > 7.5
         println("The density is too high!")
         false
@@ -507,8 +505,6 @@ function Init_Homogeneous_Random_InitialPositions_INTRUDER(menge::crowd, geometr
     ρ = ρ_global(menge, system_size, geometrie)
     d_des = max(1/√ρ - ε, menge.agent[1].l)
     p_intruder = (system_size[1], system_size[2]/2)
-
-    println(ρ)
 
     if ρ > 7.5
         println("The density is too high!")

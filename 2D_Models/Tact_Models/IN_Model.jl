@@ -6,6 +6,9 @@ function Update_Pref_Velocity!(a::agent, menge::crowd, geometrie::geometry, syst
     v_new = a.v_des .* a.e_des .- a.α .* ∇r_ϕ_TACT(a, menge, geometrie, system_size)
 
     a.v_pref = min(a.v_max, abs(v_new))
-    a.e_pref = normalize(v_new)
+
+    if abs(v_new) != 0.0
+        a.e_pref = normalize(v_new)
+    end
 
 end
